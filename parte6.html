@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglés Básico — Parte 6 (FINAL)</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:    #2563EB;
+    --cielo:   #38BDF8;
+    --verde:   #16A34A;
+    --menta:   #4ADE80;
+    --coral:   #F97316;
+    --amarillo:#FACC15;
+    --violeta: #7C3AED;
+    --rosa:    #EC4899;
+    --blanco:  #FFFFFF;
+    --gris:    #F1F5F9;
+    --texto:   #1E293B;
+    --sombra:  0 4px 20px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #EEF2FF;
+    color: var(--texto);
+    line-height: 1.7;
+  }
+
+  /* PORTADA */
+  .portada {
+    background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 60%, #EC4899 100%);
+    color: white;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .portada::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .portada-emoji { font-size: 72px; display: block; margin-bottom: 16px; animation: flotar 3s ease-in-out infinite; }
+  @keyframes flotar { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .portada h1 { font-family: 'Fredoka One', cursive; font-size: clamp(2.5rem,6vw,4.5rem); letter-spacing: 2px; text-shadow: 3px 3px 0 rgba(0,0,0,0.2); }
+  .portada .subtitulo { font-size: 1.15rem; opacity: 0.9; margin-top: 8px; font-weight: 600; }
+  .portada .autores { margin-top: 20px; opacity: 0.75; font-size: 0.95rem; }
+  .badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .badge { background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); border-radius: 50px; padding: 6px 18px; font-weight: 700; font-size: 0.9rem; backdrop-filter: blur(6px); }
+
+  /* NAVEGACIÓN */
+  .nav-seccion {
+    background: white;
+    border-bottom: 3px solid var(--azul);
+    padding: 0;
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .nav-btn {
+    background: none;
+    border: none;
+    padding: 14px 20px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    color: #64748B;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { color: var(--azul); background: #EEF2FF; }
+  .nav-btn.activo { color: var(--azul); border-bottom-color: var(--azul); background: #EEF2FF; }
+
+  /* CONTENIDO */
+  .contenedor { max-width: 860px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* SECCIÓN */
+  .seccion { display: none; animation: entrar 0.4s ease; }
+  .seccion.visible { display: block; }
+  @keyframes entrar { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  /* TARJETA BASE */
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin: 24px 0;
+    box-shadow: var(--sombra);
+    border-left: 6px solid var(--azul);
+  }
+  .card.verde  { border-left-color: var(--verde); }
+  .card.coral  { border-left-color: var(--coral); }
+  .card.violeta{ border-left-color: var(--violeta); }
+  .card.amarillo{ border-left-color: var(--amarillo); }
+  .card.rosa   { border-left-color: var(--rosa); }
+
+  /* TÍTULOS */
+  .titulo-seccion {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    margin: 36px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .titulo-seccion span { font-size: 2rem; }
+  h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  p { margin-bottom: 10px; }
+
+  /* VOCAB GRID */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .vocab-card {
+    background: var(--gris);
+    border-radius: 14px;
+    padding: 14px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .vocab-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-color: var(--azul); }
+  .vocab-card .en { font-family: 'Fredoka One', cursive; font-size: 1.15rem; color: var(--azul); }
+  .vocab-card .pron { font-size: 0.72rem; color: #94A3B8; margin: 2px 0; font-style: italic; }
+  .vocab-card .es { font-size: 0.9rem; font-weight: 700; color: var(--texto); }
+  .vocab-card .num { position: absolute; top: 6px; right: 8px; font-size: 0.65rem; color: #CBD5E1; font-weight: 700; }
+  .vocab-card:nth-child(6n+1) { background: #EFF6FF; }
+  .vocab-card:nth-child(6n+2) { background: #F0FDF4; }
+  .vocab-card:nth-child(6n+3) { background: #FFF7ED; }
+  .vocab-card:nth-child(6n+4) { background: #FDF4FF; }
+  .vocab-card:nth-child(6n+5) { background: #FFFBEB; }
+  .vocab-card:nth-child(6n+6) { background: #FFF1F2; }
+
+  /* REGLA */
+  .regla {
+    background: linear-gradient(135deg, #EFF6FF, #F0F9FF);
+    border: 2px solid var(--cielo);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .regla-titulo { font-weight: 800; color: var(--azul); margin-bottom: 8px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+
+  /* FRASES */
+  .frases { list-style: none; padding: 0; }
+  .frases li {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-left: 4px solid var(--menta);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .frases li .en-frase { font-weight: 700; font-size: 1rem; }
+  .frases li .es-frase { color: #64748B; font-size: 0.9rem; }
+
+  /* QUIZ */
+  .quiz-card {
+    background: linear-gradient(135deg, #FFF7ED, #FFFBEB);
+    border: 2px solid var(--amarillo);
+    border-radius: 20px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+  .quiz-titulo { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: var(--coral); margin-bottom: 16px; }
+  .quiz-pregunta { margin: 12px 0; }
+  .quiz-input {
+    border: 2px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 4px;
+    transition: border-color 0.2s;
+  }
+  .quiz-input:focus { outline: none; border-color: var(--azul); }
+  .quiz-input.correcto { border-color: var(--verde); background: #F0FDF4; }
+  .quiz-input.incorrecto { border-color: #EF4444; background: #FEF2F2; }
+  .btn-verificar {
+    background: linear-gradient(135deg, var(--azul), var(--violeta));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-verificar:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+  .resultado { margin-top: 14px; font-weight: 800; font-size: 1.1rem; padding: 12px 16px; border-radius: 12px; display: none; }
+  .resultado.bien { background: #DCFCE7; color: var(--verde); }
+  .resultado.mal  { background: #FEE2E2; color: #DC2626; }
+
+  /* ALFABETO GRID */
+  .alfabeto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .alfa-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--menta);
+    transition: transform 0.2s;
+  }
+  .alfa-card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+  .alfa-card .alfa-letra { font-family: 'Fredoka One', cursive; font-size: 2rem; color: var(--violeta); }
+  .alfa-card .alfa-sonido { font-family: 'Fredoka One', cursive; font-size: 1rem; color: var(--azul); font-style: italic; }
+
+  /* TIP */
+  .tip {
+    background: #FFFBEB;
+    border: 2px dashed var(--amarillo);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .tip-ico { font-size: 1.3rem; flex-shrink: 0; }
+
+  /* NAV FOOTER */
+  .nav-bottom { display: flex; justify-content: space-between; margin-top: 40px; gap: 12px; }
+  .btn-nav {
+    background: white;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-nav:hover { background: var(--azul); color: white; }
+  .btn-nav:disabled { opacity: 0.35; cursor: default; }
+  .btn-nav.primario { background: var(--azul); color: white; }
+  .btn-nav.primario:hover { background: #1D4ED8; }
+
+  /* PROGRESO */
+  .barra-progreso { height: 6px; background: #E2E8F0; border-radius: 50px; margin-bottom: 2px; }
+  .barra-fill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--azul), var(--violeta)); transition: width 0.4s; }
+  .progreso-texto { font-size: 0.8rem; color: #94A3B8; font-weight: 700; padding: 4px 0 12px; }
+
+  @media(max-width:600px){
+    .portada { padding: 60px 16px 40px; }
+    .card { padding: 20px; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); }
+    .alfabeto-grid { grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="portada">
+  <span class="portada-emoji">🏆</span>
+  <h1>INGLÉS BÁSICO</h1>
+  <div class="subtitulo">Lección 11 · Pronunciación · Vocabulario Completo (850 palabras)</div>
+  <div class="autores">Charles K. Ogden &amp; Augusto Ghio D.</div>
+  <div class="badges">
+    <span class="badge">📖 Edición Moderna</span>
+    <span class="badge">🎯 Nivel A1</span>
+    <span class="badge">✨ Parte 6 de 6 — FINAL</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-seccion" id="nav">
+  <button class="nav-btn activo" onclick="ir(0)">🏠 Intro</button>
+  <button class="nav-btn" onclick="ir(1)">🗣️ Lección 11</button>
+  <button class="nav-btn" onclick="ir(2)">📖 Vocabulario</button>
+  <button class="nav-btn" onclick="ir(3)">🧪 Examen 11</button>
+  <button class="nav-btn" onclick="ir(4)">🧪 Examen Vocab</button>
+</nav>
+
+<!-- BARRA PROGRESO -->
+<div class="contenedor" style="padding-top:20px; padding-bottom:0;">
+  <div class="barra-progreso"><div class="barra-fill" id="fill" style="width:20%"></div></div>
+  <div class="progreso-texto" id="prog">Sección 1 de 5</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 0 — INTRODUCCIÓN / REPASO -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="contenedor">
+<section class="seccion visible" id="s0">
+
+  <div class="titulo-seccion" style="color:#1E40AF;"><span>🏆</span> Bienvenido a la Parte 6 — ¡LA FINAL!</div>
+
+  <div class="card">
+    <h3>🎯 ¡Llegaste hasta aquí!</h3>
+    <p>Esta es la <strong>última parte</strong> del curso de Inglés Básico. Has recorrido un largo camino desde la Parte 1 y ahora estás a punto de completar las <strong>11 lecciones</strong> completas.</p>
+    <p>En esta parte final consolidarás <strong>tres pilares esenciales</strong>: la pronunciación correcta, el alfabeto inglés y el vocabulario básico completo de 850 palabras.</p>
+  </div>
+
+  <div class="card verde">
+    <h3>📋 ¿Qué viste en las Partes 1 a 5?</h3>
+    <ul style="margin-left:20px; margin-top:8px;">
+      <li style="margin-bottom:4px;"><strong>Parte 1:</strong> Lecciones 1-2 — IS/ARE, 16 verbos, WILL, A/AN, -ING</li>
+      <li style="margin-bottom:4px;"><strong>Parte 2:</strong> Lecciones 3-4 — THE, WOULD, MAY, números, pasado, TO HAVE</li>
+      <li style="margin-bottom:4px;"><strong>Parte 3:</strong> Lecciones 5-6 — Palabras de acción, operadores, preguntas</li>
+      <li style="margin-bottom:4px;"><strong>Parte 4:</strong> Lecciones 7-8 — Conectores, cualidades, expansión</li>
+      <li style="margin-bottom:4px;"><strong>Parte 5:</strong> Lecciones 9-10 — Tiempos compuestos, usos avanzados</li>
+    </ul>
+  </div>
+
+  <div class="card coral">
+    <h3>🔑 Lo que viene ahora — Lección 11</h3>
+    <p>En esta parte final aprenderás:</p>
+    <ul style="margin-left:20px; margin-top:8px;">
+      <li style="margin-bottom:4px;">🗣️ <strong>Pronunciación:</strong> Palabras difíciles y sus sonidos correctos</li>
+      <li style="margin-bottom:4px;">🔤 El sonido <strong>DZ</strong> (th sonoro) y la <strong>Y consonante</strong></li>
+      <li style="margin-bottom:4px;">🔠 El <strong>alfabeto inglés</strong> completo con pronunciación</li>
+      <li style="margin-bottom:4px;">📖 El <strong>vocabulario básico completo</strong> de 850 palabras</li>
+      <li>🧪 Dos exámenes finales de pronunciación y vocabulario</li>
+    </ul>
+  </div>
+
+  <div class="tip">
+    <span class="tip-ico">💡</span>
+    <span>Esta es <strong>tu meta final</strong>. Al terminarla, habrás cubierto todas las lecciones del método Ogden. Con estas 850 palabras y 16 verbos podrás comunicarte en inglés con cualquier persona. ¡A por ello!</span>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" disabled>← Anterior</button>
+    <button class="btn-nav primario" onclick="ir(1)">Lección 11 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 1 — LECCIÓN 11 — PRONUNCIACIÓN -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s1">
+
+  <div class="titulo-seccion" style="color:#7C3AED;"><span>🗣️</span> Lección 11 — PRONUNCIACIÓN</div>
+
+  <!-- 1. Palabras de difícil pronunciación -->
+  <div class="card violeta">
+    <h3>⚠️ PALABRAS DE DIFÍCIL PRONUNCIACIÓN</h3>
+    <p>Estas palabras suelen causar dificultad a los hispanohablantes. Practícalas en voz alta agrupadas por su sonido similar.</p>
+
+    <h4 style="color:#7C3AED; margin-top:16px;">🔹 Grupo 1 — Terminación -TION / -SION (-SHon)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Question</div><div class="pron">(cuésCHon)</div><div class="es">Pregunta</div></div>
+      <div class="vocab-card"><div class="en">Attention</div><div class="pron">(aténSHon)</div><div class="es">Atención</div></div>
+      <div class="vocab-card"><div class="en">Station</div><div class="pron">(stéiSHon)</div><div class="es">Estación</div></div>
+      <div class="vocab-card"><div class="en">Nation</div><div class="pron">(néiSHon)</div><div class="es">Nación</div></div>
+      <div class="vocab-card"><div class="en">Action</div><div class="pron">(ákSHon)</div><div class="es">Acción</div></div>
+      <div class="vocab-card"><div class="en">Fiction</div><div class="pron">(fíkSHon)</div><div class="es">Ficción</div></div>
+      <div class="vocab-card"><div class="en">Condition</div><div class="pron">(condíSHon)</div><div class="es">Condición</div></div>
+      <div class="vocab-card"><div class="en">Division</div><div class="pron">(divíYon)</div><div class="es">División</div></div>
+      <div class="vocab-card"><div class="en">Vision</div><div class="pron">(víYon)</div><div class="es">Visión</div></div>
+      <div class="vocab-card"><div class="en">Occasion</div><div class="pron">(okéiYon)</div><div class="es">Ocasión</div></div>
+      <div class="vocab-card"><div class="en">Explosion</div><div class="pron">(explóuYon)</div><div class="es">Explosión</div></div>
+      <div class="vocab-card"><div class="en">Pleasure</div><div class="pron">(pléshaR)</div><div class="es">Placer</div></div>
+      <div class="vocab-card"><div class="en">Measure</div><div class="pron">(méshaR)</div><div class="es">Medida</div></div>
+      <div class="vocab-card"><div class="en">Treasure</div><div class="pron">(tréshaR)</div><div class="es">Tesoro</div></div>
+      <div class="vocab-card"><div class="en">Special</div><div class="pron">(spéSHal)</div><div class="es">Especial</div></div>
+      <div class="vocab-card"><div class="en">Machine</div><div class="pron">(maSHíin)</div><div class="es">Máquina</div></div>
+      <div class="vocab-card"><div class="en">Sugar</div><div class="pron">(SHúgaR)</div><div class="es">Azúcar</div></div>
+    </div>
+
+    <h4 style="color:#7C3AED; margin-top:16px;">🔹 Grupo 2 — Sonido R + vocal (éR, íR, óR)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Girl</div><div class="pron">(guéRl)</div><div class="es">Niña / chica</div></div>
+      <div class="vocab-card"><div class="en">Bird</div><div class="pron">(béeRd)</div><div class="es">Pájaro</div></div>
+      <div class="vocab-card"><div class="en">First</div><div class="pron">(féeRst)</div><div class="es">Primero</div></div>
+      <div class="vocab-card"><div class="en">Third</div><div class="pron">(zéeRd)</div><div class="es">Tercero</div></div>
+      <div class="vocab-card"><div class="en">Work</div><div class="pron">(uéeRk)</div><div class="es">Trabajo</div></div>
+      <div class="vocab-card"><div class="en">Word</div><div class="pron">(uéeRd)</div><div class="es">Palabra</div></div>
+      <div class="vocab-card"><div class="en">World</div><div class="pron">(uéeRld)</div><div class="es">Mundo</div></div>
+      <div class="vocab-card"><div class="en">Were</div><div class="pron">(uéeR)</div><div class="es">Eran / estaban</div></div>
+      <div class="vocab-card"><div class="en">Her</div><div class="pron">(jéeR)</div><div class="es">Su (de ella) / la</div></div>
+      <div class="vocab-card"><div class="en">Person</div><div class="pron">(péeRson)</div><div class="es">Persona</div></div>
+      <div class="vocab-card"><div class="en">Verse</div><div class="pron">(véeRs)</div><div class="es">Verso</div></div>
+    </div>
+
+    <h4 style="color:#7C3AED; margin-top:16px;">🔹 Grupo 3 — Sonido CH (CH)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Church</div><div class="pron">(chéeRch)</div><div class="es">Iglesia</div></div>
+      <div class="vocab-card"><div class="en">Chair</div><div class="pron">(chéaR)</div><div class="es">Silla</div></div>
+      <div class="vocab-card"><div class="en">Cheap</div><div class="pron">(chíip)</div><div class="es">Barato</div></div>
+      <div class="vocab-card"><div class="en">China</div><div class="pron">(cháina)</div><div class="es">China</div></div>
+      <div class="vocab-card"><div class="en">Lunch</div><div class="pron">(lanch)</div><div class="es">Almuerzo</div></div>
+      <div class="vocab-card"><div class="en">Chance</div><div class="pron">(cháans)</div><div class="es">Oportunidad</div></div>
+      <div class="vocab-card"><div class="en">March</div><div class="pron">(máaRch)</div><div class="es">Marzo / marcha</div></div>
+      <div class="vocab-card"><div class="en">Much</div><div class="pron">(mach)</div><div class="es">Mucho</div></div>
+      <div class="vocab-card"><div class="en">Chain</div><div class="pron">(chéin)</div><div class="es">Cadena</div></div>
+      <div class="vocab-card"><div class="en">Chin</div><div class="pron">(chin)</div><div class="es">Barbilla</div></div>
+    </div>
+  </div>
+
+  <!-- 2. El sonido DZ -->
+  <div class="card rosa">
+    <h3>🔊 EL SONIDO DZ (TH sonoro)</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Explicación</div>
+      El sonido <strong>TH</strong> sonoro se produce colocando la punta de la lengua entre los dientes y haciendo vibrar las cuerdas vocales. Es como una <strong>D + Z</strong> combinadas, vibrando. No existe en español, pero se parece al sonido inicial de "dedo" dicho muy suavemente.
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">They</div><div class="pron">(dzei)</div><div class="es">Ellos / ellas</div></div>
+      <div class="vocab-card"><div class="en">That</div><div class="pron">(dzat)</div><div class="es">Eso / esa / ese</div></div>
+      <div class="vocab-card"><div class="en">This</div><div class="pron">(dzis)</div><div class="es">Este / esta / esto</div></div>
+      <div class="vocab-card"><div class="en">These</div><div class="pron">(dzíiz)</div><div class="es">Estos / estas</div></div>
+      <div class="vocab-card"><div class="en">Those</div><div class="pron">(dzóuz)</div><div class="es">Esos / esas</div></div>
+      <div class="vocab-card"><div class="en">The</div><div class="pron">(dze)</div><div class="es">El / la / los / las</div></div>
+      <div class="vocab-card"><div class="en">There</div><div class="pron">(dzéaR)</div><div class="es">Allá / allí</div></div>
+      <div class="vocab-card"><div class="en">Though</div><div class="pron">(dzóu)</div><div class="es">Aunque</div></div>
+      <div class="vocab-card"><div class="en">Than</div><div class="pron">(dzan)</div><div class="es">Que (comparativo)</div></div>
+      <div class="vocab-card"><div class="en">Then</div><div class="pron">(dzen)</div><div class="es">Entonces</div></div>
+      <div class="vocab-card"><div class="en">Mother</div><div class="pron">(mádzeR)</div><div class="es">Madre</div></div>
+      <div class="vocab-card"><div class="en">Father</div><div class="pron">(fádzeR)</div><div class="es">Padre</div></div>
+      <div class="vocab-card"><div class="en">Brother</div><div class="pron">(bródzeR)</div><div class="es">Hermano</div></div>
+      <div class="vocab-card"><div class="en">Weather</div><div class="pron">(uédzeR)</div><div class="es">Clima</div></div>
+      <div class="vocab-card"><div class="en">Together</div><div class="pron">(tugédzeR)</div><div class="es">Juntos</div></div>
+      <div class="vocab-card"><div class="en">Either</div><div class="pron">(ídzeR / áidzeR)</div><div class="es">Cualquiera</div></div>
+      <div class="vocab-card"><div class="en">Neither</div><div class="pron">(nídzeR / náidzeR)</div><div class="es">Ninguno</div></div>
+      <div class="vocab-card"><div class="en">Other</div><div class="pron">(ódzeR)</div><div class="es">Otro</div></div>
+      <div class="vocab-card"><div class="en">Another</div><div class="pron">(anódzeR)</div><div class="es">Otro más</div></div>
+      <div class="vocab-card"><div class="en">Smooth</div><div class="pron">(smúudz)</div><div class="es">Suave</div></div>
+      <div class="vocab-card"><div class="en">Southern</div><div class="pron">(sódzeRn)</div><div class="es">Del sur</div></div>
+    </div>
+  </div>
+
+  <!-- 3. El sonido Y consonante -->
+  <div class="card verde">
+    <h3>🔊 EL SONIDO @ (Y consonante)</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Explicación</div>
+      La <strong>Y</strong> al inicio de palabra o sílaba funciona como <strong>consonante</strong>, con un sonido parecido a "i" muy breve seguida de la vocal. Es como el sonido inicial de "hielo" en español pero más suave. En este libro lo representamos con el sonido <strong>y</strong> (como en "yo").
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Yes</div><div class="pron">(yes)</div><div class="es">Sí</div></div>
+      <div class="vocab-card"><div class="en">Year</div><div class="pron">(yíaR)</div><div class="es">Año</div></div>
+      <div class="vocab-card"><div class="en">Yesterday</div><div class="pron">(yésterdei)</div><div class="es">Ayer</div></div>
+      <div class="vocab-card"><div class="en">Yellow</div><div class="pron">(yélou)</div><div class="es">Amarillo</div></div>
+      <div class="vocab-card"><div class="en">You</div><div class="pron">(yúu)</div><div class="es">Tú / usted</div></div>
+      <div class="vocab-card"><div class="en">Young</div><div class="pron">(yang)</div><div class="es">Joven</div></div>
+      <div class="vocab-card"><div class="en">Your</div><div class="pron">(yóoR)</div><div class="es">Tu / su (de usted)</div></div>
+      <div class="vocab-card"><div class="en">Europe</div><div class="pron">(yúrop)</div><div class="es">Europa</div></div>
+      <div class="vocab-card"><div class="en">Opinion</div><div class="pron">(opínyOn)</div><div class="es">Opinión</div></div>
+      <div class="vocab-card"><div class="en">Onion</div><div class="pron">(ónyOn)</div><div class="es">Cebolla</div></div>
+      <div class="vocab-card"><div class="en">Million</div><div class="pron">(mílyOn)</div><div class="es">Millón</div></div>
+      <div class="vocab-card"><div class="en">Companion</div><div class="pron">(compányOn)</div><div class="es">Compañero</div></div>
+      <div class="vocab-card"><div class="en">Behaviour</div><div class="pron">(bijéivyR)</div><div class="es">Comportamiento</div></div>
+      <div class="vocab-card"><div class="en">Billions</div><div class="pron">(bílyOns)</div><div class="es">Billones</div></div>
+    </div>
+  </div>
+
+  <!-- 4. Dos pronunciaciones -->
+  <div class="card coral">
+    <h3>🔀 DOS PRONUNCIACIONES CORRECTAS</h3>
+    <p>Estas palabras tienen <strong>dos pronunciaciones aceptadas</strong> en inglés. Ambas son correctas y puedes usar la que te resulte más natural.</p>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Again</div><div class="pron">(aguén / aguéin)</div><div class="es">Otra vez</div></div>
+      <div class="vocab-card"><div class="en">Been</div><div class="pron">(bin / bíin)</div><div class="es">Sido / estado</div></div>
+      <div class="vocab-card"><div class="en">Either</div><div class="pron">(ídzeR / áidzeR)</div><div class="es">Cualquiera</div></div>
+      <div class="vocab-card"><div class="en">Neither</div><div class="pron">(nídzeR / náidzeR)</div><div class="es">Ninguno</div></div>
+      <div class="vocab-card"><div class="en">Direct</div><div class="pron">(dirékt / dairékt)</div><div class="es">Directo</div></div>
+      <div class="vocab-card"><div class="en">Direction</div><div class="pron">(dirékSHon / dairékSHon)</div><div class="es">Dirección</div></div>
+      <div class="vocab-card"><div class="en">Record</div><div class="pron">(rékoRd / rikóoRd)</div><div class="es">Grabar / récord</div></div>
+      <div class="vocab-card"><div class="en">Present</div><div class="pron">(présEnt / prizént)</div><div class="es">Presente / presentar</div></div>
+      <div class="vocab-card"><div class="en">Use</div><div class="pron">(iús / iúz)</div><div class="es">Uso / usar</div></div>
+      <div class="vocab-card"><div class="en">Close</div><div class="pron">(clóus / clóuz)</div><div class="es">Cerca / cerrar</div></div>
+      <div class="vocab-card"><div class="en">House</div><div class="pron">(jáus / jáuz)</div><div class="es">Casa / albergar</div></div>
+      <div class="vocab-card"><div class="en">Lead</div><div class="pron">(líid / led)</div><div class="es">Guiar / plomo</div></div>
+      <div class="vocab-card"><div class="en">Read</div><div class="pron">(ríid / red)</div><div class="es">Leer / leído</div></div>
+      <div class="vocab-card"><div class="en">Wind</div><div class="pron">(uínd / uáind)</div><div class="es">Viento / enrollar</div></div>
+      <div class="vocab-card"><div class="en">Wound</div><div class="pron">(uúund / uáund)</div><div class="es">Herida / enrollado</div></div>
+    </div>
+  </div>
+
+  <!-- 5. Alfabeto -->
+  <div class="card violeta">
+    <h3>🔠 EL ALFABETO INGLÉS</h3>
+    <p>Aprende a deletrear en inglés. Cada letra tiene su propio nombre fonético, muy diferente al español.</p>
+    <div class="alfabeto-grid">
+      <div class="alfa-card"><div class="alfa-letra">A a</div><div class="alfa-sonido">(éi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">B b</div><div class="alfa-sonido">(bíi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">C c</div><div class="alfa-sonido">(síi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">D d</div><div class="alfa-sonido">(díi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">E e</div><div class="alfa-sonido">(íi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">F f</div><div class="alfa-sonido">(ef)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">G g</div><div class="alfa-sonido">(yíi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">H h</div><div class="alfa-sonido">(éich)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">I i</div><div class="alfa-sonido">(ái)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">J j</div><div class="alfa-sonido">(yéi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">K k</div><div class="alfa-sonido">(kéi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">L l</div><div class="alfa-sonido">(el)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">M m</div><div class="alfa-sonido">(em)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">N n</div><div class="alfa-sonido">(en)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">O o</div><div class="alfa-sonido">(óu)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">P p</div><div class="alfa-sonido">(píi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">Q q</div><div class="alfa-sonido">(kiúu)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">R r</div><div class="alfa-sonido">(áaR)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">S s</div><div class="alfa-sonido">(es)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">T t</div><div class="alfa-sonido">(tíi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">U u</div><div class="alfa-sonido">(yúu)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">V v</div><div class="alfa-sonido">(víi)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">W w</div><div class="alfa-sonido">(dábl-yu)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">X x</div><div class="alfa-sonido">(eks)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">Y y</div><div class="alfa-sonido">(uái)</div></div>
+      <div class="alfa-card"><div class="alfa-letra">Z z</div><div class="alfa-sonido">(zed)</div></div>
+    </div>
+  </div>
+
+  <!-- 6. Sonidos del inglés -->
+  <div class="card amarillo">
+    <h3>🎵 SONIDOS DEL INGLÉS BÁSICO</h3>
+    <p>Estos son los sonidos más importantes que <strong>no existen en español</strong> y que debes dominar:</p>
+
+    <div class="regla" style="margin:12px 0;">
+      <div class="regla-titulo">🔊 TH sonoro (DZ)</div>
+      La lengua entre los dientes. Vibra. Aparece en: <strong>the, this, that, mother, father</strong>.
+    </div>
+    <div class="regla" style="margin:12px 0;">
+      <div class="regla-titulo">🔊 TH sordo (Z)</div>
+      Igual posición pero sin vibrar. Aparece en: <strong>thing, think, thank, south</strong>.
+    </div>
+    <div class="regla" style="margin:12px 0;">
+      <div class="regla-titulo">🔊 SH (SH)</div>
+      Como mandar callar: "shhh". Aparece en: <strong>she, ship, fish, English</strong>.
+    </div>
+    <div class="regla" style="margin:12px 0;">
+      <div class="regla-titulo">🔊 CH (CH)</div>
+      Igual que en español "ch". Aparece en: <strong>church, chair, cheap, lunch</strong>.
+    </div>
+    <div class="regla" style="margin:12px 0;">
+      <div class="regla-titulo">🔊 H aspirada (J)</div>
+      Como una "j" suave. Soplo de aire. Aparece en: <strong>house, help, have, he, her</strong>.
+    </div>
+    <div class="regla" style="margin:12px 0;">
+      <div class="regla-titulo">🔊 W (U)</div>
+      Labios redondeados, como soplar. Aparece en: <strong>water, woman, work, world</strong>.
+    </div>
+    <div class="regla" style="margin:12px 0;">
+      <div class="regla-titulo">🔊 R inglesa (R suave)</div>
+      No se hace rodar la lengua. Es suave, casi como una vocal. Aparece en: <strong>red, river, road, brother</strong>.
+    </div>
+
+    <div class="tip" style="margin-top:16px;">
+      <span class="tip-ico">💡</span>
+      <span>La clave de la pronunciación es <strong>escuchar y repetir</strong>. Busca estas palabras en YouTube o Google Translate y escucha cómo las pronuncian los nativos. ¡Imita el sonido, no lo leas como español!</span>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(0)">← Intro</button>
+    <button class="btn-nav primario" onclick="ir(2)">Vocabulario →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 2 — VOCABULARIO BÁSICO COMPLETO -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s2">
+
+  <div class="titulo-seccion" style="color:#EA580C;"><span>📖</span> VOCABULARIO BÁSICO COMPLETO</div>
+
+  <div class="card verde">
+    <h3>🌟 Las 850 palabras del Inglés Básico</h3>
+    <p>Organizadas alfabéticamente con <strong>pronunciación figurada</strong> y <strong>traducción al español</strong>. Estas palabras, junto con los 16 verbos, te permiten comunicarte en prácticamente cualquier situación cotidiana. ¡Domínalas!</p>
+  </div>
+
+  <!-- A words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--azul);margin-bottom:12px;">🔤 Palabras con A</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">About</div><div class="pron">(abáut)</div><div class="es">Acerca de</div></div>
+      <div class="vocab-card"><div class="en">Account</div><div class="pron">(acáunt)</div><div class="es">Cuenta</div></div>
+      <div class="vocab-card"><div class="en">Act</div><div class="pron">(akt)</div><div class="es">Acto / actuar</div></div>
+      <div class="vocab-card"><div class="en">Addition</div><div class="pron">(adíSHon)</div><div class="es">Adición</div></div>
+      <div class="vocab-card"><div class="en">Adjustment</div><div class="pron">(adyústment)</div><div class="es">Ajuste</div></div>
+      <div class="vocab-card"><div class="en">After</div><div class="pron">(áfteR)</div><div class="es">Después</div></div>
+      <div class="vocab-card"><div class="en">Again</div><div class="pron">(aguéin)</div><div class="es">Otra vez</div></div>
+      <div class="vocab-card"><div class="en">Against</div><div class="pron">(aguénst)</div><div class="es">Contra</div></div>
+      <div class="vocab-card"><div class="en">Agreement</div><div class="pron">(agríiment)</div><div class="es">Acuerdo</div></div>
+      <div class="vocab-card"><div class="en">Air</div><div class="pron">(éaR)</div><div class="es">Aire</div></div>
+      <div class="vocab-card"><div class="en">All</div><div class="pron">(óol)</div><div class="es">Todo</div></div>
+      <div class="vocab-card"><div class="en">Almost</div><div class="pron">(óolmoust)</div><div class="es">Casi</div></div>
+      <div class="vocab-card"><div class="en">Among</div><div class="pron">(amóng)</div><div class="es">Entre</div></div>
+      <div class="vocab-card"><div class="en">Amount</div><div class="pron">(amáunt)</div><div class="es">Cantidad</div></div>
+      <div class="vocab-card"><div class="en">Amusement</div><div class="pron">(amiúsment)</div><div class="es">Entretenimiento</div></div>
+      <div class="vocab-card"><div class="en">And</div><div class="pron">(and)</div><div class="es">Y</div></div>
+      <div class="vocab-card"><div class="en">Angle</div><div class="pron">(ángEl)</div><div class="es">Ángulo</div></div>
+      <div class="vocab-card"><div class="en">Angry</div><div class="pron">(ángri)</div><div class="es">Enojado</div></div>
+      <div class="vocab-card"><div class="en">Animal</div><div class="pron">(ánimal)</div><div class="es">Animal</div></div>
+      <div class="vocab-card"><div class="en">Answer</div><div class="pron">(ánseR)</div><div class="es">Respuesta</div></div>
+      <div class="vocab-card"><div class="en">Ant</div><div class="pron">(ant)</div><div class="es">Hormiga</div></div>
+      <div class="vocab-card"><div class="en">Any</div><div class="pron">(éni)</div><div class="es">Algún / cualquier</div></div>
+      <div class="vocab-card"><div class="en">Apparatus</div><div class="pron">(aparéitus)</div><div class="es">Aparato</div></div>
+      <div class="vocab-card"><div class="en">Apple</div><div class="pron">(ápEl)</div><div class="es">Manzana</div></div>
+      <div class="vocab-card"><div class="en">Approval</div><div class="pron">(aprúval)</div><div class="es">Aprobación</div></div>
+      <div class="vocab-card"><div class="en">Arch</div><div class="pron">(aaRch)</div><div class="es">Arco</div></div>
+      <div class="vocab-card"><div class="en">Argument</div><div class="pron">(aRguiúment)</div><div class="es">Argumento</div></div>
+      <div class="vocab-card"><div class="en">Army</div><div class="pron">(aRmi)</div><div class="es">Ejército</div></div>
+      <div class="vocab-card"><div class="en">Art</div><div class="pron">(aaRt)</div><div class="es">Arte</div></div>
+      <div class="vocab-card"><div class="en">As</div><div class="pron">(as)</div><div class="es">Como / tan</div></div>
+      <div class="vocab-card"><div class="en">At</div><div class="pron">(at)</div><div class="es">En / a</div></div>
+      <div class="vocab-card"><div class="en">Attack</div><div class="pron">(aták)</div><div class="es">Ataque</div></div>
+      <div class="vocab-card"><div class="en">Attempt</div><div class="pron">(atémpt)</div><div class="es">Intento</div></div>
+      <div class="vocab-card"><div class="en">Attention</div><div class="pron">(aténSHon)</div><div class="es">Atención</div></div>
+      <div class="vocab-card"><div class="en">Attraction</div><div class="pron">(atrákSHon)</div><div class="es">Atracción</div></div>
+      <div class="vocab-card"><div class="en">Authority</div><div class="pron">(ozóriti)</div><div class="es">Autoridad</div></div>
+      <div class="vocab-card"><div class="en">Automatic</div><div class="pron">(otomátik)</div><div class="es">Automático</div></div>
+      <div class="vocab-card"><div class="en">Awake</div><div class="pron">(auéik)</div><div class="es">Despierto</div></div>
+    </div>
+  </div>
+
+  <!-- B words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--coral);margin-bottom:12px;">🔤 Palabras con B</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Baby</div><div class="pron">(béibi)</div><div class="es">Bebé</div></div>
+      <div class="vocab-card"><div class="en">Back</div><div class="pron">(bak)</div><div class="es">Espalda / atrás</div></div>
+      <div class="vocab-card"><div class="en">Bad</div><div class="pron">(bad)</div><div class="es">Malo</div></div>
+      <div class="vocab-card"><div class="en">Bag</div><div class="pron">(bag)</div><div class="es">Bolsa</div></div>
+      <div class="vocab-card"><div class="en">Balance</div><div class="pron">(bálans)</div><div class="es">Balance</div></div>
+      <div class="vocab-card"><div class="en">Ball</div><div class="pron">(bóol)</div><div class="es">Pelota</div></div>
+      <div class="vocab-card"><div class="en">Band</div><div class="pron">(band)</div><div class="es">Banda</div></div>
+      <div class="vocab-card"><div class="en">Base</div><div class="pron">(béis)</div><div class="es">Base</div></div>
+      <div class="vocab-card"><div class="en">Basin</div><div class="pron">(béisn)</div><div class="es">Lavabo</div></div>
+      <div class="vocab-card"><div class="en">Basket</div><div class="pron">(básket)</div><div class="es">Cesta</div></div>
+      <div class="vocab-card"><div class="en">Bath</div><div class="pron">(báaz)</div><div class="es">Baño</div></div>
+      <div class="vocab-card"><div class="en">Be</div><div class="pron">(bíi)</div><div class="es">Ser / estar</div></div>
+      <div class="vocab-card"><div class="en">Beautiful</div><div class="pron">(biútiful)</div><div class="es">Hermoso</div></div>
+      <div class="vocab-card"><div class="en">Because</div><div class="pron">(bikós)</div><div class="es">Porque</div></div>
+      <div class="vocab-card"><div class="en">Bed</div><div class="pron">(bed)</div><div class="es">Cama</div></div>
+      <div class="vocab-card"><div class="en">Bee</div><div class="pron">(bíi)</div><div class="es">Abeja</div></div>
+      <div class="vocab-card"><div class="en">Before</div><div class="pron">(bifóoR)</div><div class="es">Antes</div></div>
+      <div class="vocab-card"><div class="en">Behaviour</div><div class="pron">(bijéivyR)</div><div class="es">Comportamiento</div></div>
+      <div class="vocab-card"><div class="en">Belief</div><div class="pron">(bilíf)</div><div class="es">Creencia</div></div>
+      <div class="vocab-card"><div class="en">Bell</div><div class="pron">(bel)</div><div class="es">Campana</div></div>
+      <div class="vocab-card"><div class="en">Bent</div><div class="pron">(bent)</div><div class="es">Doblado</div></div>
+      <div class="vocab-card"><div class="en">Between</div><div class="pron">(bituín)</div><div class="es">Entre</div></div>
+      <div class="vocab-card"><div class="en">Bird</div><div class="pron">(béeRd)</div><div class="es">Pájaro</div></div>
+      <div class="vocab-card"><div class="en">Birth</div><div class="pron">(béeRz)</div><div class="es">Nacimiento</div></div>
+      <div class="vocab-card"><div class="en">Bit</div><div class="pron">(bit)</div><div class="es">Pedacito</div></div>
+      <div class="vocab-card"><div class="en">Bitter</div><div class="pron">(bíteR)</div><div class="es">Amargo</div></div>
+      <div class="vocab-card"><div class="en">Black</div><div class="pron">(blak)</div><div class="es">Negro</div></div>
+      <div class="vocab-card"><div class="en">Blade</div><div class="pron">(bléid)</div><div class="es">Hoja (filo)</div></div>
+      <div class="vocab-card"><div class="en">Blood</div><div class="pron">(blad)</div><div class="es">Sangre</div></div>
+      <div class="vocab-card"><div class="en">Blow</div><div class="pron">(blóu)</div><div class="es">Soplar / golpe</div></div>
+      <div class="vocab-card"><div class="en">Blue</div><div class="pron">(blúu)</div><div class="es">Azul</div></div>
+      <div class="vocab-card"><div class="en">Board</div><div class="pron">(bóoRd)</div><div class="es">Tabla / junta</div></div>
+      <div class="vocab-card"><div class="en">Boat</div><div class="pron">(bóut)</div><div class="es">Bote / barco</div></div>
+      <div class="vocab-card"><div class="en">Body</div><div class="pron">(bódi)</div><div class="es">Cuerpo</div></div>
+      <div class="vocab-card"><div class="en">Boiling</div><div class="pron">(bóiling)</div><div class="es">Hirviendo</div></div>
+      <div class="vocab-card"><div class="en">Bone</div><div class="pron">(bóun)</div><div class="es">Hueso</div></div>
+      <div class="vocab-card"><div class="en">Book</div><div class="pron">(buk)</div><div class="es">Libro</div></div>
+      <div class="vocab-card"><div class="en">Boot</div><div class="pron">(búut)</div><div class="es">Bota</div></div>
+      <div class="vocab-card"><div class="en">Bottle</div><div class="pron">(bótl)</div><div class="es">Botella</div></div>
+      <div class="vocab-card"><div class="en">Box</div><div class="pron">(boks)</div><div class="es">Caja</div></div>
+      <div class="vocab-card"><div class="en">Boy</div><div class="pron">(bóy)</div><div class="es">Niño</div></div>
+      <div class="vocab-card"><div class="en">Brain</div><div class="pron">(bréin)</div><div class="es">Cerebro</div></div>
+      <div class="vocab-card"><div class="en">Brake</div><div class="pron">(bréik)</div><div class="es">Freno</div></div>
+      <div class="vocab-card"><div class="en">Branch</div><div class="pron">(bráanch)</div><div class="es">Rama</div></div>
+      <div class="vocab-card"><div class="en">Brass</div><div class="pron">(bráas)</div><div class="es">Latón</div></div>
+      <div class="vocab-card"><div class="en">Bread</div><div class="pron">(bred)</div><div class="es">Pan</div></div>
+      <div class="vocab-card"><div class="en">Breath</div><div class="pron">(bréz)</div><div class="es">Aliento</div></div>
+      <div class="vocab-card"><div class="en">Brick</div><div class="pron">(brik)</div><div class="es">Ladrillo</div></div>
+      <div class="vocab-card"><div class="en">Bridge</div><div class="pron">(brich)</div><div class="es">Puente</div></div>
+      <div class="vocab-card"><div class="en">Bright</div><div class="pron">(bráit)</div><div class="es">Brillante</div></div>
+      <div class="vocab-card"><div class="en">Broken</div><div class="pron">(bróukEn)</div><div class="es">Roto</div></div>
+      <div class="vocab-card"><div class="en">Bronze</div><div class="pron">(bróns)</div><div class="es">Bronce</div></div>
+      <div class="vocab-card"><div class="en">Brother</div><div class="pron">(bródzeR)</div><div class="es">Hermano</div></div>
+      <div class="vocab-card"><div class="en">Brown</div><div class="pron">(bráun)</div><div class="es">Marrón</div></div>
+      <div class="vocab-card"><div class="en">Brush</div><div class="pron">(braSH)</div><div class="es">Cepillo</div></div>
+      <div class="vocab-card"><div class="en">Bucket</div><div class="pron">(báket)</div><div class="es">Balde</div></div>
+      <div class="vocab-card"><div class="en">Building</div><div class="pron">(bílding)</div><div class="es">Edificio</div></div>
+      <div class="vocab-card"><div class="en">Bulb</div><div class="pron">(balb)</div><div class="es">Bombilla</div></div>
+      <div class="vocab-card"><div class="en">Burn</div><div class="pron">(béeRn)</div><div class="es">Quemar</div></div>
+      <div class="vocab-card"><div class="en">Burst</div><div class="pron">(béeRst)</div><div class="es">Estallar</div></div>
+      <div class="vocab-card"><div class="en">Business</div><div class="pron">(bísnes)</div><div class="es">Negocio</div></div>
+      <div class="vocab-card"><div class="en">But</div><div class="pron">(bat)</div><div class="es">Pero</div></div>
+      <div class="vocab-card"><div class="en">Butter</div><div class="pron">(báteR)</div><div class="es">Mantequilla</div></div>
+      <div class="vocab-card"><div class="en">Button</div><div class="pron">(bátn)</div><div class="es">Botón</div></div>
+      <div class="vocab-card"><div class="en">By</div><div class="pron">(bai)</div><div class="es">Por / cerca</div></div>
+    </div>
+  </div>
+
+  <!-- C words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--verde);margin-bottom:12px;">🔤 Palabras con C</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Cake</div><div class="pron">(kéik)</div><div class="es">Pastel</div></div>
+      <div class="vocab-card"><div class="en">Camera</div><div class="pron">(kámera)</div><div class="es">Cámara</div></div>
+      <div class="vocab-card"><div class="en">Canvas</div><div class="pron">(kánvas)</div><div class="es">Lienzo</div></div>
+      <div class="vocab-card"><div class="en">Card</div><div class="pron">(kaaRd)</div><div class="es">Tarjeta</div></div>
+      <div class="vocab-card"><div class="en">Care</div><div class="pron">(kéaR)</div><div class="es">Cuidado</div></div>
+      <div class="vocab-card"><div class="en">Carriage</div><div class="pron">(káriy)</div><div class="es">Carruaje</div></div>
+      <div class="vocab-card"><div class="en">Cart</div><div class="pron">(kaaRt)</div><div class="es">Carro</div></div>
+      <div class="vocab-card"><div class="en">Cat</div><div class="pron">(kat)</div><div class="es">Gato</div></div>
+      <div class="vocab-card"><div class="en">Cause</div><div class="pron">(kóos)</div><div class="es">Causa</div></div>
+      <div class="vocab-card"><div class="en">Certain</div><div class="pron">(séeRten)</div><div class="es">Cierto</div></div>
+      <div class="vocab-card"><div class="en">Chain</div><div class="pron">(chéin)</div><div class="es">Cadena</div></div>
+      <div class="vocab-card"><div class="en">Chalk</div><div class="pron">(chóok)</div><div class="es">Tiza</div></div>
+      <div class="vocab-card"><div class="en">Chance</div><div class="pron">(cháans)</div><div class="es">Oportunidad</div></div>
+      <div class="vocab-card"><div class="en">Change</div><div class="pron">(chéiny)</div><div class="es">Cambio</div></div>
+      <div class="vocab-card"><div class="en">Cheap</div><div class="pron">(chíip)</div><div class="es">Barato</div></div>
+      <div class="vocab-card"><div class="en">Cheese</div><div class="pron">(chíiz)</div><div class="es">Queso</div></div>
+      <div class="vocab-card"><div class="en">Chemical</div><div class="pron">(kémikal)</div><div class="es">Químico</div></div>
+      <div class="vocab-card"><div class="en">Chest</div><div class="pron">(chest)</div><div class="es">Pecho / cofre</div></div>
+      <div class="vocab-card"><div class="en">Chief</div><div class="pron">(chíif)</div><div class="es">Jefe</div></div>
+      <div class="vocab-card"><div class="en">Chin</div><div class="pron">(chin)</div><div class="es">Barbilla</div></div>
+      <div class="vocab-card"><div class="en">Church</div><div class="pron">(chéeRch)</div><div class="es">Iglesia</div></div>
+      <div class="vocab-card"><div class="en">Circle</div><div class="pron">(séeRkEl)</div><div class="es">Círculo</div></div>
+      <div class="vocab-card"><div class="en">Clean</div><div class="pron">(clíin)</div><div class="es">Limpio</div></div>
+      <div class="vocab-card"><div class="en">Clear</div><div class="pron">(clíaR)</div><div class="es">Claro</div></div>
+      <div class="vocab-card"><div class="en">Clock</div><div class="pron">(klok)</div><div class="es">Reloj</div></div>
+      <div class="vocab-card"><div class="en">Cloth</div><div class="pron">(klóz)</div><div class="es">Tela</div></div>
+      <div class="vocab-card"><div class="en">Cloud</div><div class="pron">(kláud)</div><div class="es">Nube</div></div>
+      <div class="vocab-card"><div class="en">Coal</div><div class="pron">(kóul)</div><div class="es">Carbón</div></div>
+      <div class="vocab-card"><div class="en">Coat</div><div class="pron">(kóut)</div><div class="es">Abrigo</div></div>
+      <div class="vocab-card"><div class="en">Cold</div><div class="pron">(kóuld)</div><div class="es">Frío</div></div>
+      <div class="vocab-card"><div class="en">Collar</div><div class="pron">(kólaR)</div><div class="es">Cuello</div></div>
+      <div class="vocab-card"><div class="en">Colour</div><div class="pron">(kálaR)</div><div class="es">Color</div></div>
+      <div class="vocab-card"><div class="en">Comb</div><div class="pron">(kóum)</div><div class="es">Peine</div></div>
+      <div class="vocab-card"><div class="en">Come</div><div class="pron">(kam)</div><div class="es">Venir</div></div>
+      <div class="vocab-card"><div class="en">Comfort</div><div class="pron">(kámfeRt)</div><div class="es">Comodidad</div></div>
+      <div class="vocab-card"><div class="en">Committee</div><div class="pron">(komíti)</div><div class="es">Comité</div></div>
+      <div class="vocab-card"><div class="en">Common</div><div class="pron">(kómon)</div><div class="es">Común</div></div>
+      <div class="vocab-card"><div class="en">Company</div><div class="pron">(kómpani)</div><div class="es">Compañía</div></div>
+      <div class="vocab-card"><div class="en">Comparison</div><div class="pron">(kompárisOn)</div><div class="es">Comparación</div></div>
+      <div class="vocab-card"><div class="en">Competition</div><div class="pron">(kompitíSHon)</div><div class="es">Competencia</div></div>
+      <div class="vocab-card"><div class="en">Complete</div><div class="pron">(komplíit)</div><div class="es">Completo</div></div>
+      <div class="vocab-card"><div class="en">Complex</div><div class="pron">(kómpleks)</div><div class="es">Complejo</div></div>
+      <div class="vocab-card"><div class="en">Condition</div><div class="pron">(condíSHon)</div><div class="es">Condición</div></div>
+      <div class="vocab-card"><div class="en">Connection</div><div class="pron">(konékSHon)</div><div class="es">Conexión</div></div>
+      <div class="vocab-card"><div class="en">Conscious</div><div class="pron">(kónSHos)</div><div class="es">Consciente</div></div>
+      <div class="vocab-card"><div class="en">Control</div><div class="pron">(kontróul)</div><div class="es">Control</div></div>
+      <div class="vocab-card"><div class="en">Cook</div><div class="pron">(kuk)</div><div class="es">Cocinar</div></div>
+      <div class="vocab-card"><div class="en">Copper</div><div class="pron">(kópeR)</div><div class="es">Cobre</div></div>
+      <div class="vocab-card"><div class="en">Copy</div><div class="pron">(kópi)</div><div class="es">Copia</div></div>
+      <div class="vocab-card"><div class="en">Cord</div><div class="pron">(kóoRd)</div><div class="es">Cuerda</div></div>
+      <div class="vocab-card"><div class="en">Cork</div><div class="pron">(kóoRk)</div><div class="es">Corcho</div></div>
+      <div class="vocab-card"><div class="en">Cotton</div><div class="pron">(kótn)</div><div class="es">Algodón</div></div>
+      <div class="vocab-card"><div class="en">Cough</div><div class="pron">(kof)</div><div class="es">Tos</div></div>
+      <div class="vocab-card"><div class="en">Country</div><div class="pron">(kántri)</div><div class="es">País</div></div>
+      <div class="vocab-card"><div class="en">Cover</div><div class="pron">(káveR)</div><div class="es">Cubrir</div></div>
+      <div class="vocab-card"><div class="en">Cow</div><div class="pron">(káu)</div><div class="es">Vaca</div></div>
+      <div class="vocab-card"><div class="en">Crack</div><div class="pron">(krak)</div><div class="es">Grieta</div></div>
+      <div class="vocab-card"><div class="en">Credit</div><div class="pron">(krédit)</div><div class="es">Crédito</div></div>
+      <div class="vocab-card"><div class="en">Crime</div><div class="pron">(kráim)</div><div class="es">Crimen</div></div>
+      <div class="vocab-card"><div class="en">Cruel</div><div class="pron">(krúel)</div><div class="es">Cruel</div></div>
+      <div class="vocab-card"><div class="en">Crush</div><div class="pron">(kraSH)</div><div class="es">Aplastar</div></div>
+      <div class="vocab-card"><div class="en">Cry</div><div class="pron">(krai)</div><div class="es">Llorar</div></div>
+      <div class="vocab-card"><div class="en">Cup</div><div class="pron">(kap)</div><div class="es">Taza</div></div>
+      <div class="vocab-card"><div class="en">Current</div><div class="pron">(kárent)</div><div class="es">Actual / corriente</div></div>
+      <div class="vocab-card"><div class="en">Curtain</div><div class="pron">(kéeRten)</div><div class="es">Cortina</div></div>
+      <div class="vocab-card"><div class="en">Curve</div><div class="pron">(kéeRv)</div><div class="es">Curva</div></div>
+      <div class="vocab-card"><div class="en">Cushion</div><div class="pron">(kúSHon)</div><div class="es">Cojín</div></div>
+      <div class="vocab-card"><div class="en">Cut</div><div class="pron">(kat)</div><div class="es">Cortar</div></div>
+    </div>
+  </div>
+
+  <!-- D words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--violeta);margin-bottom:12px;">🔤 Palabras con D</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Damage</div><div class="pron">(dámey)</div><div class="es">Daño</div></div>
+      <div class="vocab-card"><div class="en">Danger</div><div class="pron">(déinyeR)</div><div class="es">Peligro</div></div>
+      <div class="vocab-card"><div class="en">Dark</div><div class="pron">(daaRk)</div><div class="es">Oscuro</div></div>
+      <div class="vocab-card"><div class="en">Daughter</div><div class="pron">(dóoteR)</div><div class="es">Hija</div></div>
+      <div class="vocab-card"><div class="en">Day</div><div class="pron">(déi)</div><div class="es">Día</div></div>
+      <div class="vocab-card"><div class="en">Dead</div><div class="pron">(ded)</div><div class="es">Muerto</div></div>
+      <div class="vocab-card"><div class="en">Dear</div><div class="pron">(díaR)</div><div class="es">Querido</div></div>
+      <div class="vocab-card"><div class="en">Death</div><div class="pron">(dez)</div><div class="es">Muerte</div></div>
+      <div class="vocab-card"><div class="en">Debt</div><div class="pron">(det)</div><div class="es">Deuda</div></div>
+      <div class="vocab-card"><div class="en">Decision</div><div class="pron">(disíYon)</div><div class="es">Decisión</div></div>
+      <div class="vocab-card"><div class="en">Deep</div><div class="pron">(díip)</div><div class="es">Profundo</div></div>
+      <div class="vocab-card"><div class="en">Degree</div><div class="pron">(digríi)</div><div class="es">Grado</div></div>
+      <div class="vocab-card"><div class="en">Delicate</div><div class="pron">(déliket)</div><div class="es">Delicado</div></div>
+      <div class="vocab-card"><div class="en">Dependent</div><div class="pron">(dipéndent)</div><div class="es">Dependiente</div></div>
+      <div class="vocab-card"><div class="en">Design</div><div class="pron">(disáin)</div><div class="es">Diseño</div></div>
+      <div class="vocab-card"><div class="en">Desire</div><div class="pron">(disáiaR)</div><div class="es">Deseo</div></div>
+      <div class="vocab-card"><div class="en">Destruction</div><div class="pron">(distrákSHon)</div><div class="es">Destrucción</div></div>
+      <div class="vocab-card"><div class="en">Detail</div><div class="pron">(dítéil)</div><div class="es">Detalle</div></div>
+      <div class="vocab-card"><div class="en">Development</div><div class="pron">(divélopment)</div><div class="es">Desarrollo</div></div>
+      <div class="vocab-card"><div class="en">Different</div><div class="pron">(dífRent)</div><div class="es">Diferente</div></div>
+      <div class="vocab-card"><div class="en">Digestion</div><div class="pron">(daiyésCHon)</div><div class="es">Digestión</div></div>
+      <div class="vocab-card"><div class="en">Direction</div><div class="pron">(dirékSHon)</div><div class="es">Dirección</div></div>
+      <div class="vocab-card"><div class="en">Dirty</div><div class="pron">(déeRti)</div><div class="es">Sucio</div></div>
+      <div class="vocab-card"><div class="en">Discovery</div><div class="pron">(diskáveri)</div><div class="es">Descubrimiento</div></div>
+      <div class="vocab-card"><div class="en">Discussion</div><div class="pron">(diskásSHon)</div><div class="es">Discusión</div></div>
+      <div class="vocab-card"><div class="en">Disease</div><div class="pron">(disíiz)</div><div class="es">Enfermedad</div></div>
+      <div class="vocab-card"><div class="en">Disgust</div><div class="pron">(disgást)</div><div class="es">Disgusto</div></div>
+      <div class="vocab-card"><div class="en">Distance</div><div class="pron">(dístans)</div><div class="es">Distancia</div></div>
+      <div class="vocab-card"><div class="en">Distribution</div><div class="pron">(distribiúSHon)</div><div class="es">Distribución</div></div>
+      <div class="vocab-card"><div class="en">Division</div><div class="pron">(divíYon)</div><div class="es">División</div></div>
+      <div class="vocab-card"><div class="en">Do</div><div class="pron">(duu)</div><div class="es">Hacer</div></div>
+      <div class="vocab-card"><div class="en">Dog</div><div class="pron">(dog)</div><div class="es">Perro</div></div>
+      <div class="vocab-card"><div class="en">Door</div><div class="pron">(dóoR)</div><div class="es">Puerta</div></div>
+      <div class="vocab-card"><div class="en">Doubt</div><div class="pron">(dáut)</div><div class="es">Duda</div></div>
+      <div class="vocab-card"><div class="en">Down</div><div class="pron">(dáun)</div><div class="es">Abajo</div></div>
+      <div class="vocab-card"><div class="en">Drain</div><div class="pron">(dréin)</div><div class="es">Desagüe</div></div>
+      <div class="vocab-card"><div class="en">Drawer</div><div class="pron">(dróoR)</div><div class="es">Cajón</div></div>
+      <div class="vocab-card"><div class="en">Dress</div><div class="pron">(dres)</div><div class="es">Vestido</div></div>
+      <div class="vocab-card"><div class="en">Drink</div><div class="pron">(drink)</div><div class="es">Bebida / beber</div></div>
+      <div class="vocab-card"><div class="en">Driving</div><div class="pron">(dráiving)</div><div class="es">Conduciendo</div></div>
+      <div class="vocab-card"><div class="en">Drop</div><div class="pron">(drop)</div><div class="es">Gota / soltar</div></div>
+      <div class="vocab-card"><div class="en">Dry</div><div class="pron">(drai)</div><div class="es">Seco</div></div>
+      <div class="vocab-card"><div class="en">Dust</div><div class="pron">(dast)</div><div class="es">Polvo</div></div>
+    </div>
+  </div>
+
+  <!-- E words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--rosa);margin-bottom:12px;">🔤 Palabras con E</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Ear</div><div class="pron">(íaR)</div><div class="es">Oreja / oído</div></div>
+      <div class="vocab-card"><div class="en">Early</div><div class="pron">(éeRli)</div><div class="es">Temprano</div></div>
+      <div class="vocab-card"><div class="en">Earth</div><div class="pron">(éeRz)</div><div class="es">Tierra</div></div>
+      <div class="vocab-card"><div class="en">East</div><div class="pron">(íist)</div><div class="es">Este (oriente)</div></div>
+      <div class="vocab-card"><div class="en">Edge</div><div class="pron">(ey)</div><div class="es">Borde</div></div>
+      <div class="vocab-card"><div class="en">Education</div><div class="pron">(ediukéiSHon)</div><div class="es">Educación</div></div>
+      <div class="vocab-card"><div class="en">Effect</div><div class="pron">(ifékt)</div><div class="es">Efecto</div></div>
+      <div class="vocab-card"><div class="en">Egg</div><div class="pron">(eg)</div><div class="es">Huevo</div></div>
+      <div class="vocab-card"><div class="en">Elastic</div><div class="pron">(ilástik)</div><div class="es">Elástico</div></div>
+      <div class="vocab-card"><div class="en">Electric</div><div class="pron">(iléktrik)</div><div class="es">Eléctrico</div></div>
+      <div class="vocab-card"><div class="en">End</div><div class="pron">(end)</div><div class="es">Fin / final</div></div>
+      <div class="vocab-card"><div class="en">Engine</div><div class="pron">(ényin)</div><div class="es">Motor</div></div>
+      <div class="vocab-card"><div class="en">Enough</div><div class="pron">(ináf)</div><div class="es">Suficiente</div></div>
+      <div class="vocab-card"><div class="en">Equal</div><div class="pron">(íual)</div><div class="es">Igual</div></div>
+      <div class="vocab-card"><div class="en">Error</div><div class="pron">(éroR)</div><div class="es">Error</div></div>
+      <div class="vocab-card"><div class="en">Even</div><div class="pron">(ívEn)</div><div class="es">Incluso / par</div></div>
+      <div class="vocab-card"><div class="en">Event</div><div class="pron">(ivént)</div><div class="es">Evento</div></div>
+      <div class="vocab-card"><div class="en">Ever</div><div class="pron">(éveR)</div><div class="es">Alguna vez</div></div>
+      <div class="vocab-card"><div class="en">Every</div><div class="pron">(évRi)</div><div class="es">Cada / todo</div></div>
+      <div class="vocab-card"><div class="en">Example</div><div class="pron">(eksámpl)</div><div class="es">Ejemplo</div></div>
+      <div class="vocab-card"><div class="en">Exchange</div><div class="pron">(ekschéiny)</div><div class="es">Intercambio</div></div>
+      <div class="vocab-card"><div class="en">Existence</div><div class="pron">(eksístens)</div><div class="es">Existencia</div></div>
+      <div class="vocab-card"><div class="en">Expansion</div><div class="pron">(ekspánSHon)</div><div class="es">Expansión</div></div>
+      <div class="vocab-card"><div class="en">Experience</div><div class="pron">(ekspíriens)</div><div class="es">Experiencia</div></div>
+      <div class="vocab-card"><div class="en">Expert</div><div class="pron">(ékspeeRt)</div><div class="es">Experto</div></div>
+      <div class="vocab-card"><div class="en">Eye</div><div class="pron">(ai)</div><div class="es">Ojo</div></div>
+    </div>
+  </div>
+
+  <!-- F words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--coral);margin-bottom:12px;">🔤 Palabras con F</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Face</div><div class="pron">(féis)</div><div class="es">Cara / rostro</div></div>
+      <div class="vocab-card"><div class="en">Fact</div><div class="pron">(fakt)</div><div class="es">Hecho</div></div>
+      <div class="vocab-card"><div class="en">Fall</div><div class="pron">(fóol)</div><div class="es">Caída / otoño</div></div>
+      <div class="vocab-card"><div class="en">False</div><div class="pron">(fóols)</div><div class="es">Falso</div></div>
+      <div class="vocab-card"><div class="en">Family</div><div class="pron">(fámili)</div><div class="es">Familia</div></div>
+      <div class="vocab-card"><div class="en">Far</div><div class="pron">(faaR)</div><div class="es">Lejos</div></div>
+      <div class="vocab-card"><div class="en">Farm</div><div class="pron">(faaRm)</div><div class="es">Granja</div></div>
+      <div class="vocab-card"><div class="en">Fat</div><div class="pron">(fat)</div><div class="es">Gordo / grasa</div></div>
+      <div class="vocab-card"><div class="en">Father</div><div class="pron">(fádzeR)</div><div class="es">Padre</div></div>
+      <div class="vocab-card"><div class="en">Fear</div><div class="pron">(fíaR)</div><div class="es">Miedo</div></div>
+      <div class="vocab-card"><div class="en">Feather</div><div class="pron">(fédzeR)</div><div class="es">Pluma</div></div>
+      <div class="vocab-card"><div class="en">Feeble</div><div class="pron">(fíbEl)</div><div class="es">Débil</div></div>
+      <div class="vocab-card"><div class="en">Feeling</div><div class="pron">(fíiling)</div><div class="es">Sentimiento</div></div>
+      <div class="vocab-card"><div class="en">Female</div><div class="pron">(fímeil)</div><div class="es">Femenino</div></div>
+      <div class="vocab-card"><div class="en">Fertile</div><div class="pron">(féeRtail)</div><div class="es">Fértil</div></div>
+      <div class="vocab-card"><div class="en">Fiction</div><div class="pron">(fíkSHon)</div><div class="es">Ficción</div></div>
+      <div class="vocab-card"><div class="en">Field</div><div class="pron">(fíild)</div><div class="es">Campo</div></div>
+      <div class="vocab-card"><div class="en">Fight</div><div class="pron">(fáit)</div><div class="es">Pelea</div></div>
+      <div class="vocab-card"><div class="en">Finger</div><div class="pron">(fíngueR)</div><div class="es">Dedo</div></div>
+      <div class="vocab-card"><div class="en">Fire</div><div class="pron">(fáiaR)</div><div class="es">Fuego</div></div>
+      <div class="vocab-card"><div class="en">First</div><div class="pron">(féeRst)</div><div class="es">Primero</div></div>
+      <div class="vocab-card"><div class="en">Fish</div><div class="pron">(fiSH)</div><div class="es">Pez / pescado</div></div>
+      <div class="vocab-card"><div class="en">Fixed</div><div class="pron">(fikst)</div><div class="es">Fijo</div></div>
+      <div class="vocab-card"><div class="en">Flag</div><div class="pron">(flag)</div><div class="es">Bandera</div></div>
+      <div class="vocab-card"><div class="en">Flame</div><div class="pron">(fléim)</div><div class="es">Llama</div></div>
+      <div class="vocab-card"><div class="en">Flat</div><div class="pron">(flat)</div><div class="es">Plano</div></div>
+      <div class="vocab-card"><div class="en">Flight</div><div class="pron">(fláit)</div><div class="es">Vuelo</div></div>
+      <div class="vocab-card"><div class="en">Floor</div><div class="pron">(flóoR)</div><div class="es">Piso / suelo</div></div>
+      <div class="vocab-card"><div class="en">Flower</div><div class="pron">(fláueR)</div><div class="es">Flor</div></div>
+      <div class="vocab-card"><div class="en">Fly</div><div class="pron">(flai)</div><div class="es">Volar / mosca</div></div>
+      <div class="vocab-card"><div class="en">Fold</div><div class="pron">(fóuld)</div><div class="es">Doblar</div></div>
+      <div class="vocab-card"><div class="en">Food</div><div class="pron">(fúud)</div><div class="es">Alimento</div></div>
+      <div class="vocab-card"><div class="en">Foolish</div><div class="pron">(fúliSH)</div><div class="es">Tonto</div></div>
+      <div class="vocab-card"><div class="en">Foot</div><div class="pron">(fut)</div><div class="es">Pie</div></div>
+      <div class="vocab-card"><div class="en">For</div><div class="pron">(fóoR)</div><div class="es">Para / por</div></div>
+      <div class="vocab-card"><div class="en">Force</div><div class="pron">(fóoRs)</div><div class="es">Fuerza</div></div>
+      <div class="vocab-card"><div class="en">Fork</div><div class="pron">(fóoRk)</div><div class="es">Tenedor</div></div>
+      <div class="vocab-card"><div class="en">Form</div><div class="pron">(fóoRm)</div><div class="es">Forma</div></div>
+      <div class="vocab-card"><div class="en">Forward</div><div class="pron">(fóoRuaRd)</div><div class="es">Adelante</div></div>
+      <div class="vocab-card"><div class="en">Fowl</div><div class="pron">(fául)</div><div class="es">Ave</div></div>
+      <div class="vocab-card"><div class="en">Frame</div><div class="pron">(fréim)</div><div class="es">Marco</div></div>
+      <div class="vocab-card"><div class="en">Free</div><div class="pron">(fríi)</div><div class="es">Libre / gratis</div></div>
+      <div class="vocab-card"><div class="en">Frequent</div><div class="pron">(fríkuent)</div><div class="es">Frecuente</div></div>
+      <div class="vocab-card"><div class="en">Friend</div><div class="pron">(frend)</div><div class="es">Amigo</div></div>
+      <div class="vocab-card"><div class="en">From</div><div class="pron">(from)</div><div class="es">De / desde</div></div>
+      <div class="vocab-card"><div class="en">Front</div><div class="pron">(frant)</div><div class="es">Frente</div></div>
+      <div class="vocab-card"><div class="en">Fruit</div><div class="pron">(frúut)</div><div class="es">Fruta</div></div>
+      <div class="vocab-card"><div class="en">Full</div><div class="pron">(ful)</div><div class="es">Lleno</div></div>
+      <div class="vocab-card"><div class="en">Future</div><div class="pron">(fiúchaR)</div><div class="es">Futuro</div></div>
+    </div>
+  </div>
+
+  <!-- G-H words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--verde);margin-bottom:12px;">🔤 Palabras con G</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Garden</div><div class="pron">(gáaRdEn)</div><div class="es">Jardín</div></div>
+      <div class="vocab-card"><div class="en">General</div><div class="pron">(yéneral)</div><div class="es">General</div></div>
+      <div class="vocab-card"><div class="en">Get</div><div class="pron">(guet)</div><div class="es">Conseguir</div></div>
+      <div class="vocab-card"><div class="en">Girl</div><div class="pron">(guéeRl)</div><div class="es">Niña / chica</div></div>
+      <div class="vocab-card"><div class="en">Give</div><div class="pron">(guiv)</div><div class="es">Dar</div></div>
+      <div class="vocab-card"><div class="en">Glass</div><div class="pron">(glas)</div><div class="es">Vidrio / vaso</div></div>
+      <div class="vocab-card"><div class="en">Glove</div><div class="pron">(glav)</div><div class="es">Guante</div></div>
+      <div class="vocab-card"><div class="en">Go</div><div class="pron">(góu)</div><div class="es">Ir</div></div>
+      <div class="vocab-card"><div class="en">Goat</div><div class="pron">(góut)</div><div class="es">Cabra</div></div>
+      <div class="vocab-card"><div class="en">Gold</div><div class="pron">(góuld)</div><div class="es">Oro</div></div>
+      <div class="vocab-card"><div class="en">Good</div><div class="pron">(gud)</div><div class="es">Bueno</div></div>
+      <div class="vocab-card"><div class="en">Government</div><div class="pron">(góvernmEnt)</div><div class="es">Gobierno</div></div>
+      <div class="vocab-card"><div class="en">Grain</div><div class="pron">(gréin)</div><div class="es">Grano</div></div>
+      <div class="vocab-card"><div class="en">Grass</div><div class="pron">(gráas)</div><div class="es">Pasto / hierba</div></div>
+      <div class="vocab-card"><div class="en">Great</div><div class="pron">(gréit)</div><div class="es">Grande / genial</div></div>
+      <div class="vocab-card"><div class="en">Green</div><div class="pron">(gríin)</div><div class="es">Verde</div></div>
+      <div class="vocab-card"><div class="en">Grey/Gray</div><div class="pron">(gréi)</div><div class="es">Gris</div></div>
+      <div class="vocab-card"><div class="en">Grip</div><div class="pron">(grip)</div><div class="es">Agarrar</div></div>
+      <div class="vocab-card"><div class="en">Group</div><div class="pron">(grúup)</div><div class="es">Grupo</div></div>
+      <div class="vocab-card"><div class="en">Growth</div><div class="pron">(gróuz)</div><div class="es">Crecimiento</div></div>
+      <div class="vocab-card"><div class="en">Guide</div><div class="pron">(gáid)</div><div class="es">Guía</div></div>
+      <div class="vocab-card"><div class="en">Gun</div><div class="pron">(gan)</div><div class="es">Arma / escopeta</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--amarillo);margin-bottom:12px;">🔤 Palabras con H</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Hair</div><div class="pron">(jéaR)</div><div class="es">Pelo / cabello</div></div>
+      <div class="vocab-card"><div class="en">Hammer</div><div class="pron">(jámeR)</div><div class="es">Martillo</div></div>
+      <div class="vocab-card"><div class="en">Hand</div><div class="pron">(jand)</div><div class="es">Mano</div></div>
+      <div class="vocab-card"><div class="en">Hanging</div><div class="pron">(jánging)</div><div class="es">Colgando</div></div>
+      <div class="vocab-card"><div class="en">Happy</div><div class="pron">(jápi)</div><div class="es">Feliz</div></div>
+      <div class="vocab-card"><div class="en">Harbour</div><div class="pron">(jáaRboR)</div><div class="es">Puerto</div></div>
+      <div class="vocab-card"><div class="en">Hard</div><div class="pron">(jáaRd)</div><div class="es">Duro / difícil</div></div>
+      <div class="vocab-card"><div class="en">Harmony</div><div class="pron">(jáaRmoni)</div><div class="es">Armonía</div></div>
+      <div class="vocab-card"><div class="en">Hat</div><div class="pron">(jat)</div><div class="es">Sombrero</div></div>
+      <div class="vocab-card"><div class="en">Hate</div><div class="pron">(jéit)</div><div class="es">Odiar</div></div>
+      <div class="vocab-card"><div class="en">Have</div><div class="pron">(jav)</div><div class="es">Tener / haber</div></div>
+      <div class="vocab-card"><div class="en">He</div><div class="pron">(jíi)</div><div class="es">Él</div></div>
+      <div class="vocab-card"><div class="en">Head</div><div class="pron">(jed)</div><div class="es">Cabeza</div></div>
+      <div class="vocab-card"><div class="en">Healthy</div><div class="pron">(jélzi)</div><div class="es">Saludable</div></div>
+      <div class="vocab-card"><div class="en">Hearing</div><div class="pron">(jíaRing)</div><div class="es">Audición</div></div>
+      <div class="vocab-card"><div class="en">Heart</div><div class="pron">(jáaRt)</div><div class="es">Corazón</div></div>
+      <div class="vocab-card"><div class="en">Heat</div><div class="pron">(jíit)</div><div class="es">Calor</div></div>
+      <div class="vocab-card"><div class="en">Help</div><div class="pron">(jelp)</div><div class="es">Ayuda</div></div>
+      <div class="vocab-card"><div class="en">Here</div><div class="pron">(jíaR)</div><div class="es">Aquí</div></div>
+      <div class="vocab-card"><div class="en">High</div><div class="pron">(jái)</div><div class="es">Alto</div></div>
+      <div class="vocab-card"><div class="en">History</div><div class="pron">(jístori)</div><div class="es">Historia</div></div>
+      <div class="vocab-card"><div class="en">Hole</div><div class="pron">(jóul)</div><div class="es">Agujero</div></div>
+      <div class="vocab-card"><div class="en">Hollow</div><div class="pron">(jólou)</div><div class="es">Hueco</div></div>
+      <div class="vocab-card"><div class="en">Hook</div><div class="pron">(juk)</div><div class="es">Gancho</div></div>
+      <div class="vocab-card"><div class="en">Hope</div><div class="pron">(jóup)</div><div class="es">Esperanza</div></div>
+      <div class="vocab-card"><div class="en">Horn</div><div class="pron">(jóoRn)</div><div class="es">Cuerno</div></div>
+      <div class="vocab-card"><div class="en">Horse</div><div class="pron">(jóoRs)</div><div class="es">Caballo</div></div>
+      <div class="vocab-card"><div class="en">Hospital</div><div class="pron">(jóspitAl)</div><div class="es">Hospital</div></div>
+      <div class="vocab-card"><div class="en">Hour</div><div class="pron">(áuaR)</div><div class="es">Hora</div></div>
+      <div class="vocab-card"><div class="en">House</div><div class="pron">(jáus)</div><div class="es">Casa</div></div>
+      <div class="vocab-card"><div class="en">How</div><div class="pron">(jáu)</div><div class="es">Cómo</div></div>
+      <div class="vocab-card"><div class="en">Humour</div><div class="pron">(júmoR)</div><div class="es">Humor</div></div>
+      <div class="vocab-card"><div class="en">Hundred</div><div class="pron">(jándred)</div><div class="es">Cien</div></div>
+    </div>
+  </div>
+
+  <!-- I-J-K-L words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--azul);margin-bottom:12px;">🔤 Palabras con I, J, K</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">I</div><div class="pron">(ai)</div><div class="es">Yo</div></div>
+      <div class="vocab-card"><div class="en">Ice</div><div class="pron">(áis)</div><div class="es">Hielo</div></div>
+      <div class="vocab-card"><div class="en">Idea</div><div class="pron">(aidía)</div><div class="es">Idea</div></div>
+      <div class="vocab-card"><div class="en">If</div><div class="pron">(if)</div><div class="es">Si (condicional)</div></div>
+      <div class="vocab-card"><div class="en">Ill</div><div class="pron">(il)</div><div class="es">Enfermo</div></div>
+      <div class="vocab-card"><div class="en">Important</div><div class="pron">(impóoRtAnt)</div><div class="es">Importante</div></div>
+      <div class="vocab-card"><div class="en">Impulse</div><div class="pron">(ímpals)</div><div class="es">Impulso</div></div>
+      <div class="vocab-card"><div class="en">In</div><div class="pron">(in)</div><div class="es">En</div></div>
+      <div class="vocab-card"><div class="en">Increase</div><div class="pron">(ínkriis)</div><div class="es">Aumento</div></div>
+      <div class="vocab-card"><div class="en">Industry</div><div class="pron">(índastri)</div><div class="es">Industria</div></div>
+      <div class="vocab-card"><div class="en">Ink</div><div class="pron">(ink)</div><div class="es">Tinta</div></div>
+      <div class="vocab-card"><div class="en">Insect</div><div class="pron">(ínsekt)</div><div class="es">Insecto</div></div>
+      <div class="vocab-card"><div class="en">Instrument</div><div class="pron">(ínstrumEnt)</div><div class="es">Instrumento</div></div>
+      <div class="vocab-card"><div class="en">Insurance</div><div class="pron">(inshúrans)</div><div class="es">Seguro</div></div>
+      <div class="vocab-card"><div class="en">Interest</div><div class="pron">(ínterest)</div><div class="es">Interés</div></div>
+      <div class="vocab-card"><div class="en">Invention</div><div class="pron">(invénSHon)</div><div class="es">Invención</div></div>
+      <div class="vocab-card"><div class="en">Iron</div><div class="pron">(áiRon)</div><div class="es">Hierro / plancha</div></div>
+      <div class="vocab-card"><div class="en">Island</div><div class="pron">(áiland)</div><div class="es">Isla</div></div>
+      <div class="vocab-card"><div class="en">Jelly</div><div class="pron">(yéli)</div><div class="es">Gelatina</div></div>
+      <div class="vocab-card"><div class="en">Jewel</div><div class="pron">(yúel)</div><div class="es">Joya</div></div>
+      <div class="vocab-card"><div class="en">Join</div><div class="pron">(yóin)</div><div class="es">Unir</div></div>
+      <div class="vocab-card"><div class="en">Journey</div><div class="pron">(yéeRni)</div><div class="es">Viaje</div></div>
+      <div class="vocab-card"><div class="en">Judge</div><div class="pron">(yach)</div><div class="es">Juez</div></div>
+      <div class="vocab-card"><div class="en">Jump</div><div class="pron">(yamp)</div><div class="es">Saltar</div></div>
+      <div class="vocab-card"><div class="en">Keep</div><div class="pron">(kíip)</div><div class="es">Mantener</div></div>
+      <div class="vocab-card"><div class="en">Kettle</div><div class="pron">(kétl)</div><div class="es">Tetera</div></div>
+      <div class="vocab-card"><div class="en">Key</div><div class="pron">(kíi)</div><div class="es">Llave</div></div>
+      <div class="vocab-card"><div class="en">Kick</div><div class="pron">(kik)</div><div class="es">Patear</div></div>
+      <div class="vocab-card"><div class="en">Kind</div><div class="pron">(káind)</div><div class="es">Amable / tipo</div></div>
+      <div class="vocab-card"><div class="en">Kiss</div><div class="pron">(kis)</div><div class="es">Beso</div></div>
+      <div class="vocab-card"><div class="en">Knee</div><div class="pron">(níi)</div><div class="es">Rodilla</div></div>
+      <div class="vocab-card"><div class="en">Knife</div><div class="pron">(náif)</div><div class="es">Cuchillo</div></div>
+      <div class="vocab-card"><div class="en">Knot</div><div class="pron">(not)</div><div class="es">Nudo</div></div>
+      <div class="vocab-card"><div class="en">Knowledge</div><div class="pron">(nóley)</div><div class="es">Conocimiento</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--violeta);margin-bottom:12px;">🔤 Palabras con L</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Land</div><div class="pron">(land)</div><div class="es">Tierra / terreno</div></div>
+      <div class="vocab-card"><div class="en">Language</div><div class="pron">(lánguey)</div><div class="es">Idioma</div></div>
+      <div class="vocab-card"><div class="en">Last</div><div class="pron">(last)</div><div class="es">Último / durar</div></div>
+      <div class="vocab-card"><div class="en">Late</div><div class="pron">(léit)</div><div class="es">Tarde / atrasado</div></div>
+      <div class="vocab-card"><div class="en">Laugh</div><div class="pron">(láaf)</div><div class="es">Reír</div></div>
+      <div class="vocab-card"><div class="en">Law</div><div class="pron">(lóo)</div><div class="es">Ley</div></div>
+      <div class="vocab-card"><div class="en">Lead</div><div class="pron">(líid / led)</div><div class="es">Guiar / plomo</div></div>
+      <div class="vocab-card"><div class="en">Leaf</div><div class="pron">(líif)</div><div class="es">Hoja</div></div>
+      <div class="vocab-card"><div class="en">Learning</div><div class="pron">(léeRning)</div><div class="es">Aprendizaje</div></div>
+      <div class="vocab-card"><div class="en">Leather</div><div class="pron">(lédzeR)</div><div class="es">Cuero</div></div>
+      <div class="vocab-card"><div class="en">Left</div><div class="pron">(left)</div><div class="es">Izquierda / dejado</div></div>
+      <div class="vocab-card"><div class="en">Leg</div><div class="pron">(leg)</div><div class="es">Pierna</div></div>
+      <div class="vocab-card"><div class="en">Let</div><div class="pron">(let)</div><div class="es">Dejar / permitir</div></div>
+      <div class="vocab-card"><div class="en">Letter</div><div class="pron">(léteR)</div><div class="es">Carta / letra</div></div>
+      <div class="vocab-card"><div class="en">Level</div><div class="pron">(lévEl)</div><div class="es">Nivel</div></div>
+      <div class="vocab-card"><div class="en">Library</div><div class="pron">(láibrari)</div><div class="es">Biblioteca</div></div>
+      <div class="vocab-card"><div class="en">Lift</div><div class="pron">(lift)</div><div class="es">Levantar / ascensor</div></div>
+      <div class="vocab-card"><div class="en">Light</div><div class="pron">(láit)</div><div class="es">Luz / ligero</div></div>
+      <div class="vocab-card"><div class="en">Like</div><div class="pron">(láik)</div><div class="es">Gustar / como</div></div>
+      <div class="vocab-card"><div class="en">Limit</div><div class="pron">(límit)</div><div class="es">Límite</div></div>
+      <div class="vocab-card"><div class="en">Line</div><div class="pron">(láin)</div><div class="es">Línea</div></div>
+      <div class="vocab-card"><div class="en">Linen</div><div class="pron">(línen)</div><div class="es">Lino / ropa blanca</div></div>
+      <div class="vocab-card"><div class="en">Lip</div><div class="pron">(lip)</div><div class="es">Labio</div></div>
+      <div class="vocab-card"><div class="en">Liquid</div><div class="pron">(líkuid)</div><div class="es">Líquido</div></div>
+      <div class="vocab-card"><div class="en">List</div><div class="pron">(list)</div><div class="es">Lista</div></div>
+      <div class="vocab-card"><div class="en">Little</div><div class="pron">(lítEl)</div><div class="es">Pequeño / poco</div></div>
+      <div class="vocab-card"><div class="en">Living</div><div class="pron">(líving)</div><div class="es">Viviendo</div></div>
+      <div class="vocab-card"><div class="en">Lock</div><div class="pron">(lok)</div><div class="es">Cerradura</div></div>
+      <div class="vocab-card"><div class="en">Long</div><div class="pron">(long)</div><div class="es">Largo</div></div>
+      <div class="vocab-card"><div class="en">Look</div><div class="pron">(luk)</div><div class="es">Mirar / parecer</div></div>
+      <div class="vocab-card"><div class="en">Loose</div><div class="pron">(lúus)</div><div class="es">Suelto</div></div>
+      <div class="vocab-card"><div class="en">Loss</div><div class="pron">(los)</div><div class="es">Pérdida</div></div>
+      <div class="vocab-card"><div class="en">Loud</div><div class="pron">(láud)</div><div class="es">Fuerte / ruidoso</div></div>
+      <div class="vocab-card"><div class="en">Love</div><div class="pron">(lav)</div><div class="es">Amor</div></div>
+      <div class="vocab-card"><div class="en">Low</div><div class="pron">(lóu)</div><div class="es">Bajo</div></div>
+    </div>
+  </div>
+
+  <!-- M words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--coral);margin-bottom:12px;">🔤 Palabras con M</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Machine</div><div class="pron">(maSHíin)</div><div class="es">Máquina</div></div>
+      <div class="vocab-card"><div class="en">Make</div><div class="pron">(méik)</div><div class="es">Hacer / fabricar</div></div>
+      <div class="vocab-card"><div class="en">Male</div><div class="pron">(méil)</div><div class="es">Masculino</div></div>
+      <div class="vocab-card"><div class="en">Man</div><div class="pron">(man)</div><div class="es">Hombre</div></div>
+      <div class="vocab-card"><div class="en">Manager</div><div class="pron">(máneyeR)</div><div class="es">Gerente</div></div>
+      <div class="vocab-card"><div class="en">Map</div><div class="pron">(map)</div><div class="es">Mapa</div></div>
+      <div class="vocab-card"><div class="en">Mark</div><div class="pron">(maaRk)</div><div class="es">Marca</div></div>
+      <div class="vocab-card"><div class="en">Market</div><div class="pron">(máaRket)</div><div class="es">Mercado</div></div>
+      <div class="vocab-card"><div class="en">Married</div><div class="pron">(márid)</div><div class="es">Casado</div></div>
+      <div class="vocab-card"><div class="en">Mass</div><div class="pron">(mas)</div><div class="es">Masa / misa</div></div>
+      <div class="vocab-card"><div class="en">Match</div><div class="pron">(mach)</div><div class="es">Fósforo / partido</div></div>
+      <div class="vocab-card"><div class="en">Material</div><div class="pron">(matírial)</div><div class="es">Material</div></div>
+      <div class="vocab-card"><div class="en">May</div><div class="pron">(méi)</div><div class="es">Poder (posibilidad)</div></div>
+      <div class="vocab-card"><div class="en">Meal</div><div class="pron">(míil)</div><div class="es">Comida</div></div>
+      <div class="vocab-card"><div class="en">Measure</div><div class="pron">(méshaR)</div><div class="es">Medida</div></div>
+      <div class="vocab-card"><div class="en">Meat</div><div class="pron">(míit)</div><div class="es">Carne</div></div>
+      <div class="vocab-card"><div class="en">Medical</div><div class="pron">(médikAl)</div><div class="es">Médico</div></div>
+      <div class="vocab-card"><div class="en">Meeting</div><div class="pron">(míiting)</div><div class="es">Reunión</div></div>
+      <div class="vocab-card"><div class="en">Memory</div><div class="pron">(mémori)</div><div class="es">Memoria</div></div>
+      <div class="vocab-card"><div class="en">Metal</div><div class="pron">(métAl)</div><div class="es">Metal</div></div>
+      <div class="vocab-card"><div class="en">Middle</div><div class="pron">(mídl)</div><div class="es">Medio / centro</div></div>
+      <div class="vocab-card"><div class="en">Military</div><div class="pron">(mílitari)</div><div class="es">Militar</div></div>
+      <div class="vocab-card"><div class="en">Milk</div><div class="pron">(milk)</div><div class="es">Leche</div></div>
+      <div class="vocab-card"><div class="en">Mind</div><div class="pron">(máind)</div><div class="es">Mente</div></div>
+      <div class="vocab-card"><div class="en">Mine</div><div class="pron">(máin)</div><div class="es">Mina / mío</div></div>
+      <div class="vocab-card"><div class="en">Minute</div><div class="pron">(mínit)</div><div class="es">Minuto</div></div>
+      <div class="vocab-card"><div class="en">Mist</div><div class="pron">(mist)</div><div class="es">Neblina</div></div>
+      <div class="vocab-card"><div class="en">Mixed</div><div class="pron">(mikst)</div><div class="es">Mezclado</div></div>
+      <div class="vocab-card"><div class="en">Money</div><div class="pron">(máni)</div><div class="es">Dinero</div></div>
+      <div class="vocab-card"><div class="en">Monkey</div><div class="pron">(mánki)</div><div class="es">Mono</div></div>
+      <div class="vocab-card"><div class="en">Month</div><div class="pron">(manz)</div><div class="es">Mes</div></div>
+      <div class="vocab-card"><div class="en">Moon</div><div class="pron">(múun)</div><div class="es">Luna</div></div>
+      <div class="vocab-card"><div class="en">Morning</div><div class="pron">(móoRning)</div><div class="es">Mañana</div></div>
+      <div class="vocab-card"><div class="en">Mother</div><div class="pron">(mádzeR)</div><div class="es">Madre</div></div>
+      <div class="vocab-card"><div class="en">Motion</div><div class="pron">(móuSHon)</div><div class="es">Movimiento</div></div>
+      <div class="vocab-card"><div class="en">Mountain</div><div class="pron">(máuntin)</div><div class="es">Montaña</div></div>
+      <div class="vocab-card"><div class="en">Mouth</div><div class="pron">(máuz)</div><div class="es">Boca</div></div>
+      <div class="vocab-card"><div class="en">Move</div><div class="pron">(múuv)</div><div class="es">Mover</div></div>
+      <div class="vocab-card"><div class="en">Much</div><div class="pron">(mach)</div><div class="es">Mucho</div></div>
+      <div class="vocab-card"><div class="en">Muscle</div><div class="pron">(másEl)</div><div class="es">Músculo</div></div>
+      <div class="vocab-card"><div class="en">Music</div><div class="pron">(miúsik)</div><div class="es">Música</div></div>
+    </div>
+  </div>
+
+  <!-- N-O-P words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--verde);margin-bottom:12px;">🔤 Palabras con N</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Nail</div><div class="pron">(néil)</div><div class="es">Uña / clavo</div></div>
+      <div class="vocab-card"><div class="en">Name</div><div class="pron">(néim)</div><div class="es">Nombre</div></div>
+      <div class="vocab-card"><div class="en">Narrow</div><div class="pron">(nároU)</div><div class="es">Estrecho</div></div>
+      <div class="vocab-card"><div class="en">Nation</div><div class="pron">(néiSHon)</div><div class="es">Nación</div></div>
+      <div class="vocab-card"><div class="en">Natural</div><div class="pron">(náchural)</div><div class="es">Natural</div></div>
+      <div class="vocab-card"><div class="en">Near</div><div class="pron">(níaR)</div><div class="es">Cerca</div></div>
+      <div class="vocab-card"><div class="en">Necessary</div><div class="pron">(néseseri)</div><div class="es">Necesario</div></div>
+      <div class="vocab-card"><div class="en">Neck</div><div class="pron">(nek)</div><div class="es">Cuello</div></div>
+      <div class="vocab-card"><div class="en">Need</div><div class="pron">(níid)</div><div class="es">Necesidad</div></div>
+      <div class="vocab-card"><div class="en">Needle</div><div class="pron">(níidEl)</div><div class="es">Aguja</div></div>
+      <div class="vocab-card"><div class="en">Nerve</div><div class="pron">(néeRv)</div><div class="es">Nervio</div></div>
+      <div class="vocab-card"><div class="en">Net</div><div class="pron">(net)</div><div class="es">Red</div></div>
+      <div class="vocab-card"><div class="en">New</div><div class="pron">(niúu)</div><div class="es">Nuevo</div></div>
+      <div class="vocab-card"><div class="en">News</div><div class="pron">(niúus)</div><div class="es">Noticias</div></div>
+      <div class="vocab-card"><div class="en">Night</div><div class="pron">(náit)</div><div class="es">Noche</div></div>
+      <div class="vocab-card"><div class="en">No</div><div class="pron">(nóu)</div><div class="es">No</div></div>
+      <div class="vocab-card"><div class="en">Noise</div><div class="pron">(nóis)</div><div class="es">Ruido</div></div>
+      <div class="vocab-card"><div class="en">Normal</div><div class="pron">(nóoRmal)</div><div class="es">Normal</div></div>
+      <div class="vocab-card"><div class="en">North</div><div class="pron">(nóoRz)</div><div class="es">Norte</div></div>
+      <div class="vocab-card"><div class="en">Nose</div><div class="pron">(nóus)</div><div class="es">Nariz</div></div>
+      <div class="vocab-card"><div class="en">Not</div><div class="pron">(not)</div><div class="es">No</div></div>
+      <div class="vocab-card"><div class="en">Note</div><div class="pron">(nóut)</div><div class="es">Nota</div></div>
+      <div class="vocab-card"><div class="en">Now</div><div class="pron">(náu)</div><div class="es">Ahora</div></div>
+      <div class="vocab-card"><div class="en">Number</div><div class="pron">(námbeR)</div><div class="es">Número</div></div>
+      <div class="vocab-card"><div class="en">Nut</div><div class="pron">(nat)</div><div class="es">Nuez</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--rosa);margin-bottom:12px;">🔤 Palabras con O</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Observation</div><div class="pron">(obseeRvéiSHon)</div><div class="es">Observación</div></div>
+      <div class="vocab-card"><div class="en">Of</div><div class="pron">(ov)</div><div class="es">De</div></div>
+      <div class="vocab-card"><div class="en">Off</div><div class="pron">(of)</div><div class="es">Apagado / fuera</div></div>
+      <div class="vocab-card"><div class="en">Offer</div><div class="pron">(ófeR)</div><div class="es">Oferta</div></div>
+      <div class="vocab-card"><div class="en">Office</div><div class="pron">(ófis)</div><div class="es">Oficina</div></div>
+      <div class="vocab-card"><div class="en">Oil</div><div class="pron">(óil)</div><div class="es">Aceite</div></div>
+      <div class="vocab-card"><div class="en">Old</div><div class="pron">(óuld)</div><div class="es">Viejo</div></div>
+      <div class="vocab-card"><div class="en">On</div><div class="pron">(on)</div><div class="es">Sobre / encendido</div></div>
+      <div class="vocab-card"><div class="en">Only</div><div class="pron">(óunli)</div><div class="es">Solo / único</div></div>
+      <div class="vocab-card"><div class="en">Open</div><div class="pron">(óupEn)</div><div class="es">Abierto / abrir</div></div>
+      <div class="vocab-card"><div class="en">Operation</div><div class="pron">(operéiSHon)</div><div class="es">Operación</div></div>
+      <div class="vocab-card"><div class="en">Opinion</div><div class="pron">(opínyOn)</div><div class="es">Opinión</div></div>
+      <div class="vocab-card"><div class="en">Opposite</div><div class="pron">(óposit)</div><div class="es">Opuesto</div></div>
+      <div class="vocab-card"><div class="en">Or</div><div class="pron">(óoR)</div><div class="es">O</div></div>
+      <div class="vocab-card"><div class="en">Orange</div><div class="pron">(óreny)</div><div class="es">Naranja</div></div>
+      <div class="vocab-card"><div class="en">Order</div><div class="pron">(óoRdeR)</div><div class="es">Orden</div></div>
+      <div class="vocab-card"><div class="en">Organisation</div><div class="pron">(oRganaiséiSHon)</div><div class="es">Organización</div></div>
+      <div class="vocab-card"><div class="en">Ornament</div><div class="pron">(óoRnament)</div><div class="es">Ornamento</div></div>
+      <div class="vocab-card"><div class="en">Other</div><div class="pron">(ódzeR)</div><div class="es">Otro</div></div>
+      <div class="vocab-card"><div class="en">Out</div><div class="pron">(áut)</div><div class="es">Afuera</div></div>
+      <div class="vocab-card"><div class="en">Oven</div><div class="pron">(ávEn)</div><div class="es">Horno</div></div>
+      <div class="vocab-card"><div class="en">Over</div><div class="pron">(óveR)</div><div class="es">Sobre / encima</div></div>
+      <div class="vocab-card"><div class="en">Owner</div><div class="pron">(óuneR)</div><div class="es">Dueño</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--azul);margin-bottom:12px;">🔤 Palabras con P</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Page</div><div class="pron">(péiy)</div><div class="es">Página</div></div>
+      <div class="vocab-card"><div class="en">Pain</div><div class="pron">(péin)</div><div class="es">Dolor</div></div>
+      <div class="vocab-card"><div class="en">Paint</div><div class="pron">(péint)</div><div class="es">Pintura</div></div>
+      <div class="vocab-card"><div class="en">Paper</div><div class="pron">(péipeR)</div><div class="es">Papel</div></div>
+      <div class="vocab-card"><div class="en">Parallel</div><div class="pron">(páralel)</div><div class="es">Paralelo</div></div>
+      <div class="vocab-card"><div class="en">Part</div><div class="pron">(paaRt)</div><div class="es">Parte</div></div>
+      <div class="vocab-card"><div class="en">Party</div><div class="pron">(páaRti)</div><div class="es">Fiesta / partido</div></div>
+      <div class="vocab-card"><div class="en">Past</div><div class="pron">(paast)</div><div class="es">Pasado</div></div>
+      <div class="vocab-card"><div class="en">Paste</div><div class="pron">(péist)</div><div class="es">Pasta / pegar</div></div>
+      <div class="vocab-card"><div class="en">Payment</div><div class="pron">(péiment)</div><div class="es">Pago</div></div>
+      <div class="vocab-card"><div class="en">Peace</div><div class="pron">(píis)</div><div class="es">Paz</div></div>
+      <div class="vocab-card"><div class="en">Pen</div><div class="pron">(pen)</div><div class="es">Pluma / bolígrafo</div></div>
+      <div class="vocab-card"><div class="en">Pencil</div><div class="pron">(pénsil)</div><div class="es">Lápiz</div></div>
+      <div class="vocab-card"><div class="en">Person</div><div class="pron">(péeRson)</div><div class="es">Persona</div></div>
+      <div class="vocab-card"><div class="en">Physical</div><div class="pron">(físikal)</div><div class="es">Físico</div></div>
+      <div class="vocab-card"><div class="en">Picture</div><div class="pron">(píkchaR)</div><div class="es">Cuadro / imagen</div></div>
+      <div class="vocab-card"><div class="en">Pig</div><div class="pron">(pig)</div><div class="es">Cerdo</div></div>
+      <div class="vocab-card"><div class="en">Pin</div><div class="pron">(pin)</div><div class="es">Alfiler</div></div>
+      <div class="vocab-card"><div class="en">Pipe</div><div class="pron">(páip)</div><div class="es">Tubo / pipa</div></div>
+      <div class="vocab-card"><div class="en">Place</div><div class="pron">(pléis)</div><div class="es">Lugar</div></div>
+      <div class="vocab-card"><div class="en">Plane</div><div class="pron">(pléin)</div><div class="es">Avión / plano</div></div>
+      <div class="vocab-card"><div class="en">Plant</div><div class="pron">(pláant)</div><div class="es">Planta</div></div>
+      <div class="vocab-card"><div class="en">Plate</div><div class="pron">(pléit)</div><div class="es">Plato</div></div>
+      <div class="vocab-card"><div class="en">Play</div><div class="pron">(pléi)</div><div class="es">Jugar / tocar</div></div>
+      <div class="vocab-card"><div class="en">Please</div><div class="pron">(plíis)</div><div class="es">Por favor / agradar</div></div>
+      <div class="vocab-card"><div class="en">Pleasure</div><div class="pron">(pléshaR)</div><div class="es">Placer</div></div>
+      <div class="vocab-card"><div class="en">Plough</div><div class="pron">(pláu)</div><div class="es">Arado</div></div>
+      <div class="vocab-card"><div class="en">Pocket</div><div class="pron">(póket)</div><div class="es">Bolsillo</div></div>
+      <div class="vocab-card"><div class="en">Point</div><div class="pron">(póint)</div><div class="es">Punto</div></div>
+      <div class="vocab-card"><div class="en">Poison</div><div class="pron">(póisOn)</div><div class="es">Veneno</div></div>
+      <div class="vocab-card"><div class="en">Polish</div><div class="pron">(póliSH)</div><div class="es">Lustre / pulir</div></div>
+      <div class="vocab-card"><div class="en">Political</div><div class="pron">(polítikal)</div><div class="es">Político</div></div>
+      <div class="vocab-card"><div class="en">Poor</div><div class="pron">(púeR)</div><div class="es">Pobre</div></div>
+      <div class="vocab-card"><div class="en">Porter</div><div class="pron">(póoRteR)</div><div class="es">Portero</div></div>
+      <div class="vocab-card"><div class="en">Position</div><div class="pron">(posíSHon)</div><div class="es">Posición</div></div>
+      <div class="vocab-card"><div class="en">Possible</div><div class="pron">(pósibl)</div><div class="es">Posible</div></div>
+      <div class="vocab-card"><div class="en">Pot</div><div class="pron">(pot)</div><div class="es">Olla</div></div>
+      <div class="vocab-card"><div class="en">Potato</div><div class="pron">(potéitoU)</div><div class="es">Papa / patata</div></div>
+      <div class="vocab-card"><div class="en">Powder</div><div class="pron">(páudeR)</div><div class="es">Polvo</div></div>
+      <div class="vocab-card"><div class="en">Power</div><div class="pron">(páueR)</div><div class="es">Poder</div></div>
+      <div class="vocab-card"><div class="en">Present</div><div class="pron">(présEnt)</div><div class="es">Presente / regalo</div></div>
+      <div class="vocab-card"><div class="en">Price</div><div class="pron">(práis)</div><div class="es">Precio</div></div>
+      <div class="vocab-card"><div class="en">Print</div><div class="pron">(print)</div><div class="es">Imprimir</div></div>
+      <div class="vocab-card"><div class="en">Prison</div><div class="pron">(prísOn)</div><div class="es">Prisión</div></div>
+      <div class="vocab-card"><div class="en">Private</div><div class="pron">(práivet)</div><div class="es">Privado</div></div>
+      <div class="vocab-card"><div class="en">Probable</div><div class="pron">(próbabl)</div><div class="es">Probable</div></div>
+      <div class="vocab-card"><div class="en">Process</div><div class="pron">(próuses)</div><div class="es">Proceso</div></div>
+      <div class="vocab-card"><div class="en">Produce</div><div class="pron">(prodiús)</div><div class="es">Producir</div></div>
+      <div class="vocab-card"><div class="en">Profit</div><div class="pron">(prófit)</div><div class="es">Beneficio</div></div>
+      <div class="vocab-card"><div class="en">Property</div><div class="pron">(própeeRti)</div><div class="es">Propiedad</div></div>
+      <div class="vocab-card"><div class="en">Prose</div><div class="pron">(próus)</div><div class="es">Prosa</div></div>
+      <div class="vocab-card"><div class="en">Protest</div><div class="pron">(prótest)</div><div class="es">Protesta</div></div>
+      <div class="vocab-card"><div class="en">Public</div><div class="pron">(páblik)</div><div class="es">Público</div></div>
+      <div class="vocab-card"><div class="en">Pull</div><div class="pron">(pul)</div><div class="es">Jalar / tirar</div></div>
+      <div class="vocab-card"><div class="en">Pump</div><div class="pron">(pamp)</div><div class="es">Bomba</div></div>
+      <div class="vocab-card"><div class="en">Punishment</div><div class="pron">(pániSHment)</div><div class="es">Castigo</div></div>
+      <div class="vocab-card"><div class="en">Purpose</div><div class="pron">(péeRpos)</div><div class="es">Propósito</div></div>
+      <div class="vocab-card"><div class="en">Push</div><div class="pron">(puSH)</div><div class="es">Empujar</div></div>
+      <div class="vocab-card"><div class="en">Put</div><div class="pron">(put)</div><div class="es">Poner</div></div>
+    </div>
+  </div>
+
+  <!-- Q-R words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--violeta);margin-bottom:12px;">🔤 Palabras con Q y R</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Quality</div><div class="pron">(cuáliti)</div><div class="es">Calidad</div></div>
+      <div class="vocab-card"><div class="en">Question</div><div class="pron">(cuésCHon)</div><div class="es">Pregunta</div></div>
+      <div class="vocab-card"><div class="en">Quick</div><div class="pron">(cuík)</div><div class="es">Rápido</div></div>
+      <div class="vocab-card"><div class="en">Quiet</div><div class="pron">(cuáiet)</div><div class="es">Tranquilo</div></div>
+      <div class="vocab-card"><div class="en">Quite</div><div class="pron">(cuáit)</div><div class="es">Bastante</div></div>
+      <div class="vocab-card"><div class="en">Rail</div><div class="pron">(réil)</div><div class="es">Riel / baranda</div></div>
+      <div class="vocab-card"><div class="en">Rain</div><div class="pron">(réin)</div><div class="es">Lluvia</div></div>
+      <div class="vocab-card"><div class="en">Range</div><div class="pron">(réiny)</div><div class="es">Rango / alcance</div></div>
+      <div class="vocab-card"><div class="en">Rat</div><div class="pron">(rat)</div><div class="es">Rata</div></div>
+      <div class="vocab-card"><div class="en">Rate</div><div class="pron">(réit)</div><div class="es">Tasa / ritmo</div></div>
+      <div class="vocab-card"><div class="en">Ray</div><div class="pron">(réi)</div><div class="es">Rayo</div></div>
+      <div class="vocab-card"><div class="en">Reaction</div><div class="pron">(riákSHon)</div><div class="es">Reacción</div></div>
+      <div class="vocab-card"><div class="en">Reading</div><div class="pron">(ríiding)</div><div class="es">Lectura</div></div>
+      <div class="vocab-card"><div class="en">Ready</div><div class="pron">(rédi)</div><div class="es">Listo</div></div>
+      <div class="vocab-card"><div class="en">Reason</div><div class="pron">(ríisOn)</div><div class="es">Razón</div></div>
+      <div class="vocab-card"><div class="en">Record</div><div class="pron">(rékoRd)</div><div class="es">Grabar / récord</div></div>
+      <div class="vocab-card"><div class="en">Red</div><div class="pron">(red)</div><div class="es">Rojo</div></div>
+      <div class="vocab-card"><div class="en">Regret</div><div class="pron">(rigrét)</div><div class="es">Arrepentimiento</div></div>
+      <div class="vocab-card"><div class="en">Regular</div><div class="pron">(réguiulaR)</div><div class="es">Regular</div></div>
+      <div class="vocab-card"><div class="en">Relation</div><div class="pron">(riléiSHon)</div><div class="es">Relación</div></div>
+      <div class="vocab-card"><div class="en">Religion</div><div class="pron">(rilíyOn)</div><div class="es">Religión</div></div>
+      <div class="vocab-card"><div class="en">Representative</div><div class="pron">(repriSéntativ)</div><div class="es">Representante</div></div>
+      <div class="vocab-card"><div class="en">Request</div><div class="pron">(rikuést)</div><div class="es">Solicitud</div></div>
+      <div class="vocab-card"><div class="en">Respect</div><div class="pron">(rispékt)</div><div class="es">Respeto</div></div>
+      <div class="vocab-card"><div class="en">Responsible</div><div class="pron">(rispónsibl)</div><div class="es">Responsable</div></div>
+      <div class="vocab-card"><div class="en">Rest</div><div class="pron">(rest)</div><div class="es">Descanso</div></div>
+      <div class="vocab-card"><div class="en">Reward</div><div class="pron">(riuóoRd)</div><div class="es">Recompensa</div></div>
+      <div class="vocab-card"><div class="en">Rhythm</div><div class="pron">(rídEm)</div><div class="es">Ritmo</div></div>
+      <div class="vocab-card"><div class="en">Rice</div><div class="pron">(ráis)</div><div class="es">Arroz</div></div>
+      <div class="vocab-card"><div class="en">Right</div><div class="pron">(ráit)</div><div class="es">Derecha / correcto</div></div>
+      <div class="vocab-card"><div class="en">Ring</div><div class="pron">(ring)</div><div class="es">Anillo</div></div>
+      <div class="vocab-card"><div class="en">River</div><div class="pron">(ríveR)</div><div class="es">Río</div></div>
+      <div class="vocab-card"><div class="en">Road</div><div class="pron">(róud)</div><div class="es">Camino / carretera</div></div>
+      <div class="vocab-card"><div class="en">Rod</div><div class="pron">(rod)</div><div class="es">Vara</div></div>
+      <div class="vocab-card"><div class="en">Roll</div><div class="pron">(róul)</div><div class="es">Rodar / rollo</div></div>
+      <div class="vocab-card"><div class="en">Roof</div><div class="pron">(rúuf)</div><div class="es">Techo</div></div>
+      <div class="vocab-card"><div class="en">Room</div><div class="pron">(rúum)</div><div class="es">Habitación</div></div>
+      <div class="vocab-card"><div class="en">Root</div><div class="pron">(rúut)</div><div class="es">Raíz</div></div>
+      <div class="vocab-card"><div class="en">Rough</div><div class="pron">(raf)</div><div class="es">Áspero / tosco</div></div>
+      <div class="vocab-card"><div class="en">Round</div><div class="pron">(ráund)</div><div class="es">Redondo</div></div>
+      <div class="vocab-card"><div class="en">Rub</div><div class="pron">(rab)</div><div class="es">Frotar</div></div>
+      <div class="vocab-card"><div class="en">Rule</div><div class="pron">(rúul)</div><div class="es">Regla</div></div>
+      <div class="vocab-card"><div class="en">Run</div><div class="pron">(ran)</div><div class="es">Correr</div></div>
+    </div>
+  </div>
+
+  <!-- S words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--coral);margin-bottom:12px;">🔤 Palabras con S (1)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Sad</div><div class="pron">(sad)</div><div class="es">Triste</div></div>
+      <div class="vocab-card"><div class="en">Safe</div><div class="pron">(séif)</div><div class="es">Seguro</div></div>
+      <div class="vocab-card"><div class="en">Sail</div><div class="pron">(séil)</div><div class="es">Vela / navegar</div></div>
+      <div class="vocab-card"><div class="en">Salt</div><div class="pron">(sóolt)</div><div class="es">Sal</div></div>
+      <div class="vocab-card"><div class="en">Same</div><div class="pron">(séim)</div><div class="es">Mismo</div></div>
+      <div class="vocab-card"><div class="en">Sand</div><div class="pron">(sand)</div><div class="es">Arena</div></div>
+      <div class="vocab-card"><div class="en">Say</div><div class="pron">(séi)</div><div class="es">Decir</div></div>
+      <div class="vocab-card"><div class="en">Scale</div><div class="pron">(skéil)</div><div class="es">Escala</div></div>
+      <div class="vocab-card"><div class="en">School</div><div class="pron">(skúul)</div><div class="es">Escuela</div></div>
+      <div class="vocab-card"><div class="en">Science</div><div class="pron">(sáiens)</div><div class="es">Ciencia</div></div>
+      <div class="vocab-card"><div class="en">Scissors</div><div class="pron">(sísors)</div><div class="es">Tijeras</div></div>
+      <div class="vocab-card"><div class="en">Screw</div><div class="pron">(skrúu)</div><div class="es">Tornillo</div></div>
+      <div class="vocab-card"><div class="en">Sea</div><div class="pron">(síi)</div><div class="es">Mar</div></div>
+      <div class="vocab-card"><div class="en">Seat</div><div class="pron">(síit)</div><div class="es">Asiento</div></div>
+      <div class="vocab-card"><div class="en">Second</div><div class="pron">(sékond)</div><div class="es">Segundo</div></div>
+      <div class="vocab-card"><div class="en">Secret</div><div class="pron">(síkret)</div><div class="es">Secreto</div></div>
+      <div class="vocab-card"><div class="en">Secretary</div><div class="pron">(sékretari)</div><div class="es">Secretario/a</div></div>
+      <div class="vocab-card"><div class="en">See</div><div class="pron">(síi)</div><div class="es">Ver</div></div>
+      <div class="vocab-card"><div class="en">Seed</div><div class="pron">(síid)</div><div class="es">Semilla</div></div>
+      <div class="vocab-card"><div class="en">Seem</div><div class="pron">(síim)</div><div class="es">Parecer</div></div>
+      <div class="vocab-card"><div class="en">Selection</div><div class="pron">(selékSHon)</div><div class="es">Selección</div></div>
+      <div class="vocab-card"><div class="en">Self</div><div class="pron">(self)</div><div class="es">Uno mismo</div></div>
+      <div class="vocab-card"><div class="en">Send</div><div class="pron">(send)</div><div class="es">Enviar</div></div>
+    </div>
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--coral);margin:16px 0 12px;">🔤 Palabras con S (2)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Sense</div><div class="pron">(sens)</div><div class="es">Sentido</div></div>
+      <div class="vocab-card"><div class="en">Separate</div><div class="pron">(séparéit)</div><div class="es">Separado</div></div>
+      <div class="vocab-card"><div class="en">Serious</div><div class="pron">(síries)</div><div class="es">Serio</div></div>
+      <div class="vocab-card"><div class="en">Servant</div><div class="pron">(séeRvAnt)</div><div class="es">Sirviente</div></div>
+      <div class="vocab-card"><div class="en">Sex</div><div class="pron">(seks)</div><div class="es">Sexo</div></div>
+      <div class="vocab-card"><div class="en">Shade</div><div class="pron">(SHéid)</div><div class="es">Sombra</div></div>
+      <div class="vocab-card"><div class="en">Shake</div><div class="pron">(SHéik)</div><div class="es">Sacudir</div></div>
+      <div class="vocab-card"><div class="en">Shame</div><div class="pron">(SHéim)</div><div class="es">Vergüenza</div></div>
+      <div class="vocab-card"><div class="en">Sharp</div><div class="pron">(SHáaRp)</div><div class="es">Afilado</div></div>
+      <div class="vocab-card"><div class="en">She</div><div class="pron">(SHíi)</div><div class="es">Ella</div></div>
+      <div class="vocab-card"><div class="en">Sheep</div><div class="pron">(SHíip)</div><div class="es">Oveja</div></div>
+      <div class="vocab-card"><div class="en">Shelf</div><div class="pron">(SHelf)</div><div class="es">Estante</div></div>
+      <div class="vocab-card"><div class="en">Ship</div><div class="pron">(SHip)</div><div class="es">Barco</div></div>
+      <div class="vocab-card"><div class="en">Shirt</div><div class="pron">(SHéeRt)</div><div class="es">Camisa</div></div>
+      <div class="vocab-card"><div class="en">Shock</div><div class="pron">(SHok)</div><div class="es">Choque</div></div>
+      <div class="vocab-card"><div class="en">Shoe</div><div class="pron">(SHúu)</div><div class="es">Zapato</div></div>
+      <div class="vocab-card"><div class="en">Short</div><div class="pron">(SHóoRt)</div><div class="es">Corto / bajo</div></div>
+      <div class="vocab-card"><div class="en">Shut</div><div class="pron">(SHat)</div><div class="es">Cerrar</div></div>
+      <div class="vocab-card"><div class="en">Side</div><div class="pron">(sáid)</div><div class="es">Lado</div></div>
+      <div class="vocab-card"><div class="en">Sign</div><div class="pron">(sáin)</div><div class="es">Señal / firmar</div></div>
+      <div class="vocab-card"><div class="en">Silk</div><div class="pron">(silk)</div><div class="es">Seda</div></div>
+      <div class="vocab-card"><div class="en">Silver</div><div class="pron">(sílveR)</div><div class="es">Plata</div></div>
+      <div class="vocab-card"><div class="en">Simple</div><div class="pron">(símpEl)</div><div class="es">Simple</div></div>
+      <div class="vocab-card"><div class="en">Sister</div><div class="pron">(sísteR)</div><div class="es">Hermana</div></div>
+      <div class="vocab-card"><div class="en">Size</div><div class="pron">(sáis)</div><div class="es">Tamaño</div></div>
+      <div class="vocab-card"><div class="en">Skin</div><div class="pron">(skin)</div><div class="es">Piel</div></div>
+      <div class="vocab-card"><div class="en">Skirt</div><div class="pron">(skéeRt)</div><div class="es">Falda</div></div>
+      <div class="vocab-card"><div class="en">Sky</div><div class="pron">(skái)</div><div class="es">Cielo</div></div>
+    </div>
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--coral);margin:16px 0 12px;">🔤 Palabras con S (3)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Sleep</div><div class="pron">(slíip)</div><div class="es">Dormir</div></div>
+      <div class="vocab-card"><div class="en">Slip</div><div class="pron">(slip)</div><div class="es">Resbalar</div></div>
+      <div class="vocab-card"><div class="en">Slope</div><div class="pron">(slóup)</div><div class="es">Pendiente</div></div>
+      <div class="vocab-card"><div class="en">Slow</div><div class="pron">(slóu)</div><div class="es">Lento</div></div>
+      <div class="vocab-card"><div class="en">Small</div><div class="pron">(smóol)</div><div class="es">Pequeño</div></div>
+      <div class="vocab-card"><div class="en">Smash</div><div class="pron">(smaSH)</div><div class="es">Aplastar</div></div>
+      <div class="vocab-card"><div class="en">Smell</div><div class="pron">(smel)</div><div class="es">Oler / olor</div></div>
+      <div class="vocab-card"><div class="en">Smile</div><div class="pron">(smáil)</div><div class="es">Sonrisa</div></div>
+      <div class="vocab-card"><div class="en">Smoke</div><div class="pron">(smóuk)</div><div class="es">Humo</div></div>
+      <div class="vocab-card"><div class="en">Smooth</div><div class="pron">(smúudz)</div><div class="es">Suave</div></div>
+      <div class="vocab-card"><div class="en">Snake</div><div class="pron">(snéik)</div><div class="es">Serpiente</div></div>
+      <div class="vocab-card"><div class="en">Sneeze</div><div class="pron">(sníiz)</div><div class="es">Estornudo</div></div>
+      <div class="vocab-card"><div class="en">Snow</div><div class="pron">(snóu)</div><div class="es">Nieve</div></div>
+      <div class="vocab-card"><div class="en">So</div><div class="pron">(sóu)</div><div class="es">Así que / tan</div></div>
+      <div class="vocab-card"><div class="en">Soap</div><div class="pron">(sóup)</div><div class="es">Jabón</div></div>
+      <div class="vocab-card"><div class="en">Society</div><div class="pron">(sosáieti)</div><div class="es">Sociedad</div></div>
+      <div class="vocab-card"><div class="en">Sock</div><div class="pron">(sok)</div><div class="es">Calcetín</div></div>
+      <div class="vocab-card"><div class="en">Soft</div><div class="pron">(soft)</div><div class="es">Suave / blando</div></div>
+      <div class="vocab-card"><div class="en">Solid</div><div class="pron">(sólid)</div><div class="es">Sólido</div></div>
+      <div class="vocab-card"><div class="en">Some</div><div class="pron">(sam)</div><div class="es">Algún / algo de</div></div>
+      <div class="vocab-card"><div class="en">Son</div><div class="pron">(san)</div><div class="es">Hijo</div></div>
+      <div class="vocab-card"><div class="en">Song</div><div class="pron">(song)</div><div class="es">Canción</div></div>
+      <div class="vocab-card"><div class="en">Sort</div><div class="pron">(sóoRt)</div><div class="es">Tipo / clase</div></div>
+    </div>
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--coral);margin:16px 0 12px;">🔤 Palabras con S (4)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Sound</div><div class="pron">(sáund)</div><div class="es">Sonido</div></div>
+      <div class="vocab-card"><div class="en">Soup</div><div class="pron">(súup)</div><div class="es">Sopa</div></div>
+      <div class="vocab-card"><div class="en">South</div><div class="pron">(sáuz)</div><div class="es">Sur</div></div>
+      <div class="vocab-card"><div class="en">Space</div><div class="pron">(spéis)</div><div class="es">Espacio</div></div>
+      <div class="vocab-card"><div class="en">Spade</div><div class="pron">(spéid)</div><div class="es">Pala</div></div>
+      <div class="vocab-card"><div class="en">Special</div><div class="pron">(spéSHal)</div><div class="es">Especial</div></div>
+      <div class="vocab-card"><div class="en">Sponge</div><div class="pron">(spony)</div><div class="es">Esponja</div></div>
+      <div class="vocab-card"><div class="en">Spoon</div><div class="pron">(spúun)</div><div class="es">Cuchara</div></div>
+      <div class="vocab-card"><div class="en">Spring</div><div class="pron">(spring)</div><div class="es">Primavera / resorte</div></div>
+      <div class="vocab-card"><div class="en">Square</div><div class="pron">(scuéaR)</div><div class="es">Cuadrado / plaza</div></div>
+      <div class="vocab-card"><div class="en">Stage</div><div class="pron">(stéiy)</div><div class="es">Etapa / escenario</div></div>
+      <div class="vocab-card"><div class="en">Stamp</div><div class="pron">(stamp)</div><div class="es">Estampilla</div></div>
+      <div class="vocab-card"><div class="en">Star</div><div class="pron">(stáaR)</div><div class="es">Estrella</div></div>
+      <div class="vocab-card"><div class="en">Start</div><div class="pron">(stáaRt)</div><div class="es">Empezar</div></div>
+      <div class="vocab-card"><div class="en">Statement</div><div class="pron">(stéitment)</div><div class="es">Declaración</div></div>
+      <div class="vocab-card"><div class="en">Station</div><div class="pron">(stéiSHon)</div><div class="es">Estación</div></div>
+      <div class="vocab-card"><div class="en">Steam</div><div class="pron">(stíim)</div><div class="es">Vapor</div></div>
+      <div class="vocab-card"><div class="en">Steel</div><div class="pron">(stíil)</div><div class="es">Acero</div></div>
+      <div class="vocab-card"><div class="en">Stem</div><div class="pron">(stem)</div><div class="es">Tallo</div></div>
+      <div class="vocab-card"><div class="en">Step</div><div class="pron">(step)</div><div class="es">Paso</div></div>
+      <div class="vocab-card"><div class="en">Stick</div><div class="pron">(stik)</div><div class="es">Palo / pegar</div></div>
+      <div class="vocab-card"><div class="en">Sticky</div><div class="pron">(stíki)</div><div class="es">Pegajoso</div></div>
+      <div class="vocab-card"><div class="en">Stiff</div><div class="pron">(stif)</div><div class="es">Rígido</div></div>
+      <div class="vocab-card"><div class="en">Still</div><div class="pron">(stil)</div><div class="es">Todavía / quieto</div></div>
+      <div class="vocab-card"><div class="en">Stitch</div><div class="pron">(stich)</div><div class="es">Puntada</div></div>
+      <div class="vocab-card"><div class="en">Stocking</div><div class="pron">(stóking)</div><div class="es">Media</div></div>
+      <div class="vocab-card"><div class="en">Stomach</div><div class="pron">(stómak)</div><div class="es">Estómago</div></div>
+      <div class="vocab-card"><div class="en">Stone</div><div class="pron">(stóun)</div><div class="es">Piedra</div></div>
+      <div class="vocab-card"><div class="en">Stop</div><div class="pron">(stop)</div><div class="es">Parar</div></div>
+    </div>
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--coral);margin:16px 0 12px;">🔤 Palabras con S (5)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Store</div><div class="pron">(stóoR)</div><div class="es">Tienda / almacenar</div></div>
+      <div class="vocab-card"><div class="en">Story</div><div class="pron">(stóori)</div><div class="es">Historia / cuento</div></div>
+      <div class="vocab-card"><div class="en">Straight</div><div class="pron">(stréit)</div><div class="es">Recto / directo</div></div>
+      <div class="vocab-card"><div class="en">Strange</div><div class="pron">(stréiny)</div><div class="es">Extraño</div></div>
+      <div class="vocab-card"><div class="en">Street</div><div class="pron">(stríit)</div><div class="es">Calle</div></div>
+      <div class="vocab-card"><div class="en">Stretch</div><div class="pron">(strech)</div><div class="es">Estirar</div></div>
+      <div class="vocab-card"><div class="en">Strong</div><div class="pron">(strong)</div><div class="es">Fuerte</div></div>
+      <div class="vocab-card"><div class="en">Structure</div><div class="pron">(strákchaR)</div><div class="es">Estructura</div></div>
+      <div class="vocab-card"><div class="en">Substance</div><div class="pron">(sábstans)</div><div class="es">Sustancia</div></div>
+      <div class="vocab-card"><div class="en">Such</div><div class="pron">(sach)</div><div class="es">Tal / semejante</div></div>
+      <div class="vocab-card"><div class="en">Sudden</div><div class="pron">(sádEn)</div><div class="es">Repentino</div></div>
+      <div class="vocab-card"><div class="en">Sugar</div><div class="pron">(SHúgaR)</div><div class="es">Azúcar</div></div>
+      <div class="vocab-card"><div class="en">Suggestion</div><div class="pron">(sayésCHon)</div><div class="es">Sugerencia</div></div>
+      <div class="vocab-card"><div class="en">Summer</div><div class="pron">(sámeR)</div><div class="es">Verano</div></div>
+      <div class="vocab-card"><div class="en">Sun</div><div class="pron">(san)</div><div class="es">Sol</div></div>
+      <div class="vocab-card"><div class="en">Support</div><div class="pron">(sapóoRt)</div><div class="es">Apoyo</div></div>
+      <div class="vocab-card"><div class="en">Surprise</div><div class="pron">(séeRpráis)</div><div class="es">Sorpresa</div></div>
+      <div class="vocab-card"><div class="en">Sweet</div><div class="pron">(suíit)</div><div class="es">Dulce</div></div>
+      <div class="vocab-card"><div class="en">Swim</div><div class="pron">(suím)</div><div class="es">Nadar</div></div>
+      <div class="vocab-card"><div class="en">System</div><div class="pron">(sístem)</div><div class="es">Sistema</div></div>
+    </div>
+  </div>
+
+  <!-- T words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--azul);margin-bottom:12px;">🔤 Palabras con T</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Table</div><div class="pron">(téibEl)</div><div class="es">Mesa</div></div>
+      <div class="vocab-card"><div class="en">Tail</div><div class="pron">(téil)</div><div class="es">Cola</div></div>
+      <div class="vocab-card"><div class="en">Take</div><div class="pron">(téik)</div><div class="es">Tomar</div></div>
+      <div class="vocab-card"><div class="en">Talk</div><div class="pron">(tóok)</div><div class="es">Hablar</div></div>
+      <div class="vocab-card"><div class="en">Tall</div><div class="pron">(tóol)</div><div class="es">Alto</div></div>
+      <div class="vocab-card"><div class="en">Taste</div><div class="pron">(téist)</div><div class="es">Sabor / probar</div></div>
+      <div class="vocab-card"><div class="en">Tax</div><div class="pron">(taks)</div><div class="es">Impuesto</div></div>
+      <div class="vocab-card"><div class="en">Teaching</div><div class="pron">(tíiching)</div><div class="es">Enseñanza</div></div>
+      <div class="vocab-card"><div class="en">Tear</div><div class="pron">(tíaR / téaR)</div><div class="es">Lágrima / rasgar</div></div>
+      <div class="vocab-card"><div class="en">Teeth</div><div class="pron">(tíiz)</div><div class="es">Dientes</div></div>
+      <div class="vocab-card"><div class="en">Tendency</div><div class="pron">(téndensi)</div><div class="es">Tendencia</div></div>
+      <div class="vocab-card"><div class="en">Test</div><div class="pron">(test)</div><div class="es">Prueba / examen</div></div>
+      <div class="vocab-card"><div class="en">Than</div><div class="pron">(dzan)</div><div class="es">Que (comparativo)</div></div>
+      <div class="vocab-card"><div class="en">That</div><div class="pron">(dzat)</div><div class="es">Eso / esa / ese</div></div>
+      <div class="vocab-card"><div class="en">The</div><div class="pron">(dze)</div><div class="es">El / la / los / las</div></div>
+      <div class="vocab-card"><div class="en">Then</div><div class="pron">(dzen)</div><div class="es">Entonces</div></div>
+      <div class="vocab-card"><div class="en">Theory</div><div class="pron">(zíori)</div><div class="es">Teoría</div></div>
+      <div class="vocab-card"><div class="en">There</div><div class="pron">(dzéaR)</div><div class="es">Allá / allí</div></div>
+      <div class="vocab-card"><div class="en">Thick</div><div class="pron">(zik)</div><div class="es">Grueso</div></div>
+      <div class="vocab-card"><div class="en">Thin</div><div class="pron">(zin)</div><div class="es">Delgado</div></div>
+      <div class="vocab-card"><div class="en">Thing</div><div class="pron">(zing)</div><div class="es">Cosa</div></div>
+      <div class="vocab-card"><div class="en">This</div><div class="pron">(dzis)</div><div class="es">Este / esta / esto</div></div>
+      <div class="vocab-card"><div class="en">Thought</div><div class="pron">(zóot)</div><div class="es">Pensamiento</div></div>
+    </div>
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--azul);margin:16px 0 12px;">🔤 Palabras con T (2)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Thread</div><div class="pron">(zred)</div><div class="es">Hilo</div></div>
+      <div class="vocab-card"><div class="en">Throat</div><div class="pron">(zróut)</div><div class="es">Garganta</div></div>
+      <div class="vocab-card"><div class="en">Through</div><div class="pron">(zrúu)</div><div class="es">A través de</div></div>
+      <div class="vocab-card"><div class="en">Thumb</div><div class="pron">(zam)</div><div class="es">Pulgar</div></div>
+      <div class="vocab-card"><div class="en">Thunder</div><div class="pron">(zándeR)</div><div class="es">Trueno</div></div>
+      <div class="vocab-card"><div class="en">Ticket</div><div class="pron">(tíket)</div><div class="es">Boleto</div></div>
+      <div class="vocab-card"><div class="en">Tight</div><div class="pron">(táit)</div><div class="es">Apretado</div></div>
+      <div class="vocab-card"><div class="en">Till</div><div class="pron">(til)</div><div class="es">Hasta</div></div>
+      <div class="vocab-card"><div class="en">Time</div><div class="pron">(táim)</div><div class="es">Tiempo</div></div>
+      <div class="vocab-card"><div class="en">Tin</div><div class="pron">(tin)</div><div class="es">Estaño / lata</div></div>
+      <div class="vocab-card"><div class="en">Tired</div><div class="pron">(táiaRd)</div><div class="es">Cansado</div></div>
+      <div class="vocab-card"><div class="en">To</div><div class="pron">(tu)</div><div class="es">A / para</div></div>
+      <div class="vocab-card"><div class="en">Today</div><div class="pron">(tudéi)</div><div class="es">Hoy</div></div>
+      <div class="vocab-card"><div class="en">Toe</div><div class="pron">(tóu)</div><div class="es">Dedo del pie</div></div>
+      <div class="vocab-card"><div class="en">Together</div><div class="pron">(tuguédzeR)</div><div class="es">Juntos</div></div>
+      <div class="vocab-card"><div class="en">Tomorrow</div><div class="pron">(tumóroU)</div><div class="es">Mañana</div></div>
+      <div class="vocab-card"><div class="en">Tongue</div><div class="pron">(tang)</div><div class="es">Lengua</div></div>
+      <div class="vocab-card"><div class="en">Tonight</div><div class="pron">(tunáit)</div><div class="es">Esta noche</div></div>
+      <div class="vocab-card"><div class="en">Tooth</div><div class="pron">(túuz)</div><div class="es">Diente</div></div>
+      <div class="vocab-card"><div class="en">Top</div><div class="pron">(top)</div><div class="es">Cima / parte superior</div></div>
+      <div class="vocab-card"><div class="en">Touch</div><div class="pron">(tach)</div><div class="es">Tocar</div></div>
+      <div class="vocab-card"><div class="en">Town</div><div class="pron">(táun)</div><div class="es">Pueblo / ciudad</div></div>
+      <div class="vocab-card"><div class="en">Trade</div><div class="pron">(tréid)</div><div class="es">Comercio</div></div>
+      <div class="vocab-card"><div class="en">Train</div><div class="pron">(tréin)</div><div class="es">Tren / entrenar</div></div>
+    </div>
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--azul);margin:16px 0 12px;">🔤 Palabras con T (3)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Transport</div><div class="pron">(tránspooRt)</div><div class="es">Transporte</div></div>
+      <div class="vocab-card"><div class="en">Tray</div><div class="pron">(tréi)</div><div class="es">Bandeja</div></div>
+      <div class="vocab-card"><div class="en">Tree</div><div class="pron">(tríi)</div><div class="es">Árbol</div></div>
+      <div class="vocab-card"><div class="en">Trick</div><div class="pron">(trik)</div><div class="es">Truco</div></div>
+      <div class="vocab-card"><div class="en">Trouble</div><div class="pron">(trábEl)</div><div class="es">Problema</div></div>
+      <div class="vocab-card"><div class="en">Trousers</div><div class="pron">(tráuseRs)</div><div class="es">Pantalones</div></div>
+      <div class="vocab-card"><div class="en">True</div><div class="pron">(trúu)</div><div class="es">Verdadero</div></div>
+      <div class="vocab-card"><div class="en">Turn</div><div class="pron">(téeRn)</div><div class="es">Girar / turno</div></div>
+      <div class="vocab-card"><div class="en">Twist</div><div class="pron">(tuíst)</div><div class="es">Torcer</div></div>
+    </div>
+  </div>
+
+  <!-- U-V-W-Y words -->
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--violeta);margin-bottom:12px;">🔤 Palabras con U, V</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Umbrella</div><div class="pron">(ambréla)</div><div class="es">Paraguas</div></div>
+      <div class="vocab-card"><div class="en">Under</div><div class="pron">(ándeR)</div><div class="es">Debajo</div></div>
+      <div class="vocab-card"><div class="en">Unit</div><div class="pron">(iúnit)</div><div class="es">Unidad</div></div>
+      <div class="vocab-card"><div class="en">Up</div><div class="pron">(ap)</div><div class="es">Arriba</div></div>
+      <div class="vocab-card"><div class="en">Use</div><div class="pron">(iús / iúz)</div><div class="es">Uso / usar</div></div>
+      <div class="vocab-card"><div class="en">Value</div><div class="pron">(váliu)</div><div class="es">Valor</div></div>
+      <div class="vocab-card"><div class="en">Verse</div><div class="pron">(véeRs)</div><div class="es">Verso</div></div>
+      <div class="vocab-card"><div class="en">Very</div><div class="pron">(véri)</div><div class="es">Muy</div></div>
+      <div class="vocab-card"><div class="en">Vessel</div><div class="pron">(vésEl)</div><div class="es">Embarcación</div></div>
+      <div class="vocab-card"><div class="en">View</div><div class="pron">(viúu)</div><div class="es">Vista</div></div>
+      <div class="vocab-card"><div class="en">Violent</div><div class="pron">(váiolent)</div><div class="es">Violento</div></div>
+      <div class="vocab-card"><div class="en">Voice</div><div class="pron">(vóis)</div><div class="es">Voz</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--verde);margin-bottom:12px;">🔤 Palabras con W (1)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Waiting</div><div class="pron">(uéiting)</div><div class="es">Esperando</div></div>
+      <div class="vocab-card"><div class="en">Walk</div><div class="pron">(uóok)</div><div class="es">Caminar</div></div>
+      <div class="vocab-card"><div class="en">Wall</div><div class="pron">(uóol)</div><div class="es">Pared / muro</div></div>
+      <div class="vocab-card"><div class="en">War</div><div class="pron">(uóoR)</div><div class="es">Guerra</div></div>
+      <div class="vocab-card"><div class="en">Warm</div><div class="pron">(uóoRm)</div><div class="es">Cálido</div></div>
+      <div class="vocab-card"><div class="en">Wash</div><div class="pron">(uoSH)</div><div class="es">Lavar</div></div>
+      <div class="vocab-card"><div class="en">Waste</div><div class="pron">(uéist)</div><div class="es">Desperdicio</div></div>
+      <div class="vocab-card"><div class="en">Watch</div><div class="pron">(uóch)</div><div class="es">Reloj / observar</div></div>
+      <div class="vocab-card"><div class="en">Water</div><div class="pron">(uóoteR)</div><div class="es">Agua</div></div>
+      <div class="vocab-card"><div class="en">Wave</div><div class="pron">(uéiv)</div><div class="es">Ola / saludar</div></div>
+      <div class="vocab-card"><div class="en">Wax</div><div class="pron">(uaks)</div><div class="es">Cera</div></div>
+      <div class="vocab-card"><div class="en">Way</div><div class="pron">(uéi)</div><div class="es">Camino / manera</div></div>
+      <div class="vocab-card"><div class="en">Weather</div><div class="pron">(uédzeR)</div><div class="es">Clima</div></div>
+      <div class="vocab-card"><div class="en">Week</div><div class="pron">(uíik)</div><div class="es">Semana</div></div>
+      <div class="vocab-card"><div class="en">Weight</div><div class="pron">(uéit)</div><div class="es">Peso</div></div>
+      <div class="vocab-card"><div class="en">Well</div><div class="pron">(uel)</div><div class="es">Bien / pozo</div></div>
+      <div class="vocab-card"><div class="en">West</div><div class="pron">(uest)</div><div class="es">Oeste</div></div>
+      <div class="vocab-card"><div class="en">Wet</div><div class="pron">(uet)</div><div class="es">Mojado</div></div>
+      <div class="vocab-card"><div class="en">Wheel</div><div class="pron">(uíil)</div><div class="es">Rueda</div></div>
+      <div class="vocab-card"><div class="en">When</div><div class="pron">(uén)</div><div class="es">Cuándo</div></div>
+      <div class="vocab-card"><div class="en">Where</div><div class="pron">(uéaR)</div><div class="es">Dónde</div></div>
+      <div class="vocab-card"><div class="en">While</div><div class="pron">(uáil)</div><div class="es">Mientras</div></div>
+    </div>
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--verde);margin:16px 0 12px;">🔤 Palabras con W (2)</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Whip</div><div class="pron">(uíp)</div><div class="es">Látigo</div></div>
+      <div class="vocab-card"><div class="en">Whistle</div><div class="pron">(uísEl)</div><div class="es">Silbato</div></div>
+      <div class="vocab-card"><div class="en">White</div><div class="pron">(uáit)</div><div class="es">Blanco</div></div>
+      <div class="vocab-card"><div class="en">Who</div><div class="pron">(júu)</div><div class="es">Quién</div></div>
+      <div class="vocab-card"><div class="en">Why</div><div class="pron">(uái)</div><div class="es">Por qué</div></div>
+      <div class="vocab-card"><div class="en">Wide</div><div class="pron">(uáid)</div><div class="es">Ancho</div></div>
+      <div class="vocab-card"><div class="en">Will</div><div class="pron">(uíl)</div><div class="es">Futuro / voluntad</div></div>
+      <div class="vocab-card"><div class="en">Wind</div><div class="pron">(uínd)</div><div class="es">Viento</div></div>
+      <div class="vocab-card"><div class="en">Window</div><div class="pron">(uíndou)</div><div class="es">Ventana</div></div>
+      <div class="vocab-card"><div class="en">Wine</div><div class="pron">(uáin)</div><div class="es">Vino</div></div>
+      <div class="vocab-card"><div class="en">Wing</div><div class="pron">(uíng)</div><div class="es">Ala</div></div>
+      <div class="vocab-card"><div class="en">Winter</div><div class="pron">(uínteR)</div><div class="es">Invierno</div></div>
+      <div class="vocab-card"><div class="en">Wire</div><div class="pron">(uáiaR)</div><div class="es">Alambre</div></div>
+      <div class="vocab-card"><div class="en">Wise</div><div class="pron">(uáis)</div><div class="es">Sabio</div></div>
+      <div class="vocab-card"><div class="en">With</div><div class="pron">(uíz / uidz)</div><div class="es">Con</div></div>
+      <div class="vocab-card"><div class="en">Woman</div><div class="pron">(uúman)</div><div class="es">Mujer</div></div>
+      <div class="vocab-card"><div class="en">Wood</div><div class="pron">(uud)</div><div class="es">Madera</div></div>
+      <div class="vocab-card"><div class="en">Wool</div><div class="pron">(uul)</div><div class="es">Lana</div></div>
+      <div class="vocab-card"><div class="en">Word</div><div class="pron">(uéeRd)</div><div class="es">Palabra</div></div>
+      <div class="vocab-card"><div class="en">Work</div><div class="pron">(uéeRk)</div><div class="es">Trabajo</div></div>
+      <div class="vocab-card"><div class="en">Worm</div><div class="pron">(uéeRm)</div><div class="es">Gusano</div></div>
+      <div class="vocab-card"><div class="en">Wound</div><div class="pron">(uúund / uáund)</div><div class="es">Herida / enrollado</div></div>
+      <div class="vocab-card"><div class="en">Writing</div><div class="pron">(ráiting)</div><div class="es">Escritura</div></div>
+      <div class="vocab-card"><div class="en">Wrong</div><div class="pron">(rong)</div><div class="es">Equivocado</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--amarillo);margin-bottom:12px;">🔤 Palabras con Y</h4>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Year</div><div class="pron">(yíaR)</div><div class="es">Año</div></div>
+      <div class="vocab-card"><div class="en">Yellow</div><div class="pron">(yélou)</div><div class="es">Amarillo</div></div>
+      <div class="vocab-card"><div class="en">Yes</div><div class="pron">(yes)</div><div class="es">Sí</div></div>
+      <div class="vocab-card"><div class="en">Yesterday</div><div class="pron">(yésterdei)</div><div class="es">Ayer</div></div>
+      <div class="vocab-card"><div class="en">You</div><div class="pron">(yúu)</div><div class="es">Tú / usted(es)</div></div>
+      <div class="vocab-card"><div class="en">Young</div><div class="pron">(yang)</div><div class="es">Joven</div></div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(1)">← Lección 11</button>
+    <button class="btn-nav primario" onclick="ir(3)">Examen 11 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 3 — EXAMEN LECCIÓN 11 (PRONUNCIACIÓN) -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s3">
+  <div class="titulo-seccion" style="color:#DC2626;"><span>🧪</span> Examen — Lección 11 (Pronunciación)</div>
+
+  <div class="quiz-card" id="quiz-pronun">
+    <div class="quiz-titulo">🗣️ Pronunciación y Alfabeto</div>
+    <p style="font-size:0.9rem;color:#64748B;margin-bottom:16px;">Responde sobre pronunciación, alfabeto y sonidos.</p>
+
+    <div class="quiz-pregunta"><strong>1. ¿Cómo se pronuncia la letra H en inglés?</strong> <input class="quiz-input" id="p1" placeholder="..." data-ans="eich,éich"></div>
+    <div class="quiz-pregunta"><strong>2. ¿Cómo se pronuncia la letra Y en inglés?</strong> <input class="quiz-input" id="p2" placeholder="..." data-ans="uai,uái,guai"></div>
+    <div class="quiz-pregunta"><strong>3. ¿Cómo se pronuncia la letra W en inglés?</strong> <input class="quiz-input" id="p3" placeholder="..." data-ans="dabl-yu,dabliu,dábl-yu,dabl yu"></div>
+    <div class="quiz-pregunta"><strong>4. El sonido TH en "the" es...</strong> <input class="quiz-input" id="p4" placeholder="..." data-ans="sonoro,dz,th sonoro,d+z"></div>
+    <div class="quiz-pregunta"><strong>5. El sonido TH en "thing" es...</strong> <input class="quiz-input" id="p5" placeholder="..." data-ans="sordo,z,th sordo"></div>
+    <div class="quiz-pregunta"><strong>6. "Church" en español significa:</strong> <input class="quiz-input" id="p6" placeholder="..." data-ans="iglesia"></div>
+    <div class="quiz-pregunta"><strong>7. "Girl" en español significa:</strong> <input class="quiz-input" id="p7" placeholder="..." data-ans="niña,chica"></div>
+    <div class="quiz-pregunta"><strong>8. "Mother" en español significa:</strong> <input class="quiz-input" id="p8" placeholder="..." data-ans="madre"></div>
+
+    <button class="btn-verificar" onclick="verificarPronun()">✅ Verificar</button>
+    <div class="resultado" id="resultadoPronun"></div>
+  </div>
+
+  <div class="card violeta">
+    <h3>🔠 Repaso rápido del alfabeto</h3>
+    <p>Recita el alfabeto en voz alta: <strong>A (éi), B (bíi), C (síi), D (díi), E (íi), F (ef), G (yíi), H (éich), I (ái), J (yéi), K (kéi), L (el), M (em), N (en), O (óu), P (píi), Q (kiúu), R (áaR), S (es), T (tíi), U (yúu), V (víi), W (dábl-yu), X (eks), Y (uái), Z (zed)</strong></p>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(2)">← Vocabulario</button>
+    <button class="btn-nav primario" onclick="ir(4)">Examen Vocab →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 4 — EXAMEN VOCABULARIO -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s4">
+  <div class="titulo-seccion" style="color:#DC2626;"><span>🧪</span> Examen — Vocabulario Básico</div>
+
+  <div class="quiz-card" id="quiz-vocab">
+    <div class="quiz-titulo">📖 Traduce del español al inglés</div>
+    <p style="font-size:0.9rem;color:#64748B;margin-bottom:16px;">Escribe la palabra en inglés.</p>
+
+    <div class="quiz-pregunta"><strong>1. Agua =</strong> <input class="quiz-input" id="v1" placeholder="..." data-ans="water"></div>
+    <div class="quiz-pregunta"><strong>2. Casa =</strong> <input class="quiz-input" id="v2" placeholder="..." data-ans="house"></div>
+    <div class="quiz-pregunta"><strong>3. Libro =</strong> <input class="quiz-input" id="v3" placeholder="..." data-ans="book"></div>
+    <div class="quiz-pregunta"><strong>4. Hombre =</strong> <input class="quiz-input" id="v4" placeholder="..." data-ans="man"></div>
+    <div class="quiz-pregunta"><strong>5. Mujer =</strong> <input class="quiz-input" id="v5" placeholder="..." data-ans="woman"></div>
+    <div class="quiz-pregunta"><strong>6. Bueno =</strong> <input class="quiz-input" id="v6" placeholder="..." data-ans="good"></div>
+    <div class="quiz-pregunta"><strong>7. Nuevo =</strong> <input class="quiz-input" id="v7" placeholder="..." data-ans="new"></div>
+    <div class="quiz-pregunta"><strong>8. Grande =</strong> <input class="quiz-input" id="v8" placeholder="..." data-ans="big,great,large"></div>
+    <div class="quiz-pregunta"><strong>9. Pequeño =</strong> <input class="quiz-input" id="v9" placeholder="..." data-ans="small,little"></div>
+    <div class="quiz-pregunta"><strong>10. Tiempo =</strong> <input class="quiz-input" id="v10" placeholder="..." data-ans="time"></div>
+    <div class="quiz-pregunta"><strong>11. Día =</strong> <input class="quiz-input" id="v11" placeholder="..." data-ans="day"></div>
+    <div class="quiz-pregunta"><strong>12. Sol =</strong> <input class="quiz-input" id="v12" placeholder="..." data-ans="sun"></div>
+
+    <button class="btn-verificar" onclick="verificarVocab()">✅ Verificar</button>
+    <div class="resultado" id="resultadoVocab"></div>
+  </div>
+
+  <!-- FINAL COMPLETION CARD -->
+  <div class="card" style="text-align:center;background:linear-gradient(135deg,#1E40AF,#7C3AED,#EC4899);color:white;border-left-color:transparent;padding:40px 32px;">
+    <div style="font-size:4rem;margin-bottom:16px;">🎉</div>
+    <div style="font-family:'Fredoka One',cursive;font-size:2rem;margin-bottom:12px;">¡FELICITACIONES!</div>
+    <p style="font-size:1.1rem;opacity:0.95;max-width:500px;margin:0 auto 8px;">Has completado las <strong>11 Lecciones</strong> de Inglés Básico.</p>
+    <p style="font-size:1.1rem;opacity:0.95;max-width:500px;margin:0 auto 8px;">Conoces las <strong>850 palabras</strong> y los <strong>16 verbos</strong>.</p>
+    <p style="font-size:1.2rem;font-weight:800;margin-top:16px;opacity:0.95;">¡Ya puedes comunicarte en inglés!</p>
+  </div>
+
+  <div class="tip" style="margin-top:20px;">
+    <span class="tip-ico">🌟</span>
+    <span><strong>¿Qué sigue?</strong> Sigue practicando con hablantes nativos, mira contenido en inglés (YouTube, Netflix con subtítulos), y sobre todo: <strong>¡no tengas miedo de hablar!</strong> El inglés básico es tu puerta de entrada a un mundo de posibilidades.</span>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(3)">← Examen 11</button>
+    <button class="btn-nav primario" onclick="ir(0)">🏠 Inicio</button>
+  </div>
+</section>
+
+</div><!-- /contenedor -->
+
+<script>
+const secciones = 5;
+const fillPorcentaje = [20, 40, 60, 80, 100];
+const progTexto = ['Sección 1 de 5','Sección 2 de 5','Sección 3 de 5','Sección 4 de 5','Sección 5 de 5'];
+
+function ir(n) {
+  document.querySelectorAll('.seccion').forEach((s,i) => {
+    s.classList.toggle('visible', i === n);
+  });
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    b.classList.toggle('activo', i === n);
+  });
+  document.getElementById('fill').style.width = fillPorcentaje[n] + '%';
+  document.getElementById('prog').textContent = progTexto[n];
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+function normalizar(s) {
+  return s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+function calificar(contenedorId, resultadoId, mensajeBien, mensajeMal) {
+  const inputs = document.querySelectorAll('#'+contenedorId+' .quiz-input');
+  let correctas = 0;
+  inputs.forEach(inp => {
+    const user = normalizar(inp.value);
+    const opciones = inp.dataset.ans.split(',').map(a => normalizar(a));
+    const bien = opciones.includes(user);
+    inp.classList.toggle('correcto', bien);
+    inp.classList.toggle('incorrecto', !bien && user !== '');
+    if (bien) correctas++;
+  });
+  const r = document.getElementById(resultadoId);
+  r.style.display = 'block';
+  if (correctas === inputs.length) {
+    r.className = 'resultado bien';
+    r.textContent = mensajeBien + ' ' + correctas + '/' + inputs.length;
+  } else {
+    r.className = 'resultado mal';
+    r.textContent = mensajeMal + ' ' + correctas + '/' + inputs.length;
+  }
+}
+
+function verificarPronun() {
+  calificar('quiz-pronun', 'resultadoPronun',
+    '🎉 ¡Perfecto! Dominas la pronunciación.',
+    'correctas. ¡Repasa la Lección 11!');
+}
+
+function verificarVocab() {
+  calificar('quiz-vocab', 'resultadoVocab',
+    '🏆 ¡Excelente! Conoces el vocabulario básico.',
+    'correctas. ¡Repasa las palabras que fallaste!');
+}
+</script>
+</body>
+</html>

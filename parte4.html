@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglés Básico — Parte 4</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:    #2563EB;
+    --cielo:   #38BDF8;
+    --verde:   #16A34A;
+    --menta:   #4ADE80;
+    --coral:   #F97316;
+    --amarillo:#FACC15;
+    --violeta: #7C3AED;
+    --rosa:    #EC4899;
+    --blanco:  #FFFFFF;
+    --gris:    #F1F5F9;
+    --texto:   #1E293B;
+    --sombra:  0 4px 20px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #EEF2FF;
+    color: var(--texto);
+    line-height: 1.7;
+  }
+
+  /* PORTADA */
+  .portada {
+    background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 60%, #EC4899 100%);
+    color: white;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .portada::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .portada-emoji { font-size: 72px; display: block; margin-bottom: 16px; animation: flotar 3s ease-in-out infinite; }
+  @keyframes flotar { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .portada h1 { font-family: 'Fredoka One', cursive; font-size: clamp(2.5rem,6vw,4.5rem); letter-spacing: 2px; text-shadow: 3px 3px 0 rgba(0,0,0,0.2); }
+  .portada .subtitulo { font-size: 1.15rem; opacity: 0.9; margin-top: 8px; font-weight: 600; }
+  .portada .autores { margin-top: 20px; opacity: 0.75; font-size: 0.95rem; }
+  .badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .badge { background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); border-radius: 50px; padding: 6px 18px; font-weight: 700; font-size: 0.9rem; backdrop-filter: blur(6px); }
+
+  /* NAVEGACIÓN */
+  .nav-seccion {
+    background: white;
+    border-bottom: 3px solid var(--azul);
+    padding: 0;
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .nav-btn {
+    background: none;
+    border: none;
+    padding: 14px 20px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    color: #64748B;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { color: var(--azul); background: #EEF2FF; }
+  .nav-btn.activo { color: var(--azul); border-bottom-color: var(--azul); background: #EEF2FF; }
+
+  /* CONTENIDO */
+  .contenedor { max-width: 860px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* SECCIÓN */
+  .seccion { display: none; animation: entrar 0.4s ease; }
+  .seccion.visible { display: block; }
+  @keyframes entrar { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  /* TARJETA BASE */
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin: 24px 0;
+    box-shadow: var(--sombra);
+    border-left: 6px solid var(--azul);
+  }
+  .card.verde  { border-left-color: var(--verde); }
+  .card.coral  { border-left-color: var(--coral); }
+  .card.violeta{ border-left-color: var(--violeta); }
+  .card.amarillo{ border-left-color: var(--amarillo); }
+  .card.rosa   { border-left-color: var(--rosa); }
+
+  /* TÍTULOS */
+  .titulo-seccion {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    margin: 36px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .titulo-seccion span { font-size: 2rem; }
+  h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  p { margin-bottom: 10px; }
+
+  /* VOCAB GRID */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .vocab-card {
+    background: var(--gris);
+    border-radius: 14px;
+    padding: 14px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .vocab-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-color: var(--azul); }
+  .vocab-card .en { font-family: 'Fredoka One', cursive; font-size: 1.15rem; color: var(--azul); }
+  .vocab-card .pron { font-size: 0.72rem; color: #94A3B8; margin: 2px 0; font-style: italic; }
+  .vocab-card .es { font-size: 0.9rem; font-weight: 700; color: var(--texto); }
+  .vocab-card .num { position: absolute; top: 6px; right: 8px; font-size: 0.65rem; color: #CBD5E1; font-weight: 700; }
+  .vocab-card:nth-child(6n+1) { background: #EFF6FF; }
+  .vocab-card:nth-child(6n+2) { background: #F0FDF4; }
+  .vocab-card:nth-child(6n+3) { background: #FFF7ED; }
+  .vocab-card:nth-child(6n+4) { background: #FDF4FF; }
+  .vocab-card:nth-child(6n+5) { background: #FFFBEB; }
+  .vocab-card:nth-child(6n+6) { background: #FFF1F2; }
+
+  /* REGLA */
+  .regla {
+    background: linear-gradient(135deg, #EFF6FF, #F0F9FF);
+    border: 2px solid var(--cielo);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .regla-titulo { font-weight: 800; color: var(--azul); margin-bottom: 8px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+
+  /* FRASES */
+  .frases { list-style: none; padding: 0; }
+  .frases li {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-left: 4px solid var(--menta);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .frases li .en-frase { font-weight: 700; font-size: 1rem; }
+  .frases li .es-frase { color: #64748B; font-size: 0.9rem; }
+
+  /* VERBO GRID */
+  .verbo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .verbo-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px 16px;
+    border-left: 4px solid var(--violeta);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .verbo-card .num-v { font-family: 'Fredoka One', cursive; font-size: 1.3rem; color: #CBD5E1; }
+  .verbo-card .en-v { font-family: 'Fredoka One', cursive; font-size: 1.05rem; color: var(--violeta); }
+  .verbo-card .pron-v { font-size: 0.7rem; color: #94A3B8; font-style: italic; }
+  .verbo-card .es-v { font-weight: 800; font-size: 1rem; }
+
+  /* QUIZ */
+  .quiz-card {
+    background: linear-gradient(135deg, #FFF7ED, #FFFBEB);
+    border: 2px solid var(--amarillo);
+    border-radius: 20px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+  .quiz-titulo { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: var(--coral); margin-bottom: 16px; }
+  .quiz-pregunta { margin: 12px 0; }
+  .quiz-input {
+    border: 2px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 4px;
+    transition: border-color 0.2s;
+  }
+  .quiz-input:focus { outline: none; border-color: var(--azul); }
+  .quiz-input.correcto { border-color: var(--verde); background: #F0FDF4; }
+  .quiz-input.incorrecto { border-color: #EF4444; background: #FEF2F2; }
+  .btn-verificar {
+    background: linear-gradient(135deg, var(--azul), var(--violeta));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-verificar:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+  .resultado { margin-top: 14px; font-weight: 800; font-size: 1.1rem; padding: 12px 16px; border-radius: 12px; display: none; }
+  .resultado.bien { background: #DCFCE7; color: var(--verde); }
+  .resultado.mal  { background: #FEE2E2; color: #DC2626; }
+
+  /* OPUESTOS */
+  .opuestos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .opuesto-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+  .op-pair { display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .op-word { font-family: 'Fredoka One', cursive; font-size: 1rem; }
+  .op-word .es { font-size: 0.75rem; font-weight: 700; color: #64748B; display: block; font-family: 'Nunito', sans-serif; }
+  .op-vs { color: #CBD5E1; font-weight: 900; font-size: 1.1rem; }
+  .op-word.a { color: var(--azul); }
+  .op-word.b { color: var(--coral); }
+
+  /* TABLA */
+  .conj-tabla { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+  .conj-tabla th { background: var(--azul); color: white; padding: 10px 14px; text-align: left; font-weight: 700; }
+  .conj-tabla td { padding: 9px 14px; border-bottom: 1px solid #F1F5F9; }
+  .conj-tabla tr:nth-child(even) { background: #F8FAFC; }
+  .conj-tabla tr:hover { background: #EFF6FF; }
+  .conj-tabla .en-c { font-weight: 700; color: var(--violeta); }
+  .conj-tabla .es-c { color: #64748B; }
+
+  /* TIP */
+  .tip {
+    background: #FFFBEB;
+    border: 2px dashed var(--amarillo);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .tip-ico { font-size: 1.3rem; flex-shrink: 0; }
+
+  /* PRONOMBRES */
+  .pronombres-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+  .pron-card {
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.3;
+  }
+  .pron-card .en-p { font-family: 'Fredoka One', cursive; font-size: 1.15rem; }
+  .pron-card .pron-p { font-size: 0.65rem; font-style: italic; opacity: 0.7; }
+  .pron-card .es-p { font-size: 0.75rem; }
+  .pc-1 { background:#DBEAFE; color:#1D4ED8; }
+  .pc-2 { background:#D1FAE5; color:#065F46; }
+  .pc-3 { background:#FDE8D8; color:#9A3412; }
+  .pc-4 { background:#FCE7F3; color:#9D174D; }
+  .pc-5 { background:#F5F3FF; color:#5B21B6; }
+  .pc-6 { background:#ECFDF5; color:#065F46; }
+  .pc-7 { background:#FEF3C7; color:#92400E; }
+
+  /* LY GRID */
+  .ly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .ly-card {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 14px;
+    border-left: 4px solid var(--rosa);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  }
+  .ly-card .ly-word { font-family: 'Fredoka One', cursive; color: var(--rosa); }
+  .ly-card .ly-trans { font-weight: 700; font-size: 0.9rem; }
+  .ly-arrow { color: #CBD5E1; margin: 0 6px; }
+
+  /* COMPOUND WORDS */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .comp-card {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 14px;
+    border-left: 4px solid var(--coral);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  }
+  .comp-card .comp-word { font-family: 'Fredoka One', cursive; font-size: 1.05rem; color: var(--coral); }
+  .comp-card .comp-parts { font-size: 0.72rem; color: #94A3B8; }
+  .comp-card .comp-es { font-weight: 700; font-size: 0.85rem; }
+
+  /* PAST VERB GRID */
+  .past-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .past-card {
+    background: white;
+    border-radius: 12px;
+    padding: 10px 14px;
+    border-left: 4px solid var(--verde);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .past-card .past-verb { font-family: 'Fredoka One', cursive; color: var(--verde); font-size: 1rem; }
+  .past-card .past-es { font-weight: 700; text-align: right; font-size: 0.85rem; }
+
+  /* NAV FOOTER */
+  .nav-bottom { display: flex; justify-content: space-between; margin-top: 40px; gap: 12px; }
+  .btn-nav {
+    background: white;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-nav:hover { background: var(--azul); color: white; }
+  .btn-nav:disabled { opacity: 0.35; cursor: default; }
+  .btn-nav.primario { background: var(--azul); color: white; }
+  .btn-nav.primario:hover { background: #1D4ED8; }
+
+  /* PROGRESO */
+  .barra-progreso { height: 6px; background: #E2E8F0; border-radius: 50px; margin-bottom: 2px; }
+  .barra-fill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--azul), var(--violeta)); transition: width 0.4s; }
+  .progreso-texto { font-size: 0.8rem; color: #94A3B8; font-weight: 700; padding: 4px 0 12px; }
+
+  @media(max-width:600px){
+    .portada { padding: 60px 16px 40px; }
+    .card { padding: 20px; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="portada">
+  <span class="portada-emoji">🧠</span>
+  <h1>INGLÉS BÁSICO</h1>
+  <div class="subtitulo">Lecciones 7 y 8 · Pronombres, Posesivos, Comparativos y Negación</div>
+  <div class="autores">Charles K. Ogden &amp; Augusto Ghio D.</div>
+  <div class="badges">
+    <span class="badge">📖 Edición Moderna</span>
+    <span class="badge">🎯 Nivel A1</span>
+    <span class="badge">✨ Parte 4 de 11</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-seccion" id="nav">
+  <button class="nav-btn activo" onclick="ir(0)">🏠 Intro</button>
+  <button class="nav-btn" onclick="ir(1)">📚 Lección 7</button>
+  <button class="nav-btn" onclick="ir(2)">⚡ Lección 8</button>
+  <button class="nav-btn" onclick="ir(3)">🧪 Examen 7</button>
+  <button class="nav-btn" onclick="ir(4)">🧪 Examen 8</button>
+</nav>
+
+<!-- BARRA PROGRESO -->
+<div class="contenedor" style="padding-top:20px; padding-bottom:0;">
+  <div class="barra-progreso"><div class="barra-fill" id="fill" style="width:20%"></div></div>
+  <div class="progreso-texto" id="prog">Sección 1 de 5</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 0 — INTRODUCCIÓN / REPASO -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="contenedor">
+<section class="seccion visible" id="s0">
+
+  <div class="titulo-seccion" style="color:#1E40AF;"><span>🚀</span> Bienvenido a la Parte 4</div>
+
+  <div class="card">
+    <h3>📋 ¿Qué vimos en las Partes 1 a 3?</h3>
+    <p>En las <strong>Lecciones 1 a 6</strong> ya dominas:</p>
+    <ul style="margin-left:20px; margin-top:8px;">
+      <li style="margin-bottom:6px;">✅ <strong>IS y ARE</strong> (ser/estar)</li>
+      <li style="margin-bottom:6px;">✅ Los <strong>16 verbos básicos</strong> y sus tiempos</li>
+      <li style="margin-bottom:6px;">✅ <strong>WILL, WOULD, MAY, MIGHT</strong></li>
+      <li style="margin-bottom:6px;">✅ El <strong>tiempo pasado</strong> de los verbos</li>
+      <li style="margin-bottom:6px;">✅ <strong>TO BE</strong> completo (am/is/are/was/were)</li>
+      <li style="margin-bottom:6px;">✅ El <strong>imperativo</strong> y las <strong>horas</strong></li>
+      <li style="margin-bottom:6px;">✅ Números, ordinales, plural, adjetivos</li>
+      <li>✅ Palabras compuestas y terminaciones -LY, -ED, -TION</li>
+    </ul>
+  </div>
+
+  <div class="card verde">
+    <h3>🔑 Lo que viene ahora — Lecciones 7 y 8</h3>
+    <p>En la <strong>Lección 7</strong> dominarás:</p>
+    <ul style="margin-left:20px; margin-top:8px;">
+      <li style="margin-bottom:4px;">👤 Pronombres personales (completo)</li>
+      <li style="margin-bottom:4px;">🔗 Combinaciones preposicionales</li>
+      <li style="margin-bottom:4px;">📍 <strong>Here</strong> y <strong>There</strong></li>
+      <li style="margin-bottom:4px;">📏 Expresiones usuales de medidas</li>
+      <li style="margin-bottom:4px;">⚖️ <strong>Some</strong> y <strong>Any</strong></li>
+      <li style="margin-bottom:4px;">👑 Pronombres posesivos</li>
+      <li>🪞 Pronombres reflexivos</li>
+    </ul>
+    <p style="margin-top:12px;">En la <strong>Lección 8</strong> aprenderás:</p>
+    <ul style="margin-left:20px; margin-top:8px;">
+      <li style="margin-bottom:4px;">🌤️ Hablar del tiempo (weather)</li>
+      <li style="margin-bottom:4px;">📐 <strong>Comparativos</strong> (más, menos, tan como)</li>
+      <li style="margin-bottom:4px;">❌ La <strong>negación completa</strong> (presente, pasado, futuro)</li>
+      <li>🔤 <strong>Contracciones</strong> (I'm, don't, won't, etc.)</li>
+    </ul>
+  </div>
+
+  <div class="tip">
+    <span class="tip-ico">💡</span>
+    <span>Recuerda: estudia <strong>en voz alta</strong>, anota las palabras en tu libreta y no avances sin dominar cada lección. ¡La constancia es la clave!</span>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" disabled>← Anterior</button>
+    <button class="btn-nav primario" onclick="ir(1)">Lección 7 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 1 — LECCIÓN 7 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s1">
+
+  <div class="titulo-seccion" style="color:#7C3AED;"><span>📚</span> Lección 7</div>
+
+  <!-- Pronombres Personales -->
+  <div class="card violeta">
+    <h3>👤 Pronombres Personales (Completo)</h3>
+    <p>En inglés los pronombres cambian según sean <strong>sujeto</strong> (quien hace la acción) u <strong>objeto</strong> (quien recibe la acción).</p>
+
+    <h4 style="color:#7C3AED;margin-top:16px;">Pronombres Sujeto</h4>
+    <div class="pronombres-grid">
+      <div class="pron-card pc-1"><span class="en-p">I</span><span class="pron-p">(ai)</span><span class="es-p">Yo</span></div>
+      <div class="pron-card pc-2"><span class="en-p">You</span><span class="pron-p">(yúu)</span><span class="es-p">Tú / usted</span></div>
+      <div class="pron-card pc-3"><span class="en-p">He</span><span class="pron-p">(jíi)</span><span class="es-p">Él</span></div>
+      <div class="pron-card pc-4"><span class="en-p">She</span><span class="pron-p">(SHíi)</span><span class="es-p">Ella</span></div>
+      <div class="pron-card pc-5"><span class="en-p">It</span><span class="pron-p">(it)</span><span class="es-p">Él / ella (cosa)</span></div>
+      <div class="pron-card pc-6"><span class="en-p">We</span><span class="pron-p">(uí)</span><span class="es-p">Nosotros</span></div>
+      <div class="pron-card pc-7"><span class="en-p">They</span><span class="pron-p">(déi)</span><span class="es-p">Ellos / ellas</span></div>
+    </div>
+
+    <h4 style="color:#7C3AED;margin-top:16px;">Pronombres Objeto</h4>
+    <div class="pronombres-grid">
+      <div class="pron-card pc-1"><span class="en-p">Me</span><span class="pron-p">(míi)</span><span class="es-p">Me / mí</span></div>
+      <div class="pron-card pc-2"><span class="en-p">You</span><span class="pron-p">(yúu)</span><span class="es-p">Te / le / usted</span></div>
+      <div class="pron-card pc-3"><span class="en-p">Him</span><span class="pron-p">(jim)</span><span class="es-p">Le / lo / él</span></div>
+      <div class="pron-card pc-4"><span class="en-p">Her</span><span class="pron-p">(jéeR)</span><span class="es-p">Le / la / ella</span></div>
+      <div class="pron-card pc-5"><span class="en-p">It</span><span class="pron-p">(it)</span><span class="es-p">Le / lo / la (cosa)</span></div>
+      <div class="pron-card pc-6"><span class="en-p">Us</span><span class="pron-p">(as)</span><span class="es-p">Nos / nosotros</span></div>
+      <div class="pron-card pc-7"><span class="en-p">Them</span><span class="pron-p">(dem)</span><span class="es-p">Les / los / las / ellos</span></div>
+    </div>
+
+    <div class="tip">
+      <span class="tip-ico">📌</span>
+      <span>Los pronombres objeto se usan después de preposiciones (<em>to me, for him</em>) y como complemento directo/indirecto del verbo (<em>I saw <strong>him</strong></em> = Yo le vi).</span>
+    </div>
+  </div>
+
+  <!-- Combinaciones Preposicionales -->
+  <div class="card verde">
+    <h3>🔗 Combinaciones Preposicionales</h3>
+    <p>Las preposiciones más comunes con pronombres objeto:</p>
+
+    <table class="conj-tabla">
+      <tr><th>Preposición</th><th>1ª persona</th><th>2ª persona</th><th>3ª persona (él)</th><th>3ª persona (ella)</th><th>3ª persona (cosa)</th><th>1ª plural</th><th>3ª plural</th></tr>
+      <tr><td class="en-c">To</td><td class="es-c">to me</td><td class="es-c">to you</td><td class="es-c">to him</td><td class="es-c">to her</td><td class="es-c">to it</td><td class="es-c">to us</td><td class="es-c">to them</td></tr>
+      <tr><td class="en-c">For</td><td class="es-c">for me</td><td class="es-c">for you</td><td class="es-c">for him</td><td class="es-c">for her</td><td class="es-c">for it</td><td class="es-c">for us</td><td class="es-c">for them</td></tr>
+      <tr><td class="en-c">By</td><td class="es-c">by me</td><td class="es-c">by you</td><td class="es-c">by him</td><td class="es-c">by her</td><td class="es-c">by it</td><td class="es-c">by us</td><td class="es-c">by them</td></tr>
+      <tr><td class="en-c">With</td><td class="es-c">with me</td><td class="es-c">with you</td><td class="es-c">with him</td><td class="es-c">with her</td><td class="es-c">with it</td><td class="es-c">with us</td><td class="es-c">with them</td></tr>
+    </table>
+
+    <ul class="frases" style="margin-top:16px;">
+      <li><span class="en-frase">Give it to me</span><span class="es-frase">Dámelo a mí</span></li>
+      <li><span class="en-frase">This is for you</span><span class="es-frase">Esto es para ti</span></li>
+      <li><span class="en-frase">It was made by him</span><span class="es-frase">Fue hecho por él</span></li>
+      <li><span class="en-frase">Come with us</span><span class="es-frase">Ven con nosotros</span></li>
+      <li><span class="en-frase">She sent a letter to them</span><span class="es-frase">Ella envió una carta a ellos</span></li>
+      <li><span class="en-frase">I will do it for her</span><span class="es-frase">Yo lo haré por ella</span></li>
+    </ul>
+  </div>
+
+  <!-- Pronombres no se pueden omitir -->
+  <div class="card coral">
+    <h3>⚠️ Los pronombres NO se pueden omitir</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla IMPORTANTE</div>
+      En inglés, los pronombres <strong>NUNCA</strong> se pueden omitir (a diferencia del español donde sí se pueden omitir). El verbo inglés <strong>siempre</strong> necesita su sujeto expreso.
+    </div>
+    <ul class="frases">
+      <li><span class="en-frase">I am ill</span><span class="es-frase">(Yo) estoy enfermo</span></li>
+      <li><span class="en-frase">He was playing</span><span class="es-frase">(Él) estaba jugando</span></li>
+      <li><span class="en-frase">They are late</span><span class="es-frase">(Ellos) están atrasados</span></li>
+      <li><span class="en-frase">We will go tomorrow</span><span class="es-frase">(Nosotros) iremos mañana</span></li>
+      <li><span class="en-frase">She is very beautiful</span><span class="es-frase">(Ella) es muy hermosa</span></li>
+      <li><span class="en-frase">It is raining</span><span class="es-frase">Está lloviendo</span></li>
+    </ul>
+    <div class="tip">
+      <span class="tip-ico">💡</span>
+      <span>En español decimos "estoy enfermo" sin "yo". En inglés <strong>siempre</strong> debes decir <strong>I am ill</strong>. ¡Nunca digas solo "am ill"!</span>
+    </div>
+  </div>
+
+  <!-- HERE y THERE -->
+  <div class="card amarillo">
+    <h3>📍 HERE y THERE — Aquí y Allá</h3>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;">
+      <div style="background:#FEF3C7;border-radius:14px;padding:14px 20px;flex:1;min-width:200px;text-align:center;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;color:#CA8A04;">HERE</div>
+        <div style="font-weight:700;color:#92400E;">(jíaR)</div>
+        <div style="font-size:0.85rem;margin-top:4px;">Aquí, acá</div>
+      </div>
+      <div style="background:#FDE8D8;border-radius:14px;padding:14px 20px;flex:1;min-width:200px;text-align:center;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;color:#9A3412;">THERE</div>
+        <div style="font-weight:700;color:#9A3412;">(déaR)</div>
+        <div style="font-size:0.85rem;margin-top:4px;">Allá, allí, ahí</div>
+      </div>
+    </div>
+    <ul class="frases">
+      <li><span class="en-frase">Here is your hat</span><span class="es-frase">Aquí está su sombrero</span></li>
+      <li><span class="en-frase">My son is there</span><span class="es-frase">Mi hijo está allá</span></li>
+      <li><span class="en-frase">Come here!</span><span class="es-frase">¡Ven aquí!</span></li>
+      <li><span class="en-frase">The book is there</span><span class="es-frase">El libro está allí</span></li>
+      <li><span class="en-frase">Put it here</span><span class="es-frase">Póngalo aquí</span></li>
+      <li><span class="en-frase">She is not there</span><span class="es-frase">Ella no está allá</span></li>
+    </ul>
+  </div>
+
+  <!-- Expresiones usuales - Medidas -->
+  <div class="card rosa">
+    <h3>📏 Expresiones usuales — Medidas</h3>
+    <p>Estas expresiones con <strong>of</strong> son muy comunes para indicar cantidades o porciones:</p>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">A word of hope</div><div class="es">Una palabra de esperanza</div></div>
+      <div class="vocab-card"><div class="en">A word of support</div><div class="es">Una palabra de apoyo</div></div>
+      <div class="vocab-card"><div class="en">A word of protest</div><div class="es">Una palabra de protesta</div></div>
+      <div class="vocab-card"><div class="en">A bit of soap</div><div class="es">Un pedacito de jabón</div></div>
+      <div class="vocab-card"><div class="en">A bit of sugar</div><div class="es">Un poquito de azúcar</div></div>
+      <div class="vocab-card"><div class="en">A bit of apple</div><div class="es">Un pedazo de manzana</div></div>
+      <div class="vocab-card"><div class="en">A bit of bread</div><div class="es">Un pedazo de pan</div></div>
+      <div class="vocab-card"><div class="en">A glass of water</div><div class="es">Un vaso de agua</div></div>
+      <div class="vocab-card"><div class="en">A glass of milk</div><div class="es">Un vaso de leche</div></div>
+      <div class="vocab-card"><div class="en">A glass of wine</div><div class="es">Un vaso de vino</div></div>
+      <div class="vocab-card"><div class="en">A cup of milk</div><div class="es">Una taza de leche</div></div>
+      <div class="vocab-card"><div class="en">A cup of coffee</div><div class="es">Una taza de café</div></div>
+      <div class="vocab-card"><div class="en">A cup of tea</div><div class="es">Una taza de té</div></div>
+      <div class="vocab-card"><div class="en">A drop of blood</div><div class="es">Una gota de sangre</div></div>
+      <div class="vocab-card"><div class="en">A drop of ink</div><div class="es">Una gota de tinta</div></div>
+      <div class="vocab-card"><div class="en">A drop of oil</div><div class="es">Una gota de aceite</div></div>
+      <div class="vocab-card"><div class="en">A drop of water</div><div class="es">Una gota de agua</div></div>
+      <div class="vocab-card"><div class="en">A cry of pain</div><div class="es">Un grito de dolor</div></div>
+      <div class="vocab-card"><div class="en">A cry of fear</div><div class="es">Un grito de miedo</div></div>
+      <div class="vocab-card"><div class="en">A cry of protest</div><div class="es">Un grito de protesta</div></div>
+      <div class="vocab-card"><div class="en">A look of approval</div><div class="es">Una mirada de aprobación</div></div>
+      <div class="vocab-card"><div class="en">A look of love</div><div class="es">Una mirada de amor</div></div>
+      <div class="vocab-card"><div class="en">A look of surprise</div><div class="es">Una mirada de sorpresa</div></div>
+      <div class="vocab-card"><div class="en">A look of fear</div><div class="es">Una mirada de miedo</div></div>
+    </div>
+  </div>
+
+  <!-- Opuestos L7 -->
+  <div class="card">
+    <h3>↔️ Palabras Opuestas</h3>
+    <div class="opuestos-grid">
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">Solid<span class="es">Sólido</span></div><div class="op-vs">⟷</div><div class="op-word b">Liquid<span class="es">Líquido</span></div></div></div>
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">Clean<span class="es">Limpio</span></div><div class="op-vs">⟷</div><div class="op-word b">Dirty<span class="es">Sucio</span></div></div></div>
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">Quick<span class="es">Rápido</span></div><div class="op-vs">⟷</div><div class="op-word b">Slow<span class="es">Lento</span></div></div></div>
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">Tight<span class="es">Apretado</span></div><div class="op-vs">⟷</div><div class="op-word b">Loose<span class="es">Suelto</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Palabras con lazos de unión (Word Pairs) -->
+  <div class="card coral">
+    <h3>🔗 Palabras con Lazos de Unión (Word Pairs)</h3>
+    <p>En inglés muchas palabras se usan en pares unidos por <strong>and</strong>. Apréndelos así, de memoria:</p>
+    <div class="comp-grid">
+      <div class="comp-card"><div class="comp-word">Public and Private</div><div class="comp-es">Público y privado</div></div>
+      <div class="comp-card"><div class="comp-word">East and West</div><div class="comp-es">Este y oeste</div></div>
+      <div class="comp-card"><div class="comp-word">Father and Mother</div><div class="comp-es">Padre y madre</div></div>
+      <div class="comp-card"><div class="comp-word">Winter and Summer</div><div class="comp-es">Invierno y verano</div></div>
+      <div class="comp-card"><div class="comp-word">North and South</div><div class="comp-es">Norte y sur</div></div>
+      <div class="comp-card"><div class="comp-word">Man and Woman</div><div class="comp-es">Hombre y mujer</div></div>
+      <div class="comp-card"><div class="comp-word">Cheap and Dear</div><div class="comp-es">Barato y caro</div></div>
+      <div class="comp-card"><div class="comp-word">Brother and Sister</div><div class="comp-es">Hermano y hermana</div></div>
+      <div class="comp-card"><div class="comp-word">War and Peace</div><div class="comp-es">Guerra y paz</div></div>
+      <div class="comp-card"><div class="comp-word">You and I</div><div class="comp-es">Tú y yo</div></div>
+      <div class="comp-card"><div class="comp-word">Iron and Steel</div><div class="comp-es">Hierro y acero</div></div>
+      <div class="comp-card"><div class="comp-word">Hammer and Nails</div><div class="comp-es">Martillo y clavos</div></div>
+      <div class="comp-card"><div class="comp-word">Young and Old</div><div class="comp-es">Joven y viejo</div></div>
+      <div class="comp-card"><div class="comp-word">He and She</div><div class="comp-es">Él y ella</div></div>
+      <div class="comp-card"><div class="comp-word">First and Last</div><div class="comp-es">Primero y último</div></div>
+      <div class="comp-card"><div class="comp-word">Here and There</div><div class="comp-es">Aquí y allá</div></div>
+      <div class="comp-card"><div class="comp-word">Boys and Girls</div><div class="comp-es">Niños y niñas</div></div>
+      <div class="comp-card"><div class="comp-word">Doors and Windows</div><div class="comp-es">Puertas y ventanas</div></div>
+      <div class="comp-card"><div class="comp-word">Hat and Gloves</div><div class="comp-es">Sombrero y guantes</div></div>
+      <div class="comp-card"><div class="comp-word">Good and Bad</div><div class="comp-es">Bueno y malo</div></div>
+      <div class="comp-card"><div class="comp-word">Up and Down</div><div class="comp-es">Arriba y abajo</div></div>
+      <div class="comp-card"><div class="comp-word">Gold and Silver</div><div class="comp-es">Oro y plata</div></div>
+      <div class="comp-card"><div class="comp-word">Sun and Shade</div><div class="comp-es">Sol y sombra</div></div>
+      <div class="comp-card"><div class="comp-word">Left and Right</div><div class="comp-es">Izquierda y derecha</div></div>
+      <div class="comp-card"><div class="comp-word">Love and Hate</div><div class="comp-es">Amor y odio</div></div>
+      <div class="comp-card"><div class="comp-word">Clean and Dirty</div><div class="comp-es">Limpio y sucio</div></div>
+      <div class="comp-card"><div class="comp-word">This and That</div><div class="comp-es">Esto y aquello</div></div>
+      <div class="comp-card"><div class="comp-word">Hand and Foot</div><div class="comp-es">Mano y pie</div></div>
+    </div>
+  </div>
+
+  <!-- SOME y ANY -->
+  <div class="card verde">
+    <h3>⚖️ SOME y ANY — Algún, algo de</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      <strong>SOME</strong> (sam) = se usa en frases <strong>afirmativas</strong><br>
+      <strong>ANY</strong> (éni) = se usa en frases <strong>interrogativas y negativas</strong>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div>
+        <div style="font-weight:800;color:#166534;margin-bottom:8px;">SOME (afirmativo)</div>
+        <ul class="frases">
+          <li><span class="en-frase">Give me some white wine</span><span class="es-frase">Deme un poco de vino blanco</span></li>
+          <li><span class="en-frase">I have some money</span><span class="es-frase">Yo tengo algún dinero</span></li>
+          <li><span class="en-frase">There is some water</span><span class="es-frase">Hay algo de agua</span></li>
+          <li><span class="en-frase">She put some sugar</span><span class="es-frase">Ella puso algo de azúcar</span></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-weight:800;color:#92400E;margin-bottom:8px;">ANY (interrogativo / negativo)</div>
+        <ul class="frases">
+          <li><span class="en-frase">Have you any bread?</span><span class="es-frase">¿Tiene usted pan?</span></li>
+          <li><span class="en-frase">Is there any milk?</span><span class="es-frase">¿Hay leche?</span></li>
+          <li><span class="en-frase">I have not any money</span><span class="es-frase">No tengo dinero</span></li>
+          <li><span class="en-frase">She did not put any sugar</span><span class="es-frase">Ella no puso azúcar</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip">
+      <span class="tip-ico">💡</span>
+      <span>En español no siempre traducimos "some" o "any". Decimos "¿Tiene pan?" sin "algún". Pero en inglés <strong>siempre</strong> va <strong>some</strong> o <strong>any</strong>.</span>
+    </div>
+  </div>
+
+  <!-- Pronombres Posesivos -->
+  <div class="card violeta">
+    <h3>👑 Pronombres Posesivos</h3>
+    <p>Hay dos tipos: el <strong>adjetivo posesivo</strong> (va con sustantivo) y el <strong>pronombre posesivo</strong> (reemplaza al sustantivo).</p>
+
+    <table class="conj-tabla">
+      <tr><th>Pronombre</th><th>Adjetivo posesivo</th><th>Pronombre posesivo</th><th>Ejemplo</th></tr>
+      <tr><td class="en-c">I</td><td class="en-c">My (mai) mi/mis</td><td class="en-c">Mine (main) mío/a/os/as</td><td class="es-c">This is my book → This book is mine</td></tr>
+      <tr><td class="en-c">You</td><td class="en-c">Your (yóoR) tu/su</td><td class="en-c">Yours (yóoRs) tuyo/a/os/as</td><td class="es-c">Your hat → The hat is yours</td></tr>
+      <tr><td class="en-c">He</td><td class="en-c">His (jis) su (de él)</td><td class="en-c">His (jis) suyo (de él)</td><td class="es-c">His son → The son is his</td></tr>
+      <tr><td class="en-c">She</td><td class="en-c">Her (jéeR) su (de ella)</td><td class="en-c">Hers (jéeRs) suyo (de ella)</td><td class="es-c">Her dress → The dress is hers</td></tr>
+      <tr><td class="en-c">It</td><td class="en-c">Its (its) su (de cosa)</td><td class="en-c">Its (its) suyo (de cosa)</td><td class="es-c">The cat and its food</td></tr>
+      <tr><td class="en-c">We</td><td class="en-c">Our (áuaR) nuestro/a</td><td class="en-c">Ours (áuaRs) nuestro/a/os/as</td><td class="es-c">Our house → The house is ours</td></tr>
+      <tr><td class="en-c">They</td><td class="en-c">Their (déaR) su (de ellos)</td><td class="en-c">Theirs (déaRs) suyo (de ellos)</td><td class="es-c">Their garden → The garden is theirs</td></tr>
+    </table>
+
+    <ul class="frases" style="margin-top:16px;">
+      <li><span class="en-frase">My father is a doctor</span><span class="es-frase">Mi padre es doctor</span></li>
+      <li><span class="en-frase">Is this pen yours?</span><span class="es-frase">¿Es suya esta pluma?</span></li>
+      <li><span class="en-frase">Her eyes are blue</span><span class="es-frase">Sus ojos son azules</span></li>
+      <li><span class="en-frase">That book is mine, not his</span><span class="es-frase">Ese libro es mío, no suyo (de él)</span></li>
+      <li><span class="en-frase">Their children are in the garden</span><span class="es-frase">Sus hijos están en el jardín</span></li>
+      <li><span class="en-frase">This garden is ours</span><span class="es-frase">Este jardín es nuestro</span></li>
+    </ul>
+  </div>
+
+  <!-- La idea de posesión -->
+  <div class="card amarillo">
+    <h3>🏠 La Idea de Posesión</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      <strong>Seres vivos</strong> → usa <strong>'s</strong> (apóstrofe + s)<br>
+      <strong>Cosas / objetos</strong> → usa <strong>of</strong>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div>
+        <div style="font-weight:800;color:#92400E;margin-bottom:8px;">'S (seres vivos)</div>
+        <ul class="frases">
+          <li><span class="en-frase">My father's hat</span><span class="es-frase">El sombrero de mi padre</span></li>
+          <li><span class="en-frase">John's book</span><span class="es-frase">El libro de Juan</span></li>
+          <li><span class="en-frase">The boy's ball</span><span class="es-frase">La pelota del niño</span></li>
+          <li><span class="en-frase">My mother's dress</span><span class="es-frase">El vestido de mi madre</span></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-weight:800;color:#15803D;margin-bottom:8px;">OF (cosas)</div>
+        <ul class="frases">
+          <li><span class="en-frase">The leaves of the tree</span><span class="es-frase">Las hojas del árbol</span></li>
+          <li><span class="en-frase">The top of the mountain</span><span class="es-frase">La cumbre de la montaña</span></li>
+          <li><span class="en-frase">The colour of the sky</span><span class="es-frase">El color del cielo</span></li>
+          <li><span class="en-frase">The door of the house</span><span class="es-frase">La puerta de la casa</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pronombres Reflexivos -->
+  <div class="card rosa">
+    <h3>🪞 Pronombres Reflexivos</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      Los pronombres reflexivos indican que la acción <strong>recae sobre el mismo sujeto</strong>. Equivalen a "yo mismo", "tú mismo", "se", etc.
+    </div>
+    <div class="pronombres-grid">
+      <div class="pron-card pc-1"><span class="en-p">Myself</span><span class="pron-p">(maisélf)</span><span class="es-p">Yo mismo/a</span></div>
+      <div class="pron-card pc-2"><span class="en-p">Yourself</span><span class="pron-p">(yooRsélf)</span><span class="es-p">Tú mismo/a</span></div>
+      <div class="pron-card pc-3"><span class="en-p">Yourselves</span><span class="pron-p">(yooRsélvs)</span><span class="es-p">Ustedes mismos</span></div>
+      <div class="pron-card pc-4"><span class="en-p">Himself</span><span class="pron-p">(jimsélf)</span><span class="es-p">Él mismo / se</span></div>
+      <div class="pron-card pc-5"><span class="en-p">Herself</span><span class="pron-p">(jeeRsélf)</span><span class="es-p">Ella misma / se</span></div>
+      <div class="pron-card pc-6"><span class="en-p">Itself</span><span class="pron-p">(itsélf)</span><span class="es-p">Él/ella mismo/a (cosa)</span></div>
+      <div class="pron-card pc-7"><span class="en-p">Ourselves</span><span class="pron-p">(auaRsélvs)</span><span class="es-p">Nosotros mismos</span></div>
+      <div class="pron-card pc-1"><span class="en-p">Themselves</span><span class="pron-p">(demsélvs)</span><span class="es-p">Ellos mismos / se</span></div>
+    </div>
+    <ul class="frases" style="margin-top:16px;">
+      <li><span class="en-frase">I did it myself</span><span class="es-frase">Yo lo hice yo mismo</span></li>
+      <li><span class="en-frase">He hurt himself</span><span class="es-frase">Él se lastimó</span></li>
+      <li><span class="en-frase">She saw herself in the glass</span><span class="es-frase">Ella se vio en el espejo</span></li>
+      <li><span class="en-frase">We will do it ourselves</span><span class="es-frase">Nosotros lo haremos nosotros mismos</span></li>
+      <li><span class="en-frase">Help yourself!</span><span class="es-frase">¡Sírvase usted mismo!</span></li>
+      <li><span class="en-frase">They made it themselves</span><span class="es-frase">Ellos lo hicieron ellos mismos</span></li>
+    </ul>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(0)">← Intro</button>
+    <button class="btn-nav primario" onclick="ir(2)">Lección 8 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 2 — LECCIÓN 8 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s2">
+
+  <div class="titulo-seccion" style="color:#EA580C;"><span>⚡</span> Lección 8</div>
+
+  <!-- Hablando del tiempo -->
+  <div class="card coral">
+    <h3>🌤️ Hablando del Tiempo (Weather)</h3>
+    <p>Para hablar del clima en inglés siempre se usa <strong>IT</strong> como sujeto impersonal.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;">
+      <div style="background:#FFF7ED;border-radius:14px;padding:14px 18px;flex:1;min-width:200px;text-align:center;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#F97316;">It is cold / warm</div>
+        <div style="font-size:0.85rem;color:#9A3412;margin-top:4px;">Hace frío / calor</div>
+      </div>
+      <div style="background:#FFF7ED;border-radius:14px;padding:14px 18px;flex:1;min-width:200px;text-align:center;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#F97316;">It is raining / snowing</div>
+        <div style="font-size:0.85rem;color:#9A3412;margin-top:4px;">Está lloviendo / nevando</div>
+      </div>
+    </div>
+    <ul class="frases">
+      <li><span class="en-frase">It is cold today</span><span class="es-frase">Hace frío hoy</span></li>
+      <li><span class="en-frase">It was warm yesterday</span><span class="es-frase">Ayer hacía calor</span></li>
+      <li><span class="en-frase">How is the weather today?</span><span class="es-frase">¿Cómo está el tiempo hoy?</span></li>
+      <li><span class="en-frase">Yesterday it was raining</span><span class="es-frase">Ayer estaba lloviendo</span></li>
+      <li><span class="en-frase">It is snowing in the mountain</span><span class="es-frase">Está nevando en la montaña</span></li>
+      <li><span class="en-frase">It was snowing</span><span class="es-frase">Estaba nevando</span></li>
+      <li><span class="en-frase">It will be raining tomorrow</span><span class="es-frase">Estará lloviendo mañana</span></li>
+      <li><span class="en-frase">It is a beautiful day</span><span class="es-frase">Es un día hermoso</span></li>
+    </ul>
+    <div class="tip">
+      <span class="tip-ico">💡</span>
+      <span>En inglés <strong>siempre</strong> se usa <strong>it</strong> para el clima. Nunca digas "Is cold" o "Is raining". Siempre: <strong>It is cold</strong>, <strong>It is raining</strong>.</span>
+    </div>
+  </div>
+
+  <!-- Comparativos -->
+  <div class="card verde">
+    <h3>📐 Comparativos</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      <strong>Palabras largas</strong> (3+ sílabas) → <strong>more</strong> / <strong>most</strong><br>
+      <strong>Palabras cortas</strong> (1-2 sílabas) → <strong>-er</strong> / <strong>-est</strong><br>
+      <strong>Inferioridad</strong> → <strong>less</strong> / <strong>least</strong><br>
+      <strong>THAN</strong> (dan) = <strong>que</strong> (partícula comparativa)<br>
+      <strong>AS...AS</strong> = <strong>tan...como</strong>
+    </div>
+
+    <h4 style="color:#16A34A;margin-top:16px;">Comparativos con MORE / MOST (palabras largas)</h4>
+    <ul class="frases">
+      <li><span class="en-frase">Beautiful → more beautiful → the most beautiful</span><span class="es-frase">Hermoso → más hermoso → el más hermoso</span></li>
+      <li><span class="en-frase">Necessary → more necessary → the most necessary</span><span class="es-frase">Necesario → más necesario → el más necesario</span></li>
+      <li><span class="en-frase">Important → more important → the most important</span><span class="es-frase">Importante → más importante → el más importante</span></li>
+      <li><span class="en-frase">Interesting → more interesting → the most interesting</span><span class="es-frase">Interesante → más interesante → el más interesante</span></li>
+    </ul>
+
+    <h4 style="color:#16A34A;margin-top:16px;">Comparativos con -ER / -EST (palabras cortas)</h4>
+    <ul class="frases">
+      <li><span class="en-frase">Long → longer → the longest</span><span class="es-frase">Largo → más largo → el más largo</span></li>
+      <li><span class="en-frase">Young → younger → the youngest</span><span class="es-frase">Joven → más joven → el más joven</span></li>
+      <li><span class="en-frase">Old → older → the oldest</span><span class="es-frase">Viejo → más viejo → el más viejo</span></li>
+      <li><span class="en-frase">Tall → taller → the tallest</span><span class="es-frase">Alto → más alto → el más alto</span></li>
+    </ul>
+
+    <h4 style="color:#16A34A;margin-top:16px;">Comparativos de inferioridad con LESS / LEAST</h4>
+    <ul class="frases">
+      <li><span class="en-frase">Less beautiful</span><span class="es-frase">Menos hermoso</span></li>
+      <li><span class="en-frase">The least important</span><span class="es-frase">El menos importante</span></li>
+      <li><span class="en-frase">Less interesting</span><span class="es-frase">Menos interesante</span></li>
+    </ul>
+
+    <h4 style="color:#16A34A;margin-top:16px;">THAN y AS...AS</h4>
+    <ul class="frases">
+      <li><span class="en-frase">She is taller than you</span><span class="es-frase">Ella es más alta que tú</span></li>
+      <li><span class="en-frase">This book is better than that one</span><span class="es-frase">Este libro es mejor que ése</span></li>
+      <li><span class="en-frase">He is as tall as his brother</span><span class="es-frase">Él es tan alto como su hermano</span></li>
+      <li><span class="en-frase">She is not as old as I am</span><span class="es-frase">Ella no es tan vieja como yo</span></li>
+    </ul>
+  </div>
+
+  <!-- Comparativos Irregulares -->
+  <div class="card rosa">
+    <h3>⚠️ Comparativos Irregulares</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 ¡Apréndelos de memoria!</div>
+      Estos comparativos <strong>no siguen las reglas</strong>. Son irregulares y muy usados.
+    </div>
+    <table class="conj-tabla">
+      <tr><th>Positivo</th><th>Comparativo</th><th>Superlativo</th></tr>
+      <tr><td class="en-c">Good (bueno)</td><td class="en-c">Better (mejor)</td><td class="en-c">Best (el mejor)</td></tr>
+      <tr><td class="en-c">Bad (malo)</td><td class="en-c">Worse (peor)</td><td class="en-c">Worst (el peor)</td></tr>
+      <tr><td class="en-c">Little (poco)</td><td class="en-c">Less (menos)</td><td class="en-c">Least (el menor / lo menos)</td></tr>
+      <tr><td class="en-c">Far (lejos)</td><td class="en-c">Farther (más lejos)</td><td class="en-c">Farthest (el más lejano)</td></tr>
+    </table>
+    <ul class="frases" style="margin-top:16px;">
+      <li><span class="en-frase">This cake is better than that one</span><span class="es-frase">Este pastel es mejor que ése</span></li>
+      <li><span class="en-frase">She is the best student</span><span class="es-frase">Ella es la mejor estudiante</span></li>
+      <li><span class="en-frase">This road is worse</span><span class="es-frase">Este camino es peor</span></li>
+      <li><span class="en-frase">He is the worst player</span><span class="es-frase">Él es el peor jugador</span></li>
+      <li><span class="en-frase">I have less money than you</span><span class="es-frase">Yo tengo menos dinero que tú</span></li>
+      <li><span class="en-frase">This is the least important thing</span><span class="es-frase">Esto es lo menos importante</span></li>
+    </ul>
+  </div>
+
+  <!-- La negación en presente (DO NOT / DOES NOT) -->
+  <div class="card violeta">
+    <h3>❌ La Negación en Tiempo Presente — DO NOT / DOES NOT</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      Para negar un verbo en presente se usa <strong>DO NOT</strong> + verbo.<br>
+      Con <strong>he / she / it</strong> se usa <strong>DOES NOT</strong> + verbo.<br>
+      <span style="color:#64748B">El verbo principal <strong>NO lleva -s</strong> cuando se usa does not.</span>
+    </div>
+
+    <table class="conj-tabla">
+      <tr><th colspan="3">TO GO = IR</th></tr>
+      <tr><td class="en-c">I do not go</td><td class="es-c">Yo no voy</td><td class="en-c">We do not go</td><td class="es-c">Nosotros no vamos</td></tr>
+      <tr><td class="en-c">You do not go</td><td class="es-c">Usted no va</td><td class="en-c">You do not go</td><td class="es-c">Ustedes no van</td></tr>
+      <tr><td class="en-c">He does not go</td><td class="es-c">Él no va</td><td class="en-c">They do not go</td><td class="es-c">Ellos no van</td></tr>
+    </table>
+
+    <table class="conj-tabla" style="margin-top:16px;">
+      <tr><th colspan="3">TO HAVE = TENER</th></tr>
+      <tr><td class="en-c">I do not have</td><td class="es-c">Yo no tengo</td><td class="en-c">We do not have</td><td class="es-c">Nosotros no tenemos</td></tr>
+      <tr><td class="en-c">You do not have</td><td class="es-c">Usted no tiene</td><td class="en-c">You do not have</td><td class="es-c">Ustedes no tienen</td></tr>
+      <tr><td class="en-c">He does not have</td><td class="es-c">Él no tiene</td><td class="en-c">They do not have</td><td class="es-c">Ellos no tienen</td></tr>
+    </table>
+
+    <ul class="frases" style="margin-top:16px;">
+      <li><span class="en-frase">I do not see it</span><span class="es-frase">Yo no lo veo</span></li>
+      <li><span class="en-frase">She does not like coffee</span><span class="es-frase">A ella no le gusta el café</span></li>
+      <li><span class="en-frase">They do not come on Monday</span><span class="es-frase">Ellos no vienen el lunes</span></li>
+      <li><span class="en-frase">He does not make bread</span><span class="es-frase">Él no hace pan</span></li>
+      <li><span class="en-frase">We do not have time</span><span class="es-frase">Nosotros no tenemos tiempo</span></li>
+    </ul>
+    <div class="tip">
+      <span class="tip-ico">⚠️</span>
+      <span>Con DOES NOT, el verbo va <strong>sin -s</strong>: "He does not go<strong>es</strong>" ❌ → "He does not go" ✅. El DOES ya lleva la -s.</span>
+    </div>
+  </div>
+
+  <!-- La negación en pasado (DID NOT) -->
+  <div class="card coral">
+    <h3>⏪ La Negación en Tiempo Pasado — DID NOT</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla IMPORTANTE</div>
+      Para negar en pasado se usa <strong>DID NOT</strong> + verbo en <strong>PRESENTE</strong>.<br>
+      <span style="color:#DC2626">¡Nunca uses el verbo en pasado después de DID NOT!</span>
+    </div>
+
+    <table class="conj-tabla">
+      <tr><th colspan="3">TO SEE = VER (pasado: saw)</th></tr>
+      <tr><td class="en-c">I did not see</td><td class="es-c">Yo no vi</td><td class="en-c">We did not see</td><td class="es-c">Nosotros no vimos</td></tr>
+      <tr><td class="en-c">You did not see</td><td class="es-c">Usted no vio</td><td class="en-c">You did not see</td><td class="es-c">Ustedes no vieron</td></tr>
+      <tr><td class="en-c">He did not see</td><td class="es-c">Él no vio</td><td class="en-c">They did not see</td><td class="es-c">Ellos no vieron</td></tr>
+    </table>
+
+    <ul class="frases" style="margin-top:16px;">
+      <li><span class="en-frase">I saw → I did not see</span><span class="es-frase">Yo vi → Yo no vi</span></li>
+      <li><span class="en-frase">He went → He did not go</span><span class="es-frase">Él fue → Él no fue</span></li>
+      <li><span class="en-frase">She took → She did not take</span><span class="es-frase">Ella tomó → Ella no tomó</span></li>
+      <li><span class="en-frase">They said → They did not say</span><span class="es-frase">Ellos dijeron → Ellos no dijeron</span></li>
+      <li><span class="en-frase">We gave → We did not give</span><span class="es-frase">Nosotros dimos → Nosotros no dimos</span></li>
+    </ul>
+    <div class="tip">
+      <span class="tip-ico">❌</span>
+      <span><strong>ERROR COMÚN:</strong> "I did not saw" ❌ → Lo correcto es <strong>"I did not see"</strong> ✅. DID ya indica el pasado; el verbo va en presente.</span>
+    </div>
+  </div>
+
+  <!-- Negación TO HAVE y TO BE -->
+  <div class="card amarillo">
+    <h3>🚫 La Negación de TO HAVE y TO BE</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla especial</div>
+      <strong>TO HAVE</strong> y <strong>TO BE</strong> se niegan con <strong>NO</strong> o <strong>NOT</strong> directamente después del verbo.<br>
+      <span style="color:#DC2626">¡NO uses do/does/did con TO BE ni con TO HAVE!</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div>
+        <div style="font-weight:800;color:#92400E;margin-bottom:8px;">TO BE (no do/does/did)</div>
+        <ul class="frases">
+          <li><span class="en-frase">I am not a doctor</span><span class="es-frase">Yo no soy doctor</span></li>
+          <li><span class="en-frase">She is not here</span><span class="es-frase">Ella no está aquí</span></li>
+          <li><span class="en-frase">They are not late</span><span class="es-frase">Ellos no están atrasados</span></li>
+          <li><span class="en-frase">He was not there</span><span class="es-frase">Él no estaba allí</span></li>
+          <li><span class="en-frase">We were not ready</span><span class="es-frase">No estábamos listos</span></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-weight:800;color:#15803D;margin-bottom:8px;">TO HAVE (no do/does/did)</div>
+        <ul class="frases">
+          <li><span class="en-frase">I have no money</span><span class="es-frase">Yo no tengo dinero</span></li>
+          <li><span class="en-frase">She has no time</span><span class="es-frase">Ella no tiene tiempo</span></li>
+          <li><span class="en-frase">I have not seen him</span><span class="es-frase">Yo no le he visto</span></li>
+          <li><span class="en-frase">She is not here</span><span class="es-frase">Ella no está aquí</span></li>
+          <li><span class="en-frase">He had no food</span><span class="es-frase">Él no tenía alimento</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Negación futuro y condicionales -->
+  <div class="card verde">
+    <h3>🔮 Negación en Futuro, WOULD, MAY, MIGHT</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla (¡muy fácil!)</div>
+      Con <strong>WILL, WOULD, MAY, MIGHT</strong> la negación se forma simplemente agregando <strong>NOT</strong> después de estas palabras.
+    </div>
+
+    <h4 style="color:#16A34A;margin-top:16px;">Futuro: WILL NOT</h4>
+    <ul class="frases">
+      <li><span class="en-frase">I will not go</span><span class="es-frase">Yo no iré</span></li>
+      <li><span class="en-frase">She will not come today</span><span class="es-frase">Ella no vendrá hoy</span></li>
+      <li><span class="en-frase">They will not see it</span><span class="es-frase">Ellos no lo verán</span></li>
+    </ul>
+
+    <h4 style="color:#16A34A;margin-top:16px;">Condicional: WOULD NOT</h4>
+    <ul class="frases">
+      <li><span class="en-frase">I would not do that</span><span class="es-frase">Yo no haría eso</span></li>
+      <li><span class="en-frase">He would not say that</span><span class="es-frase">Él no diría eso</span></li>
+    </ul>
+
+    <h4 style="color:#16A34A;margin-top:16px;">Posibilidad: MAY NOT / MIGHT NOT</h4>
+    <ul class="frases">
+      <li><span class="en-frase">I may not go</span><span class="es-frase">Puede que yo no vaya</span></li>
+      <li><span class="en-frase">He might not come</span><span class="es-frase">Él podría no venir</span></li>
+      <li><span class="en-frase">She may not have the key</span><span class="es-frase">Ella puede no tener la llave</span></li>
+    </ul>
+  </div>
+
+  <!-- Contracciones -->
+  <div class="card rosa">
+    <h3>🔤 Contracciones (Short Forms)</h3>
+    <p>En inglés hablado es muy común usar <strong>contracciones</strong>. Apréndelas porque las escucharás a diario.</p>
+
+    <h4 style="color:#BE185D;margin-top:16px;">Con TO BE</h4>
+    <table class="conj-tabla">
+      <tr><th>Completo</th><th>Contracción</th><th>Español</th></tr>
+      <tr><td class="en-c">I am</td><td class="en-c">I'm</td><td class="es-c">Yo soy/estoy</td></tr>
+      <tr><td class="en-c">You are</td><td class="en-c">You're</td><td class="es-c">Tú eres/estás</td></tr>
+      <tr><td class="en-c">He is</td><td class="en-c">He's</td><td class="es-c">Él es/está</td></tr>
+      <tr><td class="en-c">She is</td><td class="en-c">She's</td><td class="es-c">Ella es/está</td></tr>
+      <tr><td class="en-c">It is</td><td class="en-c">It's</td><td class="es-c">Es/está (cosa)</td></tr>
+      <tr><td class="en-c">We are</td><td class="en-c">We're</td><td class="es-c">Nosotros somos/estamos</td></tr>
+      <tr><td class="en-c">They are</td><td class="en-c">They're</td><td class="es-c">Ellos son/están</td></tr>
+    </table>
+
+    <h4 style="color:#BE185D;margin-top:16px;">Con TO HAVE</h4>
+    <table class="conj-tabla">
+      <tr><th>Completo</th><th>Contracción</th><th>Español</th></tr>
+      <tr><td class="en-c">I have</td><td class="en-c">I've</td><td class="es-c">Yo he/tengo</td></tr>
+      <tr><td class="en-c">You have</td><td class="en-c">You've</td><td class="es-c">Tú has/tienes</td></tr>
+      <tr><td class="en-c">He has</td><td class="en-c">He's</td><td class="es-c">Él ha/tiene</td></tr>
+      <tr><td class="en-c">She has</td><td class="en-c">She's</td><td class="es-c">Ella ha/tiene</td></tr>
+      <tr><td class="en-c">It has</td><td class="en-c">It's</td><td class="es-c">Ha/tiene (cosa)</td></tr>
+      <tr><td class="en-c">We have</td><td class="en-c">We've</td><td class="es-c">Nosotros hemos/tenemos</td></tr>
+      <tr><td class="en-c">They have</td><td class="en-c">They've</td><td class="es-c">Ellos han/tienen</td></tr>
+    </table>
+
+    <h4 style="color:#BE185D;margin-top:16px;">Futuro y negaciones</h4>
+    <table class="conj-tabla">
+      <tr><th>Completo</th><th>Contracción</th><th>Español</th></tr>
+      <tr><td class="en-c">I will</td><td class="en-c">I'll</td><td class="es-c">Yo (futuro)</td></tr>
+      <tr><td class="en-c">You will</td><td class="en-c">You'll</td><td class="es-c">Tú (futuro)</td></tr>
+      <tr><td class="en-c">He will</td><td class="en-c">He'll</td><td class="es-c">Él (futuro)</td></tr>
+      <tr><td class="en-c">She will</td><td class="en-c">She'll</td><td class="es-c">Ella (futuro)</td></tr>
+      <tr><td class="en-c">We will</td><td class="en-c">We'll</td><td class="es-c">Nosotros (futuro)</td></tr>
+      <tr><td class="en-c">They will</td><td class="en-c">They'll</td><td class="es-c">Ellos (futuro)</td></tr>
+      <tr><td class="en-c">Will not</td><td class="en-c">Won't</td><td class="es-c">No (futuro)</td></tr>
+      <tr><td class="en-c">Do not</td><td class="en-c">Don't</td><td class="es-c">No (presente)</td></tr>
+      <tr><td class="en-c">Does not</td><td class="en-c">Doesn't</td><td class="es-c">No (él/ella, presente)</td></tr>
+      <tr><td class="en-c">Did not</td><td class="en-c">Didn't</td><td class="es-c">No (pasado)</td></tr>
+    </table>
+
+    <div class="tip">
+      <span class="tip-ico">⚠️</span>
+      <span>He's puede significar <strong>He is</strong> o <strong>He has</strong>. El contexto te dirá cuál es. Ej: <em>He's tired</em> (He is) vs <em>He's gone</em> (He has).</span>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(1)">← Lección 7</button>
+    <button class="btn-nav primario" onclick="ir(3)">Examen 7 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 3 — EXAMEN LECCIÓN 7 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s3">
+  <div class="titulo-seccion" style="color:#DC2626;"><span>🧪</span> Examen — Lección 7</div>
+
+  <div class="quiz-card">
+    <div class="quiz-titulo">✏️ Traduce al español</div>
+    <p style="font-size:0.9rem;color:#64748B;margin-bottom:16px;">Escribe la traducción y haz clic en "Verificar".</p>
+
+    <div class="quiz-pregunta"><strong>1. Give it to me =</strong> <input class="quiz-input" id="q1" placeholder="Traducción..." data-ans="damelo a mi,dámelo a mí,démelo a mí,damelo,dámelo"></div>
+    <div class="quiz-pregunta"><strong>2. Here is your hat =</strong> <input class="quiz-input" id="q2" placeholder="Traducción..." data-ans="aqui esta su sombrero,aquí está su sombrero,aqui esta tu sombrero,aquí está tu sombrero"></div>
+    <div class="quiz-pregunta"><strong>3. My father's hat =</strong> <input class="quiz-input" id="q3" placeholder="Traducción..." data-ans="el sombrero de mi padre"></div>
+    <div class="quiz-pregunta"><strong>4. Give me some water =</strong> <input class="quiz-input" id="q4" placeholder="Traducción..." data-ans="deme agua,dame agua,deme un poco de agua,dame un poco de agua"></div>
+    <div class="quiz-pregunta"><strong>5. Have you any bread? =</strong> <input class="quiz-input" id="q5" placeholder="Traducción..." data-ans="tiene usted pan,tienes pan,tiene pan,teneis pan"></div>
+    <div class="quiz-pregunta"><strong>6. I did it myself =</strong> <input class="quiz-input" id="q6" placeholder="Traducción..." data-ans="yo lo hice yo mismo,lo hice yo mismo"></div>
+    <div class="quiz-pregunta"><strong>7. This garden is ours =</strong> <input class="quiz-input" id="q7" placeholder="Traducción..." data-ans="este jardin es nuestro,este jardín es nuestro,este jardin es nuestra,este jardín es nuestra"></div>
+    <div class="quiz-pregunta"><strong>8. I am ill =</strong> <input class="quiz-input" id="q8" placeholder="Traducción..." data-ans="yo estoy enfermo,yo soy enfermo,estoy enfermo,soy enfermo"></div>
+
+    <button class="btn-verificar" onclick="verificar7()">✅ Verificar respuestas</button>
+    <div class="resultado" id="resultado7"></div>
+  </div>
+
+  <div class="card violeta">
+    <h3>👑 ¿Recuerdas los posesivos?</h3>
+    <ul class="frases">
+      <li><span class="en-frase">My → Mine (mío)</span><span class="es-frase">I → My → Mine</span></li>
+      <li><span class="en-frase">Your → Yours (tuyo)</span><span class="es-frase">You → Your → Yours</span></li>
+      <li><span class="en-frase">His → His (suyo de él)</span><span class="es-frase">He → His → His</span></li>
+      <li><span class="en-frase">Her → Hers (suyo de ella)</span><span class="es-frase">She → Her → Hers</span></li>
+      <li><span class="en-frase">Its → Its (suyo de cosa)</span><span class="es-frase">It → Its → Its</span></li>
+      <li><span class="en-frase">Our → Ours (nuestro)</span><span class="es-frase">We → Our → Ours</span></li>
+      <li><span class="en-frase">Their → Theirs (suyo de ellos)</span><span class="es-frase">They → Their → Theirs</span></li>
+    </ul>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(2)">← Lección 8</button>
+    <button class="btn-nav primario" onclick="ir(4)">Examen 8 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 4 — EXAMEN LECCIÓN 8 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s4">
+  <div class="titulo-seccion" style="color:#DC2626;"><span>🧪</span> Examen — Lección 8</div>
+
+  <div class="quiz-card">
+    <div class="quiz-titulo">✏️ Traduce al español</div>
+    <p style="font-size:0.9rem;color:#64748B;margin-bottom:16px;">Escribe la traducción y haz clic en "Verificar".</p>
+
+    <div class="quiz-pregunta"><strong>1. Better =</strong> <input class="quiz-input" id="e1" placeholder="Traducción..." data-ans="mejor"></div>
+    <div class="quiz-pregunta"><strong>2. I do not go =</strong> <input class="quiz-input" id="e2" placeholder="Traducción..." data-ans="yo no voy,no voy"></div>
+    <div class="quiz-pregunta"><strong>3. I did not see =</strong> <input class="quiz-input" id="e3" placeholder="Traducción..." data-ans="yo no vi,no vi"></div>
+    <div class="quiz-pregunta"><strong>4. She is not here =</strong> <input class="quiz-input" id="e4" placeholder="Traducción..." data-ans="ella no esta aqui,ella no está aquí,ella no esta aca,ella no está acá"></div>
+    <div class="quiz-pregunta"><strong>5. I will not go =</strong> <input class="quiz-input" id="e5" placeholder="Traducción..." data-ans="yo no ire,yo no iré,no ire,no iré"></div>
+    <div class="quiz-pregunta"><strong>6. More beautiful =</strong> <input class="quiz-input" id="e6" placeholder="Traducción..." data-ans="mas hermoso,más hermoso,mas hermosa,más hermosa,mas bello,más bello"></div>
+    <div class="quiz-pregunta"><strong>7. He does not have =</strong> <input class="quiz-input" id="e7" placeholder="Traducción..." data-ans="el no tiene,él no tiene"></div>
+    <div class="quiz-pregunta"><strong>8. I don't =</strong> <input class="quiz-input" id="e8" placeholder="Traducción..." data-ans="yo no,no"></div>
+
+    <button class="btn-verificar" onclick="verificar8()">✅ Verificar respuestas</button>
+    <div class="resultado" id="resultado8"></div>
+  </div>
+
+  <div class="card verde">
+    <h3>📐 ¿Recuerdas los comparativos irregulares?</h3>
+    <ul class="frases">
+      <li><span class="en-frase">Good → Better → Best</span><span class="es-frase">Bueno → Mejor → El mejor</span></li>
+      <li><span class="en-frase">Bad → Worse → Worst</span><span class="es-frase">Malo → Peor → El peor</span></li>
+      <li><span class="en-frase">Little → Less → Least</span><span class="es-frase">Poco → Menos → El menor</span></li>
+      <li><span class="en-frase">Far → Farther → Farthest</span><span class="es-frase">Lejos → Más lejos → El más lejano</span></li>
+    </ul>
+  </div>
+
+  <div class="card violeta">
+    <h3>🔤 ¿Recuerdas las contracciones?</h3>
+    <ul class="frases">
+      <li><span class="en-frase">I'm = I am</span><span class="es-frase">Yo soy/estoy</span></li>
+      <li><span class="en-frase">He's = He is / He has</span><span class="es-frase">Él es/está / Él ha/tiene</span></li>
+      <li><span class="en-frase">I'll = I will</span><span class="es-frase">Yo (futuro)</span></li>
+      <li><span class="en-frase">Won't = will not</span><span class="es-frase">No (futuro)</span></li>
+      <li><span class="en-frase">Don't = do not</span><span class="es-frase">No (presente)</span></li>
+      <li><span class="en-frase">Doesn't = does not</span><span class="es-frase">No (él/ella, presente)</span></li>
+      <li><span class="en-frase">Didn't = did not</span><span class="es-frase">No (pasado)</span></li>
+      <li><span class="en-frase">I've = I have</span><span class="es-frase">Yo he/tengo</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="text-align:center;background:linear-gradient(135deg,#1E40AF,#7C3AED);color:white;border-left-color:transparent;">
+    <div style="font-size:3rem;margin-bottom:12px;">🎉</div>
+    <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:8px;">¡Parte 4 completada!</div>
+    <p style="opacity:0.9;">Has terminado las Lecciones 7 y 8. Ya dominas los pronombres, posesivos, comparativos y la negación completa. Pídele a Claude la <strong>Parte 5</strong> (Lecciones 9 y 10).</p>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(3)">← Examen 7</button>
+    <button class="btn-nav primario" onclick="ir(0)">🏠 Inicio</button>
+  </div>
+</section>
+
+</div><!-- /contenedor -->
+
+<script>
+const secciones = 5;
+const fillPorcentaje = [20, 40, 60, 80, 100];
+const progTexto = ['Sección 1 de 5','Sección 2 de 5','Sección 3 de 5','Sección 4 de 5','Sección 5 de 5'];
+
+function ir(n) {
+  document.querySelectorAll('.seccion').forEach((s,i) => {
+    s.classList.toggle('visible', i === n);
+  });
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    b.classList.toggle('activo', i === n);
+  });
+  document.getElementById('fill').style.width = fillPorcentaje[n] + '%';
+  document.getElementById('prog').textContent = progTexto[n];
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+function normalizar(s) {
+  return s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+function calificar(contendorId, resultadoId, mensajeBien, mensajeMal) {
+  const inputs = document.querySelectorAll('#'+contendorId+' .quiz-input');
+  let correctas = 0;
+  inputs.forEach(inp => {
+    const user = normalizar(inp.value);
+    const opciones = inp.dataset.ans.split(',').map(a => normalizar(a));
+    const bien = opciones.includes(user);
+    inp.classList.toggle('correcto', bien);
+    inp.classList.toggle('incorrecto', !bien && user !== '');
+    if (bien) correctas++;
+  });
+  const r = document.getElementById(resultadoId);
+  r.style.display = 'block';
+  if (correctas === inputs.length) {
+    r.className = 'resultado bien';
+    r.textContent = mensajeBien + ' ' + correctas + '/' + inputs.length;
+  } else {
+    r.className = 'resultado mal';
+    r.textContent = mensajeMal + ' ' + correctas + '/' + inputs.length;
+  }
+}
+
+function verificar7() {
+  calificar('s3', 'resultado7',
+    '🎉 ¡Perfecto! Dominas los pronombres y posesivos.',
+    'correctas. ¡Repasa las que fallaste!');
+}
+
+function verificar8() {
+  calificar('s4', 'resultado8',
+    '🏆 ¡Excelente! Dominas la negación y los comparativos.',
+    'correctas. ¡Vuelve a la Lección 8 y repasa!');
+}
+</script>
+</body>
+</html>

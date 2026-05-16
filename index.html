@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglés Básico — Parte 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:    #2563EB;
+    --cielo:   #38BDF8;
+    --verde:   #16A34A;
+    --menta:   #4ADE80;
+    --coral:   #F97316;
+    --amarillo:#FACC15;
+    --violeta: #7C3AED;
+    --rosa:    #EC4899;
+    --blanco:  #FFFFFF;
+    --gris:    #F1F5F9;
+    --texto:   #1E293B;
+    --sombra:  0 4px 20px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #EEF2FF;
+    color: var(--texto);
+    line-height: 1.7;
+  }
+
+  /* ── PORTADA ── */
+  .portada {
+    background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 60%, #EC4899 100%);
+    color: white;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .portada::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .portada-emoji { font-size: 72px; display: block; margin-bottom: 16px; animation: flotar 3s ease-in-out infinite; }
+  @keyframes flotar { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .portada h1 { font-family: 'Fredoka One', cursive; font-size: clamp(2.5rem,6vw,4.5rem); letter-spacing: 2px; text-shadow: 3px 3px 0 rgba(0,0,0,0.2); }
+  .portada .subtitulo { font-size: 1.15rem; opacity: 0.9; margin-top: 8px; font-weight: 600; }
+  .portada .autores { margin-top: 20px; opacity: 0.75; font-size: 0.95rem; }
+  .badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .badge { background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); border-radius: 50px; padding: 6px 18px; font-weight: 700; font-size: 0.9rem; backdrop-filter: blur(6px); }
+
+  /* ── NAVEGACIÓN / ÍNDICE ── */
+  .nav-seccion {
+    background: white;
+    border-bottom: 3px solid var(--azul);
+    padding: 0;
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .nav-btn {
+    background: none;
+    border: none;
+    padding: 14px 20px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    color: #64748B;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { color: var(--azul); background: #EEF2FF; }
+  .nav-btn.activo { color: var(--azul); border-bottom-color: var(--azul); background: #EEF2FF; }
+
+  /* ── CONTENIDO ── */
+  .contenedor { max-width: 860px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* ── SECCIÓN ── */
+  .seccion { display: none; animation: entrar 0.4s ease; }
+  .seccion.visible { display: block; }
+  @keyframes entrar { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── TARJETA BASE ── */
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin: 24px 0;
+    box-shadow: var(--sombra);
+    border-left: 6px solid var(--azul);
+  }
+  .card.verde  { border-left-color: var(--verde); }
+  .card.coral  { border-left-color: var(--coral); }
+  .card.violeta{ border-left-color: var(--violeta); }
+  .card.amarillo{ border-left-color: var(--amarillo); border-left-width: 6px; }
+  .card.rosa   { border-left-color: var(--rosa); }
+
+  /* ── TÍTULOS ── */
+  .titulo-seccion {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    margin: 36px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .titulo-seccion span { font-size: 2rem; }
+  h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  p { margin-bottom: 10px; }
+
+  /* ── GRID DE TARJETAS DE VOCABULARIO ── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .vocab-card {
+    background: var(--gris);
+    border-radius: 14px;
+    padding: 14px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .vocab-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-color: var(--azul); }
+  .vocab-card .en { font-family: 'Fredoka One', cursive; font-size: 1.15rem; color: var(--azul); }
+  .vocab-card .pron { font-size: 0.72rem; color: #94A3B8; margin: 2px 0; font-style: italic; }
+  .vocab-card .es { font-size: 0.9rem; font-weight: 700; color: var(--texto); }
+  .vocab-card .num { position: absolute; top: 6px; right: 8px; font-size: 0.65rem; color: #CBD5E1; font-weight: 700; }
+
+  /* colores alternados */
+  .vocab-card:nth-child(6n+1) { background: #EFF6FF; }
+  .vocab-card:nth-child(6n+2) { background: #F0FDF4; }
+  .vocab-card:nth-child(6n+3) { background: #FFF7ED; }
+  .vocab-card:nth-child(6n+4) { background: #FDF4FF; }
+  .vocab-card:nth-child(6n+5) { background: #FFFBEB; }
+  .vocab-card:nth-child(6n+6) { background: #FFF1F2; }
+
+  /* ── REGLA GRAMATICAL ── */
+  .regla {
+    background: linear-gradient(135deg, #EFF6FF, #F0F9FF);
+    border: 2px solid var(--cielo);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .regla-titulo { font-weight: 800; color: var(--azul); margin-bottom: 8px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+
+  /* ── EJEMPLO DE FRASE ── */
+  .frases { list-style: none; padding: 0; }
+  .frases li {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-left: 4px solid var(--menta);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .frases li .en-frase { font-weight: 700; font-size: 1rem; }
+  .frases li .es-frase { color: #64748B; font-size: 0.9rem; }
+
+  /* ── TABLA VERBOS ── */
+  .verbo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .verbo-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px 16px;
+    border-left: 4px solid var(--violeta);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .verbo-card .num-v { font-family: 'Fredoka One', cursive; font-size: 1.3rem; color: #CBD5E1; }
+  .verbo-card .en-v { font-family: 'Fredoka One', cursive; font-size: 1.05rem; color: var(--violeta); }
+  .verbo-card .pron-v { font-size: 0.7rem; color: #94A3B8; font-style: italic; }
+  .verbo-card .es-v { font-weight: 800; font-size: 1rem; }
+
+  /* ── EXAMEN / QUIZ ── */
+  .quiz-card {
+    background: linear-gradient(135deg, #FFF7ED, #FFFBEB);
+    border: 2px solid var(--amarillo);
+    border-radius: 20px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+  .quiz-titulo { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: var(--coral); margin-bottom: 16px; }
+  .quiz-pregunta { margin: 12px 0; }
+  .quiz-input {
+    border: 2px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 4px;
+    transition: border-color 0.2s;
+  }
+  .quiz-input:focus { outline: none; border-color: var(--azul); }
+  .quiz-input.correcto { border-color: var(--verde); background: #F0FDF4; }
+  .quiz-input.incorrecto { border-color: #EF4444; background: #FEF2F2; }
+  .btn-verificar {
+    background: linear-gradient(135deg, var(--azul), var(--violeta));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-verificar:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+  .resultado { margin-top: 14px; font-weight: 800; font-size: 1.1rem; padding: 12px 16px; border-radius: 12px; display: none; }
+  .resultado.bien { background: #DCFCE7; color: var(--verde); }
+  .resultado.mal  { background: #FEE2E2; color: #DC2626; }
+
+  /* ── OPUESTOS ── */
+  .opuestos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .opuesto-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+  .op-pair { display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .op-word { font-family: 'Fredoka One', cursive; font-size: 1rem; }
+  .op-word .es { font-size: 0.75rem; font-weight: 700; color: #64748B; display: block; font-family: 'Nunito', sans-serif; }
+  .op-vs { color: #CBD5E1; font-weight: 900; font-size: 1.1rem; }
+  .op-word.a { color: var(--azul); }
+  .op-word.b { color: var(--coral); }
+
+  /* ── TABLA CONJUGACIÓN ── */
+  .conj-tabla { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+  .conj-tabla th { background: var(--azul); color: white; padding: 10px 14px; text-align: left; font-weight: 700; }
+  .conj-tabla td { padding: 9px 14px; border-bottom: 1px solid #F1F5F9; }
+  .conj-tabla tr:nth-child(even) { background: #F8FAFC; }
+  .conj-tabla tr:hover { background: #EFF6FF; }
+  .conj-tabla .en-c { font-weight: 700; color: var(--violeta); }
+  .conj-tabla .es-c { color: #64748B; }
+
+  /* ── MESES / DÍAS ── */
+  .meses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .mes-card {
+    border-radius: 14px;
+    padding: 12px 14px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .mes-card .en-m { font-family: 'Fredoka One', cursive; font-size: 1.05rem; }
+  .mes-card .pron-m { font-size: 0.7rem; color: rgba(0,0,0,0.4); font-style: italic; }
+  .mes-card .es-m { font-size: 0.85rem; }
+
+  /* colores por mes */
+  .mes-1 { background:#DBEAFE; color:#1D4ED8; }
+  .mes-2 { background:#FCE7F3; color:#9D174D; }
+  .mes-3 { background:#D1FAE5; color:#065F46; }
+  .mes-4 { background:#FEF3C7; color:#92400E; }
+  .mes-5 { background:#E0E7FF; color:#3730A3; }
+  .mes-6 { background:#FFEDD5; color:#9A3412; }
+  .mes-7 { background:#FEE2E2; color:#991B1B; }
+  .mes-8 { background:#F0FDF4; color:#14532D; }
+  .mes-9 { background:#FDF4FF; color:#6B21A8; }
+  .mes-10{ background:#FFFBEB; color:#92400E; }
+  .mes-11{ background:#F0F9FF; color:#0C4A6E; }
+  .mes-12{ background:#FFF1F2; color:#881337; }
+
+  /* días semana */
+  .dias-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 8px; margin: 16px 0; }
+  .dia-card { border-radius: 12px; padding: 10px 6px; text-align: center; font-size: 0.78rem; font-weight: 700; }
+  .dia-0 { background:#EFF6FF; color:#1D4ED8; }
+  .dia-1 { background:#FEE2E2; color:#991B1B; }
+  .dia-2 { background:#F0FDF4; color:#166534; }
+  .dia-3 { background:#FDF4FF; color:#6B21A8; }
+  .dia-4 { background:#FFFBEB; color:#92400E; }
+  .dia-5 { background:#FFF1F2; color:#BE185D; }
+  .dia-6 { background:#F0F9FF; color:#0C4A6E; }
+  .dia-card .en-d { font-family: 'Fredoka One', cursive; font-size: 0.85rem; }
+  .dia-card .pron-d { font-style: italic; opacity: 0.7; font-size: 0.65rem; }
+  .dia-card .es-d { font-size: 0.75rem; margin-top: 2px; }
+
+  /* ── TIP BOX ── */
+  .tip {
+    background: #FFFBEB;
+    border: 2px dashed var(--amarillo);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .tip-ico { font-size: 1.3rem; flex-shrink: 0; }
+
+  /* ── PÍLDORAS DE PRONOMBRES ── */
+  .pronombres-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+  .pron-card {
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.3;
+  }
+  .pron-card .en-p { font-family: 'Fredoka One', cursive; font-size: 1.15rem; }
+  .pron-card .pron-p { font-size: 0.65rem; font-style: italic; opacity: 0.7; }
+  .pron-card .es-p { font-size: 0.75rem; }
+  .pc-1 { background:#DBEAFE; color:#1D4ED8; }
+  .pc-2 { background:#D1FAE5; color:#065F46; }
+  .pc-3 { background:#FDE8D8; color:#9A3412; }
+  .pc-4 { background:#FCE7F3; color:#9D174D; }
+  .pc-5 { background:#F5F3FF; color:#5B21B6; }
+  .pc-6 { background:#ECFDF5; color:#065F46; }
+  .pc-7 { background:#FEF3C7; color:#92400E; }
+
+  /* footer navegación */
+  .nav-bottom { display: flex; justify-content: space-between; margin-top: 40px; gap: 12px; }
+  .btn-nav {
+    background: white;
+    border: 2px solid var(--azul);
+    color: var(--azul);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-nav:hover { background: var(--azul); color: white; }
+  .btn-nav:disabled { opacity: 0.35; cursor: default; }
+  .btn-nav.primario { background: var(--azul); color: white; }
+  .btn-nav.primario:hover { background: #1D4ED8; }
+
+  /* progreso */
+  .barra-progreso { height: 6px; background: #E2E8F0; border-radius: 50px; margin-bottom: 2px; }
+  .barra-fill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--azul), var(--violeta)); transition: width 0.4s; }
+  .progreso-texto { font-size: 0.8rem; color: #94A3B8; font-weight: 700; padding: 4px 0 12px; }
+
+  @media(max-width:600px){
+    .portada { padding: 60px 16px 40px; }
+    .card { padding: 20px; }
+    .dias-grid { grid-template-columns: repeat(4,1fr); }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="portada">
+  <span class="portada-emoji">🇬🇧</span>
+  <h1>INGLÉS BÁSICO</h1>
+  <div class="subtitulo">850 palabras · 16 verbos · ¡Habla inglés YA!</div>
+  <div class="autores">Charles K. Ogden &amp; Augusto Ghio D.</div>
+  <div class="badges">
+    <span class="badge">📖 Edición Moderna</span>
+    <span class="badge">🎯 Nivel A1</span>
+    <span class="badge">✨ Parte 1 de 11</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-seccion" id="nav">
+  <button class="nav-btn activo" onclick="ir(0)">🏠 Intro</button>
+  <button class="nav-btn" onclick="ir(1)">📚 Lección 1</button>
+  <button class="nav-btn" onclick="ir(2)">⚡ Lección 2</button>
+  <button class="nav-btn" onclick="ir(3)">🧪 Examen 1</button>
+  <button class="nav-btn" onclick="ir(4)">🧪 Examen 2</button>
+</nav>
+
+<!-- BARRA PROGRESO -->
+<div class="contenedor" style="padding-top:20px; padding-bottom:0;">
+  <div class="barra-progreso"><div class="barra-fill" id="fill" style="width:20%"></div></div>
+  <div class="progreso-texto" id="prog">Sección 1 de 5</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 0 — INTRODUCCIÓN -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="contenedor">
+<section class="seccion visible" id="s0">
+
+  <div class="titulo-seccion" style="color:#1E40AF;"><span>🌟</span> Introducción</div>
+
+  <div class="card">
+    <h3>¿Por qué este método?</h3>
+    <p>Tras seis o más años de inglés en el colegio, muchos estudiantes hispanoamericanos llegan al desalentador resultado de <strong>no poder sostener una conversación básica</strong>. La causa: métodos llenos de reglas y gramática que ignoran la práctica real.</p>
+    <p>Este libro cambia eso. Está diseñado desde la perspectiva del hispanohablante que <em>quiere aprender inglés</em>, no de un inglés que intenta enseñarlo.</p>
+  </div>
+
+  <div class="card verde">
+    <h3>🔑 El Sistema Básico</h3>
+    <p>Basado en <strong>850 palabras</strong> cuidadosamente seleccionadas por el profesor C.K. Ogden durante más de <strong>10 años de investigación</strong>, junto con <strong>solo 16 verbos</strong>.</p>
+    <p>Estas 850 palabras equivalen en eficiencia a más de <strong>20.000 palabras</strong> del inglés convencional. En lugar de memorizar 4.000 verbos irregulares, aquí usas 16.</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;">
+      <div style="background:#DCFCE7;border-radius:14px;padding:16px 20px;text-align:center;flex:1;min-width:120px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:2.5rem;color:#16A34A;">850</div>
+        <div style="font-weight:700;font-size:0.85rem;color:#166534;">palabras básicas</div>
+      </div>
+      <div style="background:#DBEAFE;border-radius:14px;padding:16px 20px;text-align:center;flex:1;min-width:120px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:2.5rem;color:#2563EB;">16</div>
+        <div style="font-weight:700;font-size:0.85rem;color:#1E40AF;">verbos básicos</div>
+      </div>
+      <div style="background:#FDF4FF;border-radius:14px;padding:16px 20px;text-align:center;flex:1;min-width:120px;">
+        <div style="font-family:'Fredoka One',cursive;font-size:2.5rem;color:#7C3AED;">11</div>
+        <div style="font-weight:700;font-size:0.85rem;color:#6B21A8;">lecciones</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card coral">
+    <h3>📋 Cómo estudiar</h3>
+    <p>Sigue el orden del libro <strong>sin saltarte lecciones</strong>. Cada una se basa en la anterior.</p>
+    <ul style="margin-left:20px; margin-top:8px;">
+      <li style="margin-bottom:6px;">📓 Lleva una libretita de bolsillo para anotar palabras y reglas.</li>
+      <li style="margin-bottom:6px;">🗣️ Estudia <strong>en voz alta</strong> siempre que puedas.</li>
+      <li style="margin-bottom:6px;">✏️ Haz los exámenes por escrito y sin mirar las respuestas.</li>
+      <li>🔁 Si cometes errores, <strong>repasa la lección</strong> antes de continuar.</li>
+    </ul>
+  </div>
+
+  <div class="tip">
+    <span class="tip-ico">💡</span>
+    <span>El inglés básico <strong>no es un inglés limitado</strong>. Con estas 850 palabras podrás conversar perfectamente con cualquier angloparlante nativo sobre prácticamente cualquier tema cotidiano.</span>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" disabled>← Anterior</button>
+    <button class="btn-nav primario" onclick="ir(1)">Lección 1 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 1 — LECCIÓN 1 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s1">
+
+  <div class="titulo-seccion" style="color:#7C3AED;"><span>📚</span> Lección 1</div>
+
+  <!-- Palabras casi iguales -->
+  <div class="card violeta">
+    <h3>🌎 Palabras casi iguales al español</h3>
+    <p>Empieza fácil: estas palabras son iguales en inglés y en español. ¡Solo cambia la pronunciación!</p>
+    <div class="vocab-grid">
+      <div class="vocab-card"><span class="num">1</span><div class="en">Animal</div><div class="pron">(Ánimal)</div><div class="es">Animal</div></div>
+      <div class="vocab-card"><span class="num">2</span><div class="en">Base</div><div class="pron">(beis)</div><div class="es">Base</div></div>
+      <div class="vocab-card"><span class="num">3</span><div class="en">Collar</div><div class="pron">(cólaR)</div><div class="es">Collar</div></div>
+      <div class="vocab-card"><span class="num">4</span><div class="en">Control</div><div class="pron">(contróUl)</div><div class="es">Control</div></div>
+      <div class="vocab-card"><span class="num">5</span><div class="en">Error</div><div class="pron">(érroR)</div><div class="es">Error</div></div>
+      <div class="vocab-card"><span class="num">6</span><div class="en">General</div><div class="pron">(yéneral)</div><div class="es">General</div></div>
+      <div class="vocab-card"><span class="num">7</span><div class="en">Hospital</div><div class="pron">(jóspitAl)</div><div class="es">Hospital</div></div>
+      <div class="vocab-card"><span class="num">8</span><div class="en">Idea</div><div class="pron">(aidía)</div><div class="es">Idea</div></div>
+      <div class="vocab-card"><span class="num">9</span><div class="en">Metal</div><div class="pron">(métAl)</div><div class="es">Metal</div></div>
+      <div class="vocab-card"><span class="num">10</span><div class="en">Natural</div><div class="pron">(náchural)</div><div class="es">Natural</div></div>
+      <div class="vocab-card"><span class="num">11</span><div class="en">No</div><div class="pron">(nóU)</div><div class="es">No</div></div>
+      <div class="vocab-card"><span class="num">12</span><div class="en">Opinion</div><div class="pron">(opíniOn)</div><div class="es">Opinión</div></div>
+      <div class="vocab-card"><span class="num">13</span><div class="en">Gas</div><div class="pron">(gas)</div><div class="es">Gas</div></div>
+      <div class="vocab-card"><span class="num">14</span><div class="en">Normal</div><div class="pron">(normal)</div><div class="es">Normal</div></div>
+      <div class="vocab-card"><span class="num">15</span><div class="en">Club</div><div class="pron">(clob)</div><div class="es">Club</div></div>
+      <div class="vocab-card"><span class="num">16</span><div class="en">Regular</div><div class="pron">(réguiular)</div><div class="es">Regular</div></div>
+      <div class="vocab-card"><span class="num">17</span><div class="en">Motor</div><div class="pron">(móUtoR)</div><div class="es">Motor</div></div>
+      <div class="vocab-card"><span class="num">18</span><div class="en">Moral</div><div class="pron">(móral)</div><div class="es">Moral</div></div>
+      <div class="vocab-card"><span class="num">19</span><div class="en">Hotel</div><div class="pron">(joUtél)</div><div class="es">Hotel</div></div>
+      <div class="vocab-card"><span class="num">20</span><div class="en">Banana</div><div class="pron">(banana)</div><div class="es">Banana</div></div>
+      <div class="vocab-card"><span class="num">21</span><div class="en">Tango</div><div class="pron">(tangoU)</div><div class="es">Tango</div></div>
+      <div class="vocab-card"><span class="num">22</span><div class="en">Opera</div><div class="pron">(ópera)</div><div class="es">Ópera</div></div>
+      <div class="vocab-card"><span class="num">23</span><div class="en">Violin</div><div class="pron">(vaiolin)</div><div class="es">Violín</div></div>
+      <div class="vocab-card"><span class="num">24</span><div class="en">Religion</div><div class="pron">(rilíyion)</div><div class="es">Religión</div></div>
+    </div>
+  </div>
+
+  <!-- La terminación ING -->
+  <div class="card rosa">
+    <h3>🔤 La terminación ING</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      La terminación <strong>-ING</strong> indica la <strong>acción</strong> de la cosa que señala la palabra. Es como el español <em>-ando / -iendo</em>.
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Light</div><div class="pron">(lait)</div><div class="es">Luz</div></div>
+      <div class="vocab-card"><div class="en">Lighting</div><div class="pron">(laiting)</div><div class="es">Alumbrando</div></div>
+      <div class="vocab-card"><div class="en">Work</div><div class="pron">(ueRk)</div><div class="es">Trabajo</div></div>
+      <div class="vocab-card"><div class="en">Working</div><div class="pron">(ueRking)</div><div class="es">Trabajando</div></div>
+      <div class="vocab-card"><div class="en">Oil</div><div class="pron">(oil)</div><div class="es">Aceite</div></div>
+      <div class="vocab-card"><div class="en">Oiling</div><div class="pron">(oiling)</div><div class="es">Aceitando</div></div>
+      <div class="vocab-card"><div class="en">Plant</div><div class="pron">(plant)</div><div class="es">Planta</div></div>
+      <div class="vocab-card"><div class="en">Planting</div><div class="pron">(planting)</div><div class="es">Plantando</div></div>
+      <div class="vocab-card"><div class="en">Smile</div><div class="pron">(smail)</div><div class="es">Sonrisa</div></div>
+      <div class="vocab-card"><div class="en">Smiling</div><div class="pron">(smailing)</div><div class="es">Sonriendo</div></div>
+      <div class="vocab-card"><div class="en">Flower</div><div class="pron">(flaueR)</div><div class="es">Flor</div></div>
+      <div class="vocab-card"><div class="en">Flowering</div><div class="pron">(flauering)</div><div class="es">Floreciendo</div></div>
+    </div>
+  </div>
+
+  <!-- IS y ARE -->
+  <div class="card verde">
+    <h3>✅ IS y ARE — Ser / Estar</h3>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+      <div style="background:#DCFCE7;border-radius:14px;padding:14px 20px;flex:1;min-width:140px;text-align:center;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;color:#16A34A;">IS</div>
+        <div style="font-weight:700;color:#166534;">(iz)</div>
+        <div style="font-size:0.85rem;margin-top:4px;">= <strong>es</strong> o <strong>está</strong></div>
+      </div>
+      <div style="background:#DBEAFE;border-radius:14px;padding:14px 20px;flex:1;min-width:140px;text-align:center;">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;color:#2563EB;">ARE</div>
+        <div style="font-weight:700;color:#1E40AF;">(aR)</div>
+        <div style="font-size:0.85rem;margin-top:4px;">= <strong>son</strong> o <strong>están</strong></div>
+      </div>
+    </div>
+    <ul class="frases">
+      <li><span class="en-frase">He is my brother</span><span class="es-frase">Él es mi hermano</span></li>
+      <li><span class="en-frase">They are sisters</span><span class="es-frase">Ellas son hermanas</span></li>
+      <li><span class="en-frase">He is in the garden</span><span class="es-frase">Él está en el jardín</span></li>
+      <li><span class="en-frase">The sky is blue</span><span class="es-frase">El cielo es azul</span></li>
+      <li><span class="en-frase">You are late</span><span class="es-frase">Ustedes están atrasados</span></li>
+      <li><span class="en-frase">They are walking</span><span class="es-frase">Ellos están caminando</span></li>
+      <li><span class="en-frase">He is painting</span><span class="es-frase">Él está pintando</span></li>
+      <li><span class="en-frase">They are crying</span><span class="es-frase">Ellos están llorando</span></li>
+    </ul>
+  </div>
+
+  <!-- El adjetivo inglés -->
+  <div class="card coral">
+    <h3>🎨 El Adjetivo Inglés</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla importante</div>
+      En inglés, el adjetivo va <strong>ANTES</strong> del sustantivo. Al revés que en español.<br>
+      <span style="color:#64748B">Español: un libro <u>negro</u> → Inglés: a <u>black</u> book</span>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">A bad boy</div><div class="es">Un niño malo</div></div>
+      <div class="vocab-card"><div class="en">A blue sky</div><div class="es">Un cielo azul</div></div>
+      <div class="vocab-card"><div class="en">A young man</div><div class="es">Un hombre joven</div></div>
+      <div class="vocab-card"><div class="en">Clean water</div><div class="es">Agua limpia</div></div>
+      <div class="vocab-card"><div class="en">A new house</div><div class="es">Una casa nueva</div></div>
+      <div class="vocab-card"><div class="en">A deep river</div><div class="es">Un río hondo</div></div>
+      <div class="vocab-card"><div class="en">A strong man</div><div class="es">Un hombre fuerte</div></div>
+      <div class="vocab-card"><div class="en">A wise man</div><div class="es">Un hombre sabio</div></div>
+      <div class="vocab-card"><div class="en">A white dress</div><div class="es">Un traje blanco</div></div>
+      <div class="vocab-card"><div class="en">A sweet drink</div><div class="es">Una bebida dulce</div></div>
+      <div class="vocab-card"><div class="en">A small table</div><div class="es">Una mesa chica</div></div>
+      <div class="vocab-card"><div class="en">A black hat</div><div class="es">Un sombrero negro</div></div>
+    </div>
+  </div>
+
+  <!-- Vocabulario lección 1 -->
+  <div class="card">
+    <h3>📖 Vocabulario Nuevo — Lección 1</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Hat</div><div class="pron">(jat)</div><div class="es">Sombrero</div></div>
+      <div class="vocab-card"><div class="en">Brother</div><div class="pron">(brodeR)</div><div class="es">Hermano</div></div>
+      <div class="vocab-card"><div class="en">Blue</div><div class="pron">(blú)</div><div class="es">Azul</div></div>
+      <div class="vocab-card"><div class="en">Garden</div><div class="pron">(gaRdEn)</div><div class="es">Jardín</div></div>
+      <div class="vocab-card"><div class="en">He</div><div class="pron">(ji)</div><div class="es">Él</div></div>
+      <div class="vocab-card"><div class="en">Here</div><div class="pron">(jiaR)</div><div class="es">Aquí</div></div>
+      <div class="vocab-card"><div class="en">In</div><div class="pron">(in)</div><div class="es">En</div></div>
+      <div class="vocab-card"><div class="en">Late</div><div class="pron">(leit)</div><div class="es">Atrasado / tarde</div></div>
+      <div class="vocab-card"><div class="en">My</div><div class="pron">(mai)</div><div class="es">Mi / mis</div></div>
+      <div class="vocab-card"><div class="en">Sister</div><div class="pron">(sisteR)</div><div class="es">Hermana</div></div>
+      <div class="vocab-card"><div class="en">Son</div><div class="pron">(san)</div><div class="es">Hijo</div></div>
+      <div class="vocab-card"><div class="en">Sky</div><div class="pron">(skai)</div><div class="es">Cielo</div></div>
+      <div class="vocab-card"><div class="en">They</div><div class="pron">(dei)</div><div class="es">Ellos / ellas</div></div>
+      <div class="vocab-card"><div class="en">The</div><div class="pron">(dii)</div><div class="es">El / la / los / las</div></div>
+      <div class="vocab-card"><div class="en">This</div><div class="pron">(dis)</div><div class="es">Este / esta / esto</div></div>
+      <div class="vocab-card"><div class="en">You</div><div class="pron">(yúu)</div><div class="es">Tú / usted(es)</div></div>
+      <div class="vocab-card"><div class="en">Yellow</div><div class="pron">(yéloU)</div><div class="es">Amarillo</div></div>
+      <div class="vocab-card"><div class="en">Day</div><div class="pron">(dei)</div><div class="es">Día</div></div>
+      <div class="vocab-card"><div class="en">Monday</div><div class="pron">(mandEi)</div><div class="es">Lunes</div></div>
+      <div class="vocab-card"><div class="en">House</div><div class="pron">(jáus)</div><div class="es">Casa</div></div>
+      <div class="vocab-card"><div class="en">River</div><div class="pron">(rivEr)</div><div class="es">Río</div></div>
+      <div class="vocab-card"><div class="en">Water</div><div class="pron">(uóoteR)</div><div class="es">Agua</div></div>
+      <div class="vocab-card"><div class="en">Woman</div><div class="pron">(uúman)</div><div class="es">Mujer</div></div>
+      <div class="vocab-card"><div class="en">Man</div><div class="pron">(man)</div><div class="es">Hombre</div></div>
+      <div class="vocab-card"><div class="en">Apple</div><div class="pron">(ápEl)</div><div class="es">Manzana</div></div>
+      <div class="vocab-card"><div class="en">Boy</div><div class="pron">(bóy)</div><div class="es">Niño</div></div>
+      <div class="vocab-card"><div class="en">Good</div><div class="pron">(gúd)</div><div class="es">Bueno</div></div>
+      <div class="vocab-card"><div class="en">Very</div><div class="pron">(véry)</div><div class="es">Muy</div></div>
+      <div class="vocab-card"><div class="en">New</div><div class="pron">(niúu)</div><div class="es">Nuevo / nueva</div></div>
+      <div class="vocab-card"><div class="en">Tree</div><div class="pron">(tríi)</div><div class="es">Árbol</div></div>
+      <div class="vocab-card"><div class="en">Mountain</div><div class="pron">(mauntin)</div><div class="es">Montaña</div></div>
+      <div class="vocab-card"><div class="en">Green</div><div class="pron">(gríin)</div><div class="es">Verde</div></div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(0)">← Intro</button>
+    <button class="btn-nav primario" onclick="ir(2)">Lección 2 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 2 — LECCIÓN 2 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s2">
+
+  <div class="titulo-seccion" style="color:#EA580C;"><span>⚡</span> Lección 2</div>
+
+  <!-- Meses -->
+  <div class="card coral">
+    <h3>📅 Los 12 Meses del Año</h3>
+    <div class="meses-grid">
+      <div class="mes-card mes-1"><div class="en-m">January</div><div class="pron-m">(yanuari)</div><div class="es-m">Enero</div></div>
+      <div class="mes-card mes-2"><div class="en-m">February</div><div class="pron-m">(fébruari)</div><div class="es-m">Febrero</div></div>
+      <div class="mes-card mes-3"><div class="en-m">March</div><div class="pron-m">(máaRch)</div><div class="es-m">Marzo</div></div>
+      <div class="mes-card mes-4"><div class="en-m">April</div><div class="pron-m">(éipril)</div><div class="es-m">Abril</div></div>
+      <div class="mes-card mes-5"><div class="en-m">May</div><div class="pron-m">(méi)</div><div class="es-m">Mayo</div></div>
+      <div class="mes-card mes-6"><div class="en-m">June</div><div class="pron-m">(yúun)</div><div class="es-m">Junio</div></div>
+      <div class="mes-card mes-7"><div class="en-m">July</div><div class="pron-m">(yuulai)</div><div class="es-m">Julio</div></div>
+      <div class="mes-card mes-8"><div class="en-m">August</div><div class="pron-m">(óoguest)</div><div class="es-m">Agosto</div></div>
+      <div class="mes-card mes-9"><div class="en-m">September</div><div class="pron-m">(septémbeR)</div><div class="es-m">Septiembre</div></div>
+      <div class="mes-card mes-10"><div class="en-m">October</div><div class="pron-m">(octóUbeR)</div><div class="es-m">Octubre</div></div>
+      <div class="mes-card mes-11"><div class="en-m">November</div><div class="pron-m">(novémbeR)</div><div class="es-m">Noviembre</div></div>
+      <div class="mes-card mes-12"><div class="en-m">December</div><div class="pron-m">(disémbeR)</div><div class="es-m">Diciembre</div></div>
+    </div>
+    <div class="tip"><span class="tip-ico">💡</span><span>¡Los meses en inglés siempre se escriben con <strong>mayúscula</strong>!</span></div>
+  </div>
+
+  <!-- Días semana -->
+  <div class="card amarillo">
+    <h3>📆 Los 7 Días de la Semana</h3>
+    <div class="dias-grid">
+      <div class="dia-card dia-0"><div class="en-d">Monday</div><div class="pron-d">(mandEi)</div><div class="es-d">Lunes</div></div>
+      <div class="dia-card dia-1"><div class="en-d">Tuesday</div><div class="pron-d">(tiúsdEi)</div><div class="es-d">Martes</div></div>
+      <div class="dia-card dia-2"><div class="en-d">Wednesday</div><div class="pron-d">(uuénsdEi)</div><div class="es-d">Miércoles</div></div>
+      <div class="dia-card dia-3"><div class="en-d">Thursday</div><div class="pron-d">(zérsdEi)</div><div class="es-d">Jueves</div></div>
+      <div class="dia-card dia-4"><div class="en-d">Friday</div><div class="pron-d">(fráidEi)</div><div class="es-d">Viernes</div></div>
+      <div class="dia-card dia-5"><div class="en-d">Saturday</div><div class="pron-d">(sáterdEi)</div><div class="es-d">Sábado</div></div>
+      <div class="dia-card dia-6"><div class="en-d">Sunday</div><div class="pron-d">(sándEi)</div><div class="es-d">Domingo</div></div>
+    </div>
+    <div class="tip"><span class="tip-ico">📌</span><span>Para decir "el lunes", "el martes", etc., usa <strong>on Monday</strong>, <strong>on Tuesday</strong>… Ej: <em>I will go on Thursday</em> = Yo iré el jueves.</span></div>
+  </div>
+
+  <!-- Pronombres personales -->
+  <div class="card verde">
+    <h3>👤 Pronombres Personales</h3>
+    <div class="pronombres-grid">
+      <div class="pron-card pc-1"><span class="en-p">I</span><span class="pron-p">(ai)</span><span class="es-p">Yo</span></div>
+      <div class="pron-card pc-2"><span class="en-p">You</span><span class="pron-p">(yúu)</span><span class="es-p">Usted / tú</span></div>
+      <div class="pron-card pc-3"><span class="en-p">He</span><span class="pron-p">(jíi)</span><span class="es-p">Él (persona)</span></div>
+      <div class="pron-card pc-4"><span class="en-p">She</span><span class="pron-p">(SHíi)</span><span class="es-p">Ella (persona)</span></div>
+      <div class="pron-card pc-5"><span class="en-p">It</span><span class="pron-p">(it)</span><span class="es-p">Él / ella (cosa)</span></div>
+      <div class="pron-card pc-6"><span class="en-p">We</span><span class="pron-p">(uí)</span><span class="es-p">Nosotros / as</span></div>
+      <div class="pron-card pc-7"><span class="en-p">They</span><span class="pron-p">(déi)</span><span class="es-p">Ellos / ellas</span></div>
+    </div>
+    <div class="tip"><span class="tip-ico">⚠️</span><span><strong>He / She</strong> se usan con personas. <strong>It</strong> se usa con cosas (animales u objetos). <em>The cat? It is small.</em></span></div>
+  </div>
+
+  <!-- Los 16 Verbos -->
+  <div class="card violeta">
+    <h3>🔥 Los 16 Verbos Básicos</h3>
+    <p style="margin-bottom:16px;">Aprende estos 16 verbos de memoria. Reemplazan a los <strong>4.000 verbos</strong> del inglés convencional. La palabra <strong>to</strong> indica que el verbo está en infinitivo.</p>
+    <div class="verbo-grid">
+      <div class="verbo-card"><span class="num-v">1</span><div><div class="en-v">to come</div><div class="pron-v">(tu cám)</div></div><div class="es-v">Venir</div></div>
+      <div class="verbo-card"><span class="num-v">2</span><div><div class="en-v">to let</div><div class="pron-v">(let)</div></div><div class="es-v">Dejar</div></div>
+      <div class="verbo-card"><span class="num-v">3</span><div><div class="en-v">to go</div><div class="pron-v">(tu góU)</div></div><div class="es-v">Ir</div></div>
+      <div class="verbo-card"><span class="num-v">4</span><div><div class="en-v">to put</div><div class="pron-v">(tu put)</div></div><div class="es-v">Poner</div></div>
+      <div class="verbo-card"><span class="num-v">5</span><div><div class="en-v">to take</div><div class="pron-v">(tu téik)</div></div><div class="es-v">Tomar</div></div>
+      <div class="verbo-card"><span class="num-v">6</span><div><div class="en-v">to give</div><div class="pron-v">(tu guív)</div></div><div class="es-v">Dar</div></div>
+      <div class="verbo-card"><span class="num-v">7</span><div><div class="en-v">to get</div><div class="pron-v">(tu guét)</div></div><div class="es-v">Conseguir</div></div>
+      <div class="verbo-card"><span class="num-v">8</span><div><div class="en-v">to keep</div><div class="pron-v">(tu kíip)</div></div><div class="es-v">Mantener</div></div>
+      <div class="verbo-card"><span class="num-v">9</span><div><div class="en-v">to make</div><div class="pron-v">(tu méik)</div></div><div class="es-v">Hacer</div></div>
+      <div class="verbo-card"><span class="num-v">10</span><div><div class="en-v">to do</div><div class="pron-v">(tu dúu)</div></div><div class="es-v">Hacer</div></div>
+      <div class="verbo-card"><span class="num-v">11</span><div><div class="en-v">to seem</div><div class="pron-v">(tu síim)</div></div><div class="es-v">Parecer</div></div>
+      <div class="verbo-card"><span class="num-v">12</span><div><div class="en-v">to say</div><div class="pron-v">(tu séi)</div></div><div class="es-v">Decir</div></div>
+      <div class="verbo-card"><span class="num-v">13</span><div><div class="en-v">to see</div><div class="pron-v">(tu síi)</div></div><div class="es-v">Ver</div></div>
+      <div class="verbo-card"><span class="num-v">14</span><div><div class="en-v">to send</div><div class="pron-v">(tu sénd)</div></div><div class="es-v">Enviar</div></div>
+      <div class="verbo-card"><span class="num-v">15</span><div><div class="en-v">to be</div><div class="pron-v">(tu bíi)</div></div><div class="es-v">Ser / Estar</div></div>
+      <div class="verbo-card"><span class="num-v">16</span><div><div class="en-v">to have</div><div class="pron-v">(tu jáv)</div></div><div class="es-v">Haber / Tener</div></div>
+    </div>
+  </div>
+
+  <!-- Tiempo presente -->
+  <div class="card">
+    <h3>🕐 Tiempo Presente</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      Para formar el presente: reemplaza <strong>to</strong> por el pronombre personal. Solo se agrega <strong>-s</strong> (o <strong>-es</strong>) cuando el sujeto es <em>he, she</em> o <em>it</em>.
+    </div>
+    <table class="conj-tabla">
+      <tr><th colspan="4">TO GO = IR</th></tr>
+      <tr><td class="en-c">I go</td><td class="es-c">Yo voy</td><td class="en-c">We go</td><td class="es-c">Nosotros vamos</td></tr>
+      <tr><td class="en-c">You go</td><td class="es-c">Usted va</td><td class="en-c">You go</td><td class="es-c">Ustedes van</td></tr>
+      <tr><td class="en-c">He goes ⚠️</td><td class="es-c">Él va</td><td class="en-c">They go</td><td class="es-c">Ellos van</td></tr>
+    </table>
+    <table class="conj-tabla" style="margin-top:12px;">
+      <tr><th colspan="4">TO HAVE = TENER</th></tr>
+      <tr><td class="en-c">I have</td><td class="es-c">Yo tengo</td><td class="en-c">We have</td><td class="es-c">Nosotros tenemos</td></tr>
+      <tr><td class="en-c">You have</td><td class="es-c">Usted tiene</td><td class="en-c">You have</td><td class="es-c">Ustedes tienen</td></tr>
+      <tr><td class="en-c">He has ⚠️</td><td class="es-c">Él tiene</td><td class="en-c">They have</td><td class="es-c">Ellos tienen</td></tr>
+    </table>
+    <div class="tip" style="margin-top:12px;"><span class="tip-ico">⚠️</span><span>Con <strong>he / she / it</strong>: <em>goes, does, has</em> (no goes = "gós", does = "dás")</span></div>
+  </div>
+
+  <!-- Gerundio -->
+  <div class="card rosa">
+    <h3>🔄 El Gerundio (-ING con verbos)</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      El gerundio = verbo + <strong>-ING</strong>. Equivale a <em>-ando / -iendo</em> en español.
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="en">Coming</div><div class="pron">(caming)</div><div class="es">Viniendo</div></div>
+      <div class="vocab-card"><div class="en">Going</div><div class="pron">(góing)</div><div class="es">Yendo</div></div>
+      <div class="vocab-card"><div class="en">Doing</div><div class="pron">(dúuing)</div><div class="es">Haciendo</div></div>
+      <div class="vocab-card"><div class="en">Making</div><div class="pron">(méiking)</div><div class="es">Haciendo</div></div>
+      <div class="vocab-card"><div class="en">Giving</div><div class="pron">(guiving)</div><div class="es">Dando</div></div>
+      <div class="vocab-card"><div class="en">Saying</div><div class="pron">(séiing)</div><div class="es">Diciendo</div></div>
+      <div class="vocab-card"><div class="en">Seeing</div><div class="pron">(síing)</div><div class="es">Viendo</div></div>
+      <div class="vocab-card"><div class="en">Taking</div><div class="pron">(téiking)</div><div class="es">Tomando</div></div>
+      <div class="vocab-card"><div class="en">Sending</div><div class="pron">(sénding)</div><div class="es">Enviando</div></div>
+      <div class="vocab-card"><div class="en">Keeping</div><div class="pron">(kíiping)</div><div class="es">Manteniendo</div></div>
+      <div class="vocab-card"><div class="en">Putting</div><div class="pron">(púting)</div><div class="es">Poniendo</div></div>
+      <div class="vocab-card"><div class="en">Getting</div><div class="pron">(guéting)</div><div class="es">Consiguiendo</div></div>
+    </div>
+    <ul class="frases" style="margin-top:16px;">
+      <li><span class="en-frase">We are going to Argentina</span><span class="es-frase">Nosotros vamos a Argentina</span></li>
+      <li><span class="en-frase">My father is coming by train</span><span class="es-frase">Mi padre viene por tren</span></li>
+      <li><span class="en-frase">He is taking a rest</span><span class="es-frase">Él está tomando un descanso</span></li>
+      <li><span class="en-frase">My sister is putting the bread on the table</span><span class="es-frase">Mi hermana está poniendo el pan sobre la mesa</span></li>
+    </ul>
+  </div>
+
+  <!-- Futuro con WILL -->
+  <div class="card verde">
+    <h3>🚀 El Tiempo Futuro — WILL</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla (¡muy fácil!)</div>
+      Para expresar el futuro, pon <strong>WILL</strong> (uíl) delante de cualquier verbo. ¡Una sola palabra para todos los futuros!
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;">
+      <div style="background:#DCFCE7;border-radius:12px;padding:12px 16px;flex:1;min-width:180px;">
+        <div style="font-size:0.8rem;color:#166534;font-weight:700;">PRESENTE</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:#16A34A;margin-top:4px;">I go → Yo voy</div>
+      </div>
+      <div style="background:#DBEAFE;border-radius:12px;padding:12px 16px;flex:1;min-width:180px;">
+        <div style="font-size:0.8rem;color:#1E40AF;font-weight:700;">FUTURO</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:#2563EB;margin-top:4px;">I will go → Yo iré</div>
+      </div>
+    </div>
+    <ul class="frases">
+      <li><span class="en-frase">I will go to Buenos Aires</span><span class="es-frase">Yo iré a Buenos Aires</span></li>
+      <li><span class="en-frase">He will come today</span><span class="es-frase">Él vendrá hoy</span></li>
+      <li><span class="en-frase">She will go tomorrow</span><span class="es-frase">Ella irá mañana</span></li>
+      <li><span class="en-frase">We will send a letter</span><span class="es-frase">Nosotros enviaremos una carta</span></li>
+      <li><span class="en-frase">I will keep my word</span><span class="es-frase">Yo mantendré mi palabra</span></li>
+      <li><span class="en-frase">You will come in the morning</span><span class="es-frase">Ustedes vendrán en la mañana</span></li>
+    </ul>
+  </div>
+
+  <!-- A / AN -->
+  <div class="card amarillo">
+    <h3>🔤 A y AN — "Un / Una"</h3>
+    <div class="regla">
+      <div class="regla-titulo">📌 Regla</div>
+      <strong>A</strong> = un / una (antes de consonante)<br>
+      <strong>AN</strong> = un / una (antes de vocal: a, e, i, o, u)
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div>
+        <div style="font-weight:800;color:#92400E;margin-bottom:8px;">USA "A"</div>
+        <ul class="frases">
+          <li><span class="en-frase">a woman</span><span class="es-frase">una mujer</span></li>
+          <li><span class="en-frase">a book</span><span class="es-frase">un libro</span></li>
+          <li><span class="en-frase">a boy</span><span class="es-frase">un niño</span></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-weight:800;color:#15803D;margin-bottom:8px;">USA "AN"</div>
+        <ul class="frases">
+          <li><span class="en-frase">an apple</span><span class="es-frase">una manzana</span></li>
+          <li><span class="en-frase">an army</span><span class="es-frase">un ejército</span></li>
+          <li><span class="en-frase">an old woman</span><span class="es-frase">una mujer vieja</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Opuestos -->
+  <div class="card">
+    <h3>↔️ Palabras Opuestas</h3>
+    <div class="opuestos-grid">
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">Good<span class="es">Bueno</span></div><div class="op-vs">⟷</div><div class="op-word b">Bad<span class="es">Malo</span></div></div></div>
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">Man<span class="es">Hombre</span></div><div class="op-vs">⟷</div><div class="op-word b">Woman<span class="es">Mujer</span></div></div></div>
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">White<span class="es">Blanco</span></div><div class="op-vs">⟷</div><div class="op-word b">Black<span class="es">Negro</span></div></div></div>
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">Peace<span class="es">Paz</span></div><div class="op-vs">⟷</div><div class="op-word b">War<span class="es">Guerra</span></div></div></div>
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">Summer<span class="es">Verano</span></div><div class="op-vs">⟷</div><div class="op-word b">Winter<span class="es">Invierno</span></div></div></div>
+      <div class="opuesto-card"><div class="op-pair"><div class="op-word a">East<span class="es">Este</span></div><div class="op-vs">⟷</div><div class="op-word b">West<span class="es">Oeste</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(1)">← Lección 1</button>
+    <button class="btn-nav primario" onclick="ir(3)">Examen 1 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 3 — EXAMEN LECCIÓN 1 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s3">
+  <div class="titulo-seccion" style="color:#DC2626;"><span>🧪</span> Examen — Lección 1</div>
+
+  <div class="quiz-card">
+    <div class="quiz-titulo">✏️ Traduce al español</div>
+    <p style="font-size:0.9rem;color:#64748B;margin-bottom:16px;">Escribe la traducción en el cuadro y haz clic en "Verificar" al final.</p>
+
+    <div class="quiz-pregunta"><strong>1. Light =</strong> <input class="quiz-input" id="q1" placeholder="Traducción..." data-ans="luz"></div>
+    <div class="quiz-pregunta"><strong>2. Offering =</strong> <input class="quiz-input" id="q2" placeholder="Traducción..." data-ans="ofreciendo"></div>
+    <div class="quiz-pregunta"><strong>3. Water =</strong> <input class="quiz-input" id="q3" placeholder="Traducción..." data-ans="agua"></div>
+    <div class="quiz-pregunta"><strong>4. Blue =</strong> <input class="quiz-input" id="q4" placeholder="Traducción..." data-ans="azul"></div>
+    <div class="quiz-pregunta"><strong>5. Sky =</strong> <input class="quiz-input" id="q5" placeholder="Traducción..." data-ans="cielo"></div>
+    <div class="quiz-pregunta"><strong>6. Garden =</strong> <input class="quiz-input" id="q6" placeholder="Traducción..." data-ans="jardín,jardin"></div>
+    <div class="quiz-pregunta"><strong>7. Walking =</strong> <input class="quiz-input" id="q7" placeholder="Traducción..." data-ans="caminando"></div>
+    <div class="quiz-pregunta"><strong>8. Are =</strong> <input class="quiz-input" id="q8" placeholder="Traducción..." data-ans="son,están,estan"></div>
+
+    <button class="btn-verificar" onclick="verificar()">✅ Verificar respuestas</button>
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <div class="card">
+    <h3>🗣️ Traduce estas frases</h3>
+    <ul class="frases">
+      <li><span class="en-frase">She is smiling</span><span class="es-frase">Ella está sonriendo</span></li>
+      <li><span class="en-frase">He is my brother</span><span class="es-frase">Él es mi hermano</span></li>
+      <li><span class="en-frase">The sky is blue</span><span class="es-frase">El cielo es azul</span></li>
+      <li><span class="en-frase">He is painting</span><span class="es-frase">Él está pintando</span></li>
+      <li><span class="en-frase">My son is here</span><span class="es-frase">Mi hijo está aquí</span></li>
+      <li><span class="en-frase">They are in the river</span><span class="es-frase">Ellos están en el río</span></li>
+    </ul>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(2)">← Lección 2</button>
+    <button class="btn-nav primario" onclick="ir(4)">Examen 2 →</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECCIÓN 4 — EXAMEN LECCIÓN 2 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="seccion" id="s4">
+  <div class="titulo-seccion" style="color:#DC2626;"><span>🧪</span> Examen — Lección 2</div>
+
+  <div class="quiz-card">
+    <div class="quiz-titulo">⚡ Los 16 verbos — ¿los sabes?</div>
+    <p style="font-size:0.9rem;color:#64748B;margin-bottom:16px;">Traduce cada verbo al español.</p>
+
+    <div class="quiz-pregunta"><strong>1. to come =</strong> <input class="quiz-input" id="v1" placeholder="..." data-ans="venir"></div>
+    <div class="quiz-pregunta"><strong>2. to go =</strong> <input class="quiz-input" id="v2" placeholder="..." data-ans="ir"></div>
+    <div class="quiz-pregunta"><strong>3. to give =</strong> <input class="quiz-input" id="v3" placeholder="..." data-ans="dar"></div>
+    <div class="quiz-pregunta"><strong>4. to keep =</strong> <input class="quiz-input" id="v4" placeholder="..." data-ans="mantener"></div>
+    <div class="quiz-pregunta"><strong>5. to seem =</strong> <input class="quiz-input" id="v5" placeholder="..." data-ans="parecer"></div>
+    <div class="quiz-pregunta"><strong>6. to send =</strong> <input class="quiz-input" id="v6" placeholder="..." data-ans="enviar"></div>
+    <div class="quiz-pregunta"><strong>7. to take =</strong> <input class="quiz-input" id="v7" placeholder="..." data-ans="tomar"></div>
+    <div class="quiz-pregunta"><strong>8. to be =</strong> <input class="quiz-input" id="v8" placeholder="..." data-ans="ser,estar,ser o estar"></div>
+
+    <button class="btn-verificar" onclick="verificar2()">✅ Verificar</button>
+    <div class="resultado" id="resultado2"></div>
+  </div>
+
+  <div class="card verde">
+    <h3>📅 ¿Recuerdas los meses?</h3>
+    <ul class="frases">
+      <li><span class="en-frase">January</span><span class="es-frase">Enero</span></li>
+      <li><span class="en-frase">February</span><span class="es-frase">Febrero</span></li>
+      <li><span class="en-frase">March</span><span class="es-frase">Marzo</span></li>
+      <li><span class="en-frase">April</span><span class="es-frase">Abril</span></li>
+      <li><span class="en-frase">May</span><span class="es-frase">Mayo</span></li>
+      <li><span class="en-frase">June</span><span class="es-frase">Junio</span></li>
+      <li><span class="en-frase">July</span><span class="es-frase">Julio</span></li>
+      <li><span class="en-frase">August</span><span class="es-frase">Agosto</span></li>
+      <li><span class="en-frase">September</span><span class="es-frase">Septiembre</span></li>
+      <li><span class="en-frase">October</span><span class="es-frase">Octubre</span></li>
+      <li><span class="en-frase">November</span><span class="es-frase">Noviembre</span></li>
+      <li><span class="en-frase">December</span><span class="es-frase">Diciembre</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="text-align:center;background:linear-gradient(135deg,#1E40AF,#7C3AED);color:white;border-left-color:transparent;">
+    <div style="font-size:3rem;margin-bottom:12px;">🎉</div>
+    <div style="font-family:'Fredoka One',cursive;font-size:1.8rem;margin-bottom:8px;">¡Parte 1 completada!</div>
+    <p style="opacity:0.9;">Has terminado la Introducción y las Lecciones 1 y 2. Dile a Claude que estás listo para la <strong>Parte 2</strong> (Lecciones 3 y 4).</p>
+  </div>
+
+  <div class="nav-bottom">
+    <button class="btn-nav" onclick="ir(3)">← Examen 1</button>
+    <button class="btn-nav primario" onclick="ir(0)">🏠 Inicio</button>
+  </div>
+</section>
+
+</div><!-- /contenedor -->
+
+<script>
+const secciones = 5;
+const fillPorcentaje = [20, 40, 60, 80, 100];
+const progTexto = ['Sección 1 de 5','Sección 2 de 5','Sección 3 de 5','Sección 4 de 5','Sección 5 de 5'];
+
+function ir(n) {
+  document.querySelectorAll('.seccion').forEach((s,i) => {
+    s.classList.toggle('visible', i === n);
+  });
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    b.classList.toggle('activo', i === n);
+  });
+  document.getElementById('fill').style.width = fillPorcentaje[n] + '%';
+  document.getElementById('prog').textContent = progTexto[n];
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+function verificar() {
+  const inputs = document.querySelectorAll('#s3 .quiz-input');
+  let correctas = 0;
+  inputs.forEach(inp => {
+    const user = inp.value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    const ans = inp.dataset.ans;
+    const opciones = ans.split(',').map(a => a.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""));
+    const bien = opciones.includes(user);
+    inp.classList.toggle('correcto', bien);
+    inp.classList.toggle('incorrecto', !bien && user !== '');
+    if (bien) correctas++;
+  });
+  const r = document.getElementById('resultado');
+  r.style.display = 'block';
+  if (correctas === inputs.length) {
+    r.className = 'resultado bien';
+    r.textContent = '🎉 ¡Perfecto! ' + correctas + '/' + inputs.length + ' respuestas correctas.';
+  } else {
+    r.className = 'resultado mal';
+    r.textContent = correctas + '/' + inputs.length + ' correctas. ¡Repasa las que fallaste!';
+  }
+}
+
+function verificar2() {
+  const inputs = document.querySelectorAll('#s4 .quiz-input');
+  let correctas = 0;
+  inputs.forEach(inp => {
+    const user = inp.value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    const ans = inp.dataset.ans;
+    const opciones = ans.split(',').map(a => a.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""));
+    const bien = opciones.includes(user);
+    inp.classList.toggle('correcto', bien);
+    inp.classList.toggle('incorrecto', !bien && user !== '');
+    if (bien) correctas++;
+  });
+  const r = document.getElementById('resultado2');
+  r.style.display = 'block';
+  if (correctas === inputs.length) {
+    r.className = 'resultado bien';
+    r.textContent = '🏆 ¡Excelente! Dominas los 16 verbos.';
+  } else {
+    r.className = 'resultado mal';
+    r.textContent = correctas + '/' + inputs.length + ' correctas. ¡Vuelve a la Lección 2 y repasa!';
+  }
+}
+</script>
+</body>
+</html>
